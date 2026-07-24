@@ -182,10 +182,13 @@ function inspect(window) {
         const rect = item.getBoundingClientRect();
         return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
       }).length,
-      fighterTokensVisible: [...document.querySelectorAll('.fighter-token')].some((item) => {
+      fighterPortraits: [...document.querySelectorAll('.fighter-portrait img')].map((item) => {
         const style = getComputedStyle(item);
         const rect = item.getBoundingClientRect();
-        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+        return {
+          visible: style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0,
+          src: item.getAttribute('src'),
+        };
       }),
       endTurnText: document.querySelector('#combat-end-turn').textContent,
       ready: window.CANDY_PWA_READY === true,
@@ -218,7 +221,8 @@ function assertLandscapeLayout(layout) {
     || layout.combatTop > 8
     || layout.combatVisibleHeight < 380
     || layout.explanatoryTextVisible !== 0
-    || layout.fighterTokensVisible
+    || layout.fighterPortraits.length !== 2
+    || layout.fighterPortraits.some((portrait) => !portrait.visible || !portrait.src?.includes('-portrait.jpg'))
     || layout.endTurnText !== 'Terminer le tour'
     || layout.minTouchTarget < 44
   ) {

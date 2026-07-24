@@ -54,6 +54,7 @@ Ne pas multiplier les variantes avant d'avoir appris quelque chose de la premiè
 - Conserver une hiérarchie stable quand l'écran se compacte.
 - Rendre visibles l'application, la durée et la consommation d'un état sans dépendre uniquement de la couleur.
 - Supprimer de l'interface finale tous les sous-textes, descriptions explicatives, aides permanentes et phrases qui répètent une information déjà portée par un nom, une valeur, un coût, un état, une icône ou une action. Ne conserver à l'écran que le texte directement nécessaire pour choisir ou agir.
+- Distinguer avant l'intégration les ancrages fixes du HUD des contenus génériques. Fixer la position et la géométrie des PV, ressources et actions ; alimenter par les données les portraits, noms et identités. Ne jamais coder le Pillard, le Sorcier ou un autre combattant en dur dans un cadre réutilisable.
 
 ### Cartes
 

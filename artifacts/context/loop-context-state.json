@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "fd680de8694e",
-    "dirtyCount": 14
+    "head": "abc8916802d2",
+    "dirtyCount": 21
   },
-  "overallHash": "b8eb2fc4731b0bd84bef22a150dbc6400c65ed4453b712dbe583b65cb07c64e3",
+  "overallHash": "f5ca18a99d66959b95089fc9546c1a274428d56d6cf3d31fbf1e775c16798aa4",
   "domains": {
     "workflow": {
-      "hash": "85f3658d7d94ebaaec54bce84dcfffebae4545e7f4c1607cc06a61587f91ff64",
+      "hash": "0bc381d85cd259d2fcacd1f07de1ebf1e537f2630ca6ce3299e6279df99920f4",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -24,7 +24,7 @@
         ".agents/skills/concevoir-progression-fantasy-story/SKILL.md": "4d462206bf147419fe6013c988b78401312b34182ad0dc7b4f08a536b7e35027",
         ".agents/skills/concevoir-visuels-fantasy-story/agents/openai.yaml": "e5883a33852256201b67d2651d28d096afd699880477695dde985dfdbe2cb691",
         ".agents/skills/concevoir-visuels-fantasy-story/references/direction-combat-premium.md": "a116e8233884b3ab6bdae3433c8acf9a74228996b6c3d3a26e47c6306047d356",
-        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "d5e0d4bdc77525286584c690d1708617046e79287defa8aab34e66c0348abbae",
+        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "f1e0091b44f5ed3b0f2c80a970e307dfa4c69d0b47bd232052762c36c075bda6",
         ".agents/skills/conduire-boucle-fantasy-story/agents/openai.yaml": "f5abdebaa3f41aef4e1a5aa6f11bab7a26f7bbb3c2582f4c0cb9152dbbb0d115",
         ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "e13082ba15b540083865a5df2e2cf374612b7fb64d55078918b4d5954a8d5497",
         ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "f81db70fc5d96c1c8843e8097bfaceba54f192d85c987250a60b8691ad0f1773",
@@ -43,17 +43,17 @@
         "artifacts/loops/004-prendre-l-ascendant.md": "db2470d0a3c95fe3e4a41d3144c7f1735e136911e143f74da16d859f038fd9a6",
         "artifacts/loops/005-tenir-le-sort-journal.md": "dc710aa6c52387446a5105dc1d67f151a8cee524d7ca97656c63d3b1ea63a4b6",
         "artifacts/loops/005-tenir-le-sort.md": "13cde7a9c6b32959688fe30d26ff17d24e17aee7d3564ee1dd1f4e41aa61c081",
-        "artifacts/loops/006-jouer-sur-mobile.md": "7a13477c8326751243ab1790fec9dee8980fa53a53f45d0a6d17da83748b5a73",
+        "artifacts/loops/006-jouer-sur-mobile.md": "a8a0e082d55a17b711b534a7d5eac6839df62a41b01ff4db456cdc156c64c6f9",
         "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
       }
     },
     "story": {
-      "hash": "04a19fa95a8508dffc8f198dae59ee3c32b92cfd3563f53bb16e53e2f0a18db9",
+      "hash": "12fb724873225912c6d8d15dbb1afe1203679c26e3bd9fd6e8ade7a7136782ad",
       "files": {
         "content/chapters/la-cage-du-treuil.json": "f6aa03f0d952f827d95cafa328d59ad6cb87d6becc209b67db9731b452c90e7b",
         "content/chapters/la-nuit-a-brumepont.json": "836ae3398a8ac73b30bd4389ddb74e202fff9a9fffe32bb190ad0f666738fbdc",
-        "content/chapters/la-route-des-ronces.json": "1acd86e692c11186b2e69b32e0d94f32d970650cbc56ffb4419215612b7088f3",
-        "src/server/narrative-tree.js": "ee479197212d79c9bc35d960e9a107c94f9719d5cb96654e0add01ee2ff26d5b",
+        "content/chapters/la-route-des-ronces.json": "343cb3a8c686589a2a49d1896cf93ee6c25b3f278064179d83ac58425f4e88d9",
+        "src/server/narrative-tree.js": "4503372f4ee5e27f39531cdc7a6b6de9e99267b25039d1295e754ca75af6f54d",
         "src/server/story-format.js": "4223e06fe9fce7e7cd226f8652b135b0ac52273079633431ed8734cc5cd54a8d",
         "tools/build-story.js": "caed08b9b6ebf676bd4d20009685195a614c02f104a0b3bd3406fb6f03bde302",
         "tools/verify-story.js": "dd1267397cc014cb3f82f2d5ab1bab8172c73b73f78707a7f186906a1792fda2"
@@ -69,11 +69,11 @@
       }
     },
     "engine": {
-      "hash": "2d2469ef6342f5d1b60dccb92b4aa3159172b804c37b13b9646b828730f651e7",
+      "hash": "725f53b88453e57ec939b8c53fe4b51d629b6b53e8b8e6585cdc57dd90c11237",
       "files": {
         "src/server/branching-book-runtime.js": "0783d0ee3e3fc2e8e1ab2ef22771e9f45f6c6485c0f1380d38eef82872622a6e",
         "src/server/codex-client.js": "6cde2ffe51957a504df377099b03050912f6d3d1244355ce71090229e816aec9",
-        "src/server/combat-engine.js": "a81604b82074300c187d0ed4bd8f396070e7ecb482bbe854a21446b18fd5657a",
+        "src/server/combat-engine.js": "9322d2d9a6a8278f47c91ed36e700f5aca70cb8239c37ea0e9f1361b1b4f5cb8",
         "src/server/context-composer.js": "90570923397c198fc8c06cccabca86e932bdb896eaf8a84766aaa29d0084c056",
         "src/server/conversation-service.js": "f4ba2b7e4d8ac79c1cb13d10bfd1bce72d87a981e06926277381c80436d8343e",
         "src/server/diagnostics.js": "7376b9e1ba24f45d8ef429649b55cf7b0a2a4721a1247a3a8aa7d7afc3a8b10f",
@@ -88,21 +88,21 @@
       }
     },
     "ui": {
-      "hash": "44ef51ea256e3d2135111a56f35e55d7ade3ea6bc09048563ae1d230cbb2aceb",
+      "hash": "44ad7f1fb90893241003f3c3223ac1ce4ea3451bb544188f55b0501f23371ec7",
       "files": {
         "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
         "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
         "src/preload.js": "9fd93654eb494ec141f26fd5b92bacde05b3ba0560b316488b8f1a517faa6944",
-        "src/renderer/app.js": "2534e46b286f19700bd9099a165bebd3618de07f8be9fdd3aea57913b1e2d88a",
-        "src/renderer/index.html": "50a27b54527b1b970db9d2d558a762e45e1f1bdc5125d37bfa163d7abfcc1981",
+        "src/renderer/app.js": "b95d2f35ff062e2a090d620f41d07c01fe7e3278c68c935abb02f8136ec75da5",
+        "src/renderer/index.html": "b05cd8dce29582fcad2b865e5a3383e597f42c4392c85e20cd428b4bfca6b30a",
         "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
         "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
         "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
-        "src/renderer/styles.css": "d402e5dca87cc0a9c8552a3ea105b643b890beb6cf13c0f5670d7acaa84dc0d9"
+        "src/renderer/styles.css": "0738ef6b0c8c774ff6c3272099209d02caa966958ea23b77b13213fbb83cf921"
       }
     },
     "assets": {
-      "hash": "ba0aafb0ffd73d8d72fcf3c6b64c8e94b9922005540cac1b1c21cd8e611276c0",
+      "hash": "b5b8f4e08bc559c6635e0ba1eb0adf3bc4857b94275fa73eacef449e8506d2d0",
       "files": {
         "src/renderer/assets/fonts/Newsreader-Variable.ttf": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1",
         "src/renderer/assets/fonts/OFL-Newsreader.txt": "865f0949b59fab5925506f80102dff3d12e8666412daf52d212db969d40adc25",
@@ -115,6 +115,8 @@
         "src/renderer/assets/visuals/cage-du-treuil/ravin-evasion.png": "398320bb02e482c20b09d95ef2a498abdce0cd2e7014bd5e13ff0c686206450f",
         "src/renderer/assets/visuals/cage-du-treuil/registre-et-puits.png": "f2ad796c841653caf19904ac40016c603bbf8c4dc13287fe337c13d0bf14b641",
         "src/renderer/assets/visuals/cage-du-treuil/treuil-et-puits.png": "0c0de307d8a1ca5161d7b0a668eda893229f0f86a03a8b86f7cfe7d7100d9749",
+        "src/renderer/assets/visuals/combat/pillard-des-ronces-portrait.jpg": "11733fa8f3c2b1e8a55d4e496eedbb5a2d62dd3a2b92b1c5e91ad7d52d5371a0",
+        "src/renderer/assets/visuals/combat/sorcier-portrait.jpg": "95566609e5b25c2c2db9b4e0a7eb412794a81b9ea24a9486f63a1ed8a1f58d4a",
         "tools/capture-visual-qa.js": "b25e81683ef8132a0cd14a87b4d120ea35bc84295d257d9fb0237cf66ca69943"
       }
     },
@@ -137,7 +139,7 @@
       }
     },
     "project": {
-      "hash": "76032031b86e01a507660afb41c3dc4a2a65e878dca1b0a6a7a0c843f39ff1ef",
+      "hash": "ab579122d9658bd0bc03915ffd1a3592bbfcf9383fca40f5207373b4a5825c38",
       "files": {
         ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
@@ -153,7 +155,7 @@
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
         "tools/build-pwa.js": "4d4329d6e51676a2bd0a44cf29faa9accbc1d8c58e1a494b2a4f4d4fed874362",
-        "tools/capture-pwa-qa.js": "a6c55a5cf3d3f1d8447843d4f961499f0cadaa2eb521dfc20b219d6c10450b9d",
+        "tools/capture-pwa-qa.js": "08da6298ca509b29ad1ce34cbdca66f501f438f0eeb20d5253267dab9bcae117",
         "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
         "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339",
         "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c",
@@ -200,8 +202,8 @@
     {
       "path": "artifacts/loops/006-jouer-sur-mobile.md",
       "title": "Boucle 006 — Jouer sur mobile",
-      "status": "à jouer"
+      "status": "garder"
     }
   ],
-  "generatedAt": "2026-07-24T14:09:41.439Z"
+  "generatedAt": "2026-07-24T14:35:45.534Z"
 }

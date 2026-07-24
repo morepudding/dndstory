@@ -22,8 +22,8 @@ const ITEM_GRANT_FIELDS = new Set(['id', 'quantity']);
 const TERMINAL_FIELDS = new Set(['endingId', 'reason', 'outcomeSummary', 'retryActId', 'reward']);
 const REWARD_FIELDS = new Set(['id', 'title', 'level', 'statPoints', 'gold']);
 const COMBAT_FIELDS = new Set(['player', 'enemy']);
-const PLAYER_FIELDS = new Set(['name', 'cards', 'deck']);
-const ENEMY_FIELDS = new Set(['name', 'maxHp', 'drawCount', 'cards', 'deck']);
+const PLAYER_FIELDS = new Set(['name', 'portrait', 'cards', 'deck']);
+const ENEMY_FIELDS = new Set(['name', 'portrait', 'maxHp', 'drawCount', 'cards', 'deck']);
 const ENEMY_CARD_FIELDS = new Set(['id', 'name', 'damage', 'description', 'effect']);
 const CARD_FIELDS = new Set(['id', 'name', 'type', 'kind', 'cost', 'description', 'effect']);
 const EFFECT_FIELDS = new Set(['damage', 'block', 'status', 'concentration']);
@@ -334,12 +334,18 @@ function validateCombatNode(node, fail, location) {
   ) {
     fail('combat_player', 'Le combattant exige un nom.', `${location}.combat.player`);
   }
+  if (combat.player?.portrait != null && !nonEmpty(combat.player.portrait)) {
+    fail('combat_player_portrait', 'Le portrait du combattant doit être un chemin non vide.', `${location}.combat.player.portrait`);
+  }
   if (
     !nonEmpty(combat.enemy?.name)
     || !positiveInteger(combat.enemy?.maxHp)
     || !positiveInteger(combat.enemy?.drawCount)
   ) {
     fail('combat_enemy', 'L’adversaire exige un nom, des PV et une pioche par round valide.', `${location}.combat.enemy`);
+  }
+  if (combat.enemy?.portrait != null && !nonEmpty(combat.enemy.portrait)) {
+    fail('combat_enemy_portrait', 'Le portrait de l’adversaire doit être un chemin non vide.', `${location}.combat.enemy.portrait`);
   }
 
   const cards = Array.isArray(combat.player?.cards) ? combat.player.cards : [];

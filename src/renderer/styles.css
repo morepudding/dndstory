@@ -210,10 +210,12 @@ body.narrative-mode .moment-card { display: none; }
 .board-side { position: relative; z-index: 1; display: grid; grid-template-columns: 66px minmax(0, 1fr) 66px; align-items: center; gap: 12px; }
 .fighter { min-width: 0; display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: center; gap: 10px; }
 .fighter.enemy { grid-template-columns: minmax(0, 1fr) 48px; }
-.fighter.enemy .fighter-token { grid-column: 2; grid-row: 1; }
+.fighter.enemy .fighter-portrait { grid-column: 2; grid-row: 1; }
 .fighter.enemy .fighter-sheet { grid-column: 1; grid-row: 1; }
-.fighter-token { width: 48px; height: 48px; display: grid; place-items: center; border: 3px solid #d0ad62; border-radius: 50%; color: #f9e8ba; background: radial-gradient(circle at 35% 30%, #6b79b5, #252c55 62%, #111629); font: 750 21px/1 "Newsreader", Georgia, serif; box-shadow: 0 5px 13px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.08); }
-.enemy-token { border-color: #b46b62; color: #ffe1d8; background: radial-gradient(circle at 35% 30%, #8b4c4a, #4b2228 62%, #241015); }
+.fighter-portrait { width: 48px; height: 54px; margin: 0; overflow: hidden; border: 2px solid #c7a45d; border-radius: 48% 48% 42% 42%; background: #121817; box-shadow: 0 5px 13px rgba(0,0,0,.52), inset 0 0 0 1px rgba(255,244,215,.16), 0 0 12px rgba(198,156,77,.12); }
+.fighter.enemy .fighter-portrait { border-color: #a75b52; box-shadow: 0 5px 13px rgba(0,0,0,.52), inset 0 0 0 1px rgba(255,226,215,.13), 0 0 12px rgba(183,83,75,.15); }
+.fighter-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 24%; }
+.fighter-portrait[hidden] { display: none; }
 .fighter-sheet { min-width: 0; display: grid; gap: 6px; padding: 8px 10px; border: 1px solid rgba(236,222,183,.15); border-radius: 11px; background: rgba(5,18,16,.48); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
 .fighter-sheet > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .fighter span { overflow: hidden; font: 650 14px/1 "Newsreader", Georgia, serif; text-overflow: ellipsis; white-space: nowrap; }
@@ -314,7 +316,7 @@ body.narrative-mode .moment-card { display: none; }
   .combat-action-track { order: 2; }
   .board-side { grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 7px; }
   .fighter, .fighter.enemy { grid-template-columns: minmax(0, 1fr); }
-  .fighter .fighter-token { display: none; }
+  .fighter .fighter-portrait { display: none; }
   .fighter.enemy .fighter-sheet { grid-column: 1; }
   .combat-table-center { grid-template-columns: 1fr; }
   .combat-concentration { grid-column: 1; }
@@ -767,14 +769,16 @@ html.pwa.combat-running .combat-action-track small {
   html.pwa .card-pile { height: 48px; }
   html.pwa .card-pile span { font-size: 5px; letter-spacing: .35px; }
   html.pwa .card-pile strong { font-size: 13px; }
-  html.pwa .fighter { grid-template-columns: 32px minmax(0, 1fr); gap: 4px; }
-  html.pwa .fighter.enemy { grid-template-columns: minmax(0, 1fr) 32px; }
-  html.pwa .fighter-token { width: 32px; height: 32px; border-width: 2px; font-size: 15px; }
+  html.pwa .fighter { grid-template-columns: 42px minmax(0, 1fr); gap: 5px; }
+  html.pwa .fighter.enemy { grid-template-columns: minmax(0, 1fr) 42px; }
+  html.pwa .fighter-portrait { width: 42px; height: 48px; display: block; }
   html.pwa.combat-running .fighter,
   html.pwa.combat-running .fighter.enemy {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 42px minmax(0, 1fr);
   }
-  html.pwa.combat-running .fighter-token { display: none; }
+  html.pwa.combat-running .fighter.enemy {
+    grid-template-columns: minmax(0, 1fr) 42px;
+  }
   html.pwa.combat-running .fighter.enemy .fighter-sheet {
     grid-column: 1;
     grid-row: 1;

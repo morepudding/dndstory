@@ -14,6 +14,7 @@ class CombatEngine {
       phase: 'player',
       player: {
         name: this.config.player.name,
+        portrait: this.config.player.portrait || null,
         stats: structuredClone(stats),
         hp: stats.constitution * 5,
         maxHp: stats.constitution * 5,
@@ -26,6 +27,7 @@ class CombatEngine {
       },
       enemy: {
         name: this.config.enemy.name,
+        portrait: this.config.enemy.portrait || null,
         hp: this.config.enemy.maxHp,
         maxHp: this.config.enemy.maxHp,
         drawCount: this.config.enemy.drawCount,

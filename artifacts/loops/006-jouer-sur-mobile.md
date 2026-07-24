@@ -1,6 +1,6 @@
 # Boucle 006 — Jouer sur mobile
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Contrat
 
@@ -43,5 +43,5 @@ Installer ou ouvrir la PWA → démarrer La Route des Ronces → choisir l’anc
   - les descriptions permanentes, sous-textes répétitifs et jetons provisoires disparaissent du combat PWA ; seuls restent noms, coûts, états, valeurs et actions ;
   - un choix, l’entrée en combat et une carte jouée survivent à un rechargement complet puis à un redémarrage sans serveur.
 - **Preuves :** `npm run check` et `npm run qa:pwa` réussissent pour la passe mobile ; captures `pwa-route-390x844.png`, `pwa-combat-390x844.png` et `pwa-combat-landscape-844x390.png`.
-- **Reste incertain :** confort du plateau corrigé sur le téléphone physique du joueur.
-- **Verdict :** à jouer.
+- **Reste incertain :** aucun point bloquant relevé pendant l’essai sur le téléphone physique du joueur.
+- **Verdict :** `garder` — boucle jouée et validée par le joueur le 24 juillet 2026.

@@ -413,6 +413,15 @@ function renderCombat(combat, combatItems = []) {
   setText('#combat-player-hp', `${combat.player.hp} / ${combat.player.maxHp} PV`);
   setText('#combat-enemy-name', combat.enemy.name);
   setText('#combat-enemy-hp', `${combat.enemy.hp} / ${combat.enemy.maxHp} PV`);
+  const renderFighterPortrait = (selector, fighter) => {
+    const image = $(selector);
+    const frame = image.closest('.fighter-portrait');
+    frame.hidden = !fighter.portrait;
+    image.src = fighter.portrait || '';
+    image.alt = fighter.portrait ? `Portrait de ${fighter.name}` : '';
+  };
+  renderFighterPortrait('#combat-player-portrait', combat.player);
+  renderFighterPortrait('#combat-enemy-portrait', combat.enemy);
   $('#combat-player-meter').style.width = `${(combat.player.hp / combat.player.maxHp) * 100}%`;
   $('#combat-enemy-meter').style.width = `${(combat.enemy.hp / combat.enemy.maxHp) * 100}%`;
   const pendingDisadvantage = combat.pendingAttack?.effect?.status?.id === 'disadvantage';

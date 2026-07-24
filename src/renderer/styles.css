@@ -429,3 +429,120 @@ menu .cancel-button { background: #f0eee9; color: #625f59; }
   .scene-marker { padding: 5px 8px; }
   .scene-visual.cage-scene.cage-from-passage #scene-art, .scene-visual.cage-scene.cage-from-road #scene-art { object-position: 50% 50%; }
 }
+
+html.pwa, html.pwa body, html.pwa .app-shell, html.pwa .conversation { height: 100dvh; }
+html.pwa body { position: fixed; inset: 0; width: 100%; }
+html.pwa .composer-wrap { display: none; }
+html.pwa .chat-header, html.pwa .narrative-bar { flex: 0 0 auto; }
+.pwa-boot-error { min-height: 100dvh; display: grid; place-content: center; gap: 14px; padding: 28px; text-align: center; }
+.pwa-boot-error button { min-height: 48px; border: 0; border-radius: 14px; color: #fff; background: var(--coral); }
+
+@media (max-width: 520px) {
+  body { overscroll-behavior: none; }
+  button, summary, input { touch-action: manipulation; }
+  .conversation, .app-shell { min-height: 0; }
+  .chat-header, .conversation.narrative-active .chat-header {
+    height: calc(62px + env(safe-area-inset-top));
+    min-height: calc(62px + env(safe-area-inset-top));
+    padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+  }
+  .mobile-avatar { width: 38px; height: 38px; margin-right: 9px; }
+  .chat-title h2 { font-size: 17px; }
+  .connection { margin-top: 2px; font-size: 9.5px; }
+  .header-action { width: 44px; height: 44px; }
+  .narrative-bar, .conversation.narrative-active .narrative-bar {
+    min-height: 58px;
+    gap: 8px;
+    padding: 7px 10px;
+  }
+  .narrative-bar .narrative-heading { min-width: 0; }
+  .narrative-bar .narrative-heading strong, .narrative-bar .narrative-heading small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .narrative-bar .narrative-heading strong { font-size: 14px; }
+  .narrative-bar .narrative-heading small { max-width: 230px; font-size: 9px; }
+  .narrative-bar button, .narrative-bar summary { min-width: 44px; min-height: 44px; padding: 9px 11px; }
+  .scene-visual, .conversation.narrative-active .scene-visual,
+  .scene-visual.combat-active, .scene-visual.level-up-active {
+    width: calc(100% - 12px);
+    height: auto;
+    min-height: 0;
+    flex: 1 1 0;
+    margin: 6px 6px calc(6px + env(safe-area-inset-bottom));
+    border-radius: 17px;
+  }
+  .scene-stage { padding: 10px; overscroll-behavior: contain; scrollbar-width: thin; }
+  .scene-stage-bottom { gap: 9px; }
+  .scene-stage-meta { gap: 6px; }
+  .scene-stage-meta > span { font-size: 12px; }
+  .scene-dialogue, .scene-visual.combat-active .scene-dialogue {
+    padding: 10px 11px;
+    border-radius: 14px;
+  }
+  .scene-dialogue header { margin-bottom: 5px; }
+  .scene-dialogue header img { width: 24px; height: 24px; }
+  .scene-dialogue p, .scene-visual.combat-active .scene-dialogue p {
+    max-height: 132px;
+    overflow-y: auto;
+    font-size: 15px;
+    line-height: 1.38;
+  }
+  .scene-visual.combat-active .scene-dialogue p { max-height: 96px; }
+  .scene-visual .choices { padding: 10px; border-radius: 14px; }
+  .scene-visual .story-options button { min-height: 52px; padding: 9px 10px; }
+  .combat-panel { gap: 8px; padding: 9px; border-radius: 16px; }
+  .combat-heading { align-items: center; gap: 8px; }
+  .combat-turn-title { display: grid; gap: 3px; }
+  .combat-heading strong { font-size: 17px; }
+  .combat-economy { gap: 5px; }
+  .combat-action-track { padding: 5px 8px; }
+  .combat-charges { padding: 7px 9px; }
+  .combat-board { gap: 7px; padding: 7px; border-width: 4px; border-radius: 14px; }
+  .board-side { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 5px; }
+  .card-pile { height: 47px; border-radius: 6px; }
+  .card-pile span { font-size: 6px; }
+  .card-pile strong { font-size: 12px; }
+  .fighter-sheet { gap: 4px; padding: 7px 8px; }
+  .fighter span { font-size: 13px; }
+  .fighter b { font-size: 8px; }
+  .combat-table-center { gap: 7px; padding: 5px 0; }
+  .combat-intent { padding: 8px 9px; }
+  .combat-intent strong { font-size: 14px; }
+  .combat-tempo { min-height: 50px; padding: 6px; }
+  .combat-concentration { min-height: 52px; padding: 7px 9px; }
+  .combat-hand-heading { padding-top: 3px; }
+  .combat-cards {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 12% 8px 1px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .combat-cards::-webkit-scrollbar { display: none; }
+  .combat-card {
+    width: 84%;
+    min-width: 84%;
+    min-height: 126px;
+    scroll-snap-align: start;
+  }
+  .combat-card:hover:not(:disabled) { transform: none; }
+  .combat-controls {
+    position: sticky;
+    bottom: -10px;
+    margin: 0 -5px -5px;
+    padding: 8px 5px calc(5px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(11,13,13,.15), rgba(11,13,13,.98) 28%);
+  }
+  .combat-end-turn, .combat-pass { min-height: 48px; padding: 10px 14px; }
+  .combat-item { width: 100%; min-width: 0; min-height: 48px; }
+  .combat-log { max-height: 56px; overflow-y: auto; }
+  .level-up-panel { padding: 12px; }
+  .level-stat-options { grid-template-columns: 1fr; }
+  .level-stat-option { min-height: 86px; }
+  dialog { width: calc(100vw - 20px); max-height: calc(100dvh - 24px); padding: 18px; border-radius: 20px; }
+  dialog menu { position: sticky; bottom: 0; padding-top: 8px; background: rgba(255,255,255,.98); }
+  dialog menu button { min-height: 46px; }
+}

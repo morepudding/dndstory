@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "862061a6b1e1",
-    "dirtyCount": 0
+    "head": "d45532b212d9",
+    "dirtyCount": 36
   },
-  "overallHash": "9a30f81350ab9572cf0835f93c9473294aaca6ea4edec66bc0f54498bdae717d",
+  "overallHash": "e6b6ba47ade88212e10f73f205e6e85f25485224e5b389843eced47860ba29f8",
   "domains": {
     "workflow": {
-      "hash": "fd6cc416e66f894c78b9e3d507ca163cdd05ebd9c710b1466ed289a765c4f7e3",
+      "hash": "51a9a3c55d531bcf6148e75500767f3442ee8d7b4e6b37602b657c06299be6ea",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -43,6 +43,7 @@
         "artifacts/loops/004-prendre-l-ascendant.md": "db2470d0a3c95fe3e4a41d3144c7f1735e136911e143f74da16d859f038fd9a6",
         "artifacts/loops/005-tenir-le-sort-journal.md": "dc710aa6c52387446a5105dc1d67f151a8cee524d7ca97656c63d3b1ea63a4b6",
         "artifacts/loops/005-tenir-le-sort.md": "13cde7a9c6b32959688fe30d26ff17d24e17aee7d3564ee1dd1f4e41aa61c081",
+        "artifacts/loops/006-jouer-sur-mobile.md": "d1f651934e21859a8cfb199e880776569d83822ddb02ec39687529c70494cc59",
         "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
       }
     },
@@ -59,32 +60,35 @@
       }
     },
     "persistence": {
-      "hash": "621d265ad3998f99ac6d06116c5772bb04f1e7b82c106b9efb23a2f450277cd5",
+      "hash": "bb640c6b1f6ca0e607f1de0b61bb561e441af85da41a50c08a4f6b903e0495b7",
       "files": {
-        "src/server/book-session-service.js": "b77f045c8ef4d5b0235cc53dac114da306a07d63210f88b40d74047144568868",
+        "src/server/book-session-service.js": "e42b01f46ca276d99c37376b608ca881f52f8cb57a26511d523322334b0e6a54",
         "src/server/character-store.js": "2992097757e6c5786f35fd3a9f218fe01a67e45b5979867308e6c284682737a4",
         "src/server/state-schema.js": "3acecf82325dec36890ee366839937200457b632dab1e7e84831709ce7d586e2",
-        "src/server/story-repository.js": "2c17812f4d099ae6470f3900bf65ceede1970954cd2d3b6249398e8a1f4d3568"
+        "src/server/story-repository.js": "c5c8805aadb9d354ac2416726f5e22e5a372ab942906cdbabdffaea98024f262"
       }
     },
     "engine": {
-      "hash": "f341fc4fe67fdd711eb5f8dbe1f3b32a67d41cd954e0b5fbfc3fd365d3b9526c",
+      "hash": "2d2469ef6342f5d1b60dccb92b4aa3159172b804c37b13b9646b828730f651e7",
       "files": {
         "src/server/branching-book-runtime.js": "0783d0ee3e3fc2e8e1ab2ef22771e9f45f6c6485c0f1380d38eef82872622a6e",
         "src/server/codex-client.js": "6cde2ffe51957a504df377099b03050912f6d3d1244355ce71090229e816aec9",
         "src/server/combat-engine.js": "a81604b82074300c187d0ed4bd8f396070e7ecb482bbe854a21446b18fd5657a",
         "src/server/context-composer.js": "90570923397c198fc8c06cccabca86e932bdb896eaf8a84766aaa29d0084c056",
-        "src/server/conversation-service.js": "28d14fbc1077917a0eaa6f60d94402316328e0038208d30e0ca8bbd825e765c8",
+        "src/server/conversation-service.js": "f4ba2b7e4d8ac79c1cb13d10bfd1bce72d87a981e06926277381c80436d8343e",
         "src/server/diagnostics.js": "7376b9e1ba24f45d8ef429649b55cf7b0a2a4721a1247a3a8aa7d7afc3a8b10f",
         "src/server/narrative-studio.js": "09ee06f9d91cdb6533124535c4baa4db039c47d7a0c4b77170b28b277c5eeebd",
-        "src/server/progression-service.js": "a69d276b2a38a19bd88dcb65313f8101e894f01fcfbbeb0d10564abcf7482e37",
+        "src/server/progression-service.js": "39bc2d1064d358a8fcef046843e5be3e83e784ce541134d86b44cbdde3f897d8",
+        "src/server/random-id.js": "903e5a888c920c24f7a61b497dd4e3d5880528168386a88abf33c0bde9a228a1",
+        "src/server/story-catalog.js": "6203f386580dfe3e9cc2950113c93021f601e59440d147f2cf7bff9b5a759cbe",
+        "src/server/story-game-service.js": "762b8be4cfc099c4ef3bba8f762b67997ea7af3c1fcb748c17f77c42e964053b",
         "tools/play-branching-book.js": "182d47cc81479d81e4b2ca5fe300ec0359b56f6e9d05756529b1d2d6ecfbcc2b",
         "tools/simulate-combat.js": "20a86ded76c1302af9d6ac538b90f94522b449ba9fb80a5ebf56480fcd36dc32",
         "tools/smoke-studio-assistant.js": "fbc9eafc672aed749c55160a1d268eac253de753394946a7d62419b0958e4156"
       }
     },
     "ui": {
-      "hash": "1c34fb7a552200cfe22a5e7425484a5bc7360a02518a89871335eb66ed69190b",
+      "hash": "f865dc79a84ebf3881bffc1526b00cffbdd0b76ea5e2626d2c0063b955d809a1",
       "files": {
         "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
         "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
@@ -94,7 +98,7 @@
         "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
         "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
         "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
-        "src/renderer/styles.css": "0da34ebfa9f59c9696be632a663cf2c00be0430ef0b499ecd0d13092b61231c2"
+        "src/renderer/styles.css": "67f48492e4b3f29cb3ea121030898a149891bd27537d798e8e9e0c93cc992aa2"
       }
     },
     "assets": {
@@ -133,14 +137,26 @@
       }
     },
     "project": {
-      "hash": "3864a239c734f1c9ffa77aa3da3660ef8a2186475dfd060bb6e47df31aefc3ef",
+      "hash": "fbd8c0d106ca4db61dc8532489ffcdb66745dcd2fb56ac4fd6f356c76dfa7f3f",
       "files": {
         ".gitignore": "6e370c8f4485cfbbe3a98d90af955bfef725e76103d55aa6ff8398bdabbb02d2",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
-        "package-lock.json": "7d7a414832548e171f313c90f81e8b2e59109ad46457689053f38d45eef1da21",
-        "package.json": "5ed6e2bd2377387fd72dae2593dda4381a4eb0ffdc8d47e4032f81530ce84c67",
-        "README.md": "d04734b847e205bfd5badb0952d73d86244566709fe01405c8e586a385daf543",
-        "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339"
+        "package-lock.json": "bcaea3d4bdaf7d08b6c6a484e227ee3a758dd1fc99ce2ec8e3fb25ba26265918",
+        "package.json": "572f53887ded9bcda73f7bcca2970fe783814dc1a0dc33aca5165e4ae6a97e74",
+        "README.md": "cb4c22ba06bad6a482ab8b01a0519ca1a895b46d78bc5c7ffbd75a54eb3f3b82",
+        "src/pwa/browser-api.js": "7965d7ad1811114791256ff70f60c389e79b3167acf56f4516fb41b435de104a",
+        "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
+        "src/pwa/entry.js": "fbe264511c882682e4f2ce50e2bc7821a55a5005d419faa3afe39c9697444799",
+        "src/pwa/icons/sorcerer-sigil-180.png": "694bfb79a31246dc23134a60ebefd8c1504276de19a987adf39198d04a76e4b3",
+        "src/pwa/icons/sorcerer-sigil-192.png": "85403382a14b6847734878e61bf15e447c2fa10c72e3249700f17dfbf897bd13",
+        "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
+        "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
+        "src/pwa/service-worker.js": "3c2a81f768071a2af3f34c293555a7cd744211078a8cc3b467d9a08828fe50dc",
+        "tools/build-pwa.js": "08bf3a3818559af150910234205f17b951de2cfd9e70fbf4d0b246f48b6ca988",
+        "tools/capture-pwa-qa.js": "0cee055c4cbbba40795c970dcb49dd14df600368083c0f73d39c397fff0ea11b",
+        "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
+        "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339",
+        "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c"
       }
     }
   },
@@ -179,7 +195,12 @@
       "path": "artifacts/loops/005-tenir-le-sort.md",
       "title": "Boucle 005 — Tenir le sort",
       "status": "à jouer"
+    },
+    {
+      "path": "artifacts/loops/006-jouer-sur-mobile.md",
+      "title": "Boucle 006 — Jouer sur mobile",
+      "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-24T09:31:42.061Z"
+  "generatedAt": "2026-07-24T11:01:21.111Z"
 }

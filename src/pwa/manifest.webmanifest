@@ -1,0 +1,27 @@
+{
+  "name": "Fantasy Story",
+  "short_name": "Fantasy Story",
+  "description": "Le livre-jeu privé du Sorcier, jouable hors ligne.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#111111",
+  "theme_color": "#171817",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icons/sorcerer-sigil-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/sorcerer-sigil-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-const crypto = require('crypto');
 const { STAT_KEYS } = require('./narrative-tree');
+const { randomUUID } = require('./random-id');
 
 const MAX_STAT = 3;
 
@@ -72,7 +72,7 @@ function applyChoiceTransaction(draft, transaction, { storyId, choiceId, purchas
     progression.inventory[transaction.item.id] += transaction.item.quantity;
   }
   const entry = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     offerId: transaction.id,
     title: transaction.title,
     gold: transaction.gold,

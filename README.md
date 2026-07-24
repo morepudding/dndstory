@@ -1,6 +1,6 @@
 # Fantasy Story
 
-Jeu personnel Electron de fiction interactive heroic fantasy, inspiré de Dungeons & Dragons pour ses mécaniques et de Baldur's Gate pour les possibilités offertes par ses lieux.
+Jeu personnel Electron et PWA de fiction interactive heroic fantasy, inspiré de Dungeons & Dragons pour ses mécaniques et de Baldur's Gate pour les possibilités offertes par ses lieux.
 
 Le livre, les choix, les combats, la progression et les mutations de ressources sont déterministes et sauvegardés localement après chaque action.
 
@@ -49,6 +49,22 @@ npm ci
 npm start
 ```
 
+## PWA mobile
+
+La PWA réutilise les mêmes chapitres, moteurs, règles et composants que l’application Electron. Seuls le stockage IndexedDB, le cache hors ligne et l’enveloppe d’installation sont spécifiques au navigateur.
+
+```powershell
+npm run start:pwa
+```
+
+La version locale s’ouvre sur `http://127.0.0.1:4173`. Le build déployable est produit dans `dist/pwa` par :
+
+```powershell
+npm run build:pwa
+```
+
+Une installation sur un téléphone exige de servir ce dossier en HTTPS. Le chat Codex et l’Atelier restent réservés à l’application PC ; le livre-jeu, les combats, la progression et la sauvegarde fonctionnent hors ligne dans la PWA.
+
 ## Validation
 
 ```powershell
@@ -57,6 +73,7 @@ npm run verify:story
 npm run simulate:combat
 npm test
 npm run qa:visual
+npm run qa:pwa
 ```
 
 L'Atelier narratif reste disponible en développement et utilise le même validateur ainsi que le même moteur de prévisualisation que le jeu.

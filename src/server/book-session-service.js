@@ -1,5 +1,5 @@
-const crypto = require('crypto');
 const { BranchingBookEngine } = require('./branching-book-runtime');
+const { randomUUID } = require('./random-id');
 const {
   applyChoiceTransaction,
   applyProgressionReward,
@@ -34,7 +34,7 @@ class BookSessionService {
   start(storyId = null, { sourceEndingId = null } = {}) {
     const engine = this.engine(storyId);
     const at = this.clock().toISOString();
-    const session = engine.start({ runId: crypto.randomUUID(), at, sourceEndingId });
+    const session = engine.start({ runId: randomUUID(), at, sourceEndingId });
     this.store.transaction((draft) => {
       const previousRun = draft.story.activeRun;
       removeRunOutcome(draft, previousRun, { clearCageOutcome: previousRun?.storyId === session.storyId });
@@ -226,7 +226,7 @@ class BookSessionService {
 }
 
 function persistOutcome(draft, session) {
-  const eventId = crypto.randomUUID();
+  const eventId = randomUUID();
   session.ending.relationshipEventId = eventId;
   draft.character.relationshipEvents.push({
     id: eventId,

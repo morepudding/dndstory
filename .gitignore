@@ -19,3 +19,5 @@ image-generation/
 artifacts/branching-comparison/
 content/profiles/
 src/renderer/assets/paige-portrait*.png
+
+.vercel

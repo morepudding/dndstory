@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "d45532b212d9",
-    "dirtyCount": 36
+    "head": "065cde0b2ecd",
+    "dirtyCount": 13
   },
-  "overallHash": "e6b6ba47ade88212e10f73f205e6e85f25485224e5b389843eced47860ba29f8",
+  "overallHash": "578262cf6303754d461b46c2db3ffe6f56a1f1fe8f9fd86cc53b19516bb676f7",
   "domains": {
     "workflow": {
-      "hash": "51a9a3c55d531bcf6148e75500767f3442ee8d7b4e6b37602b657c06299be6ea",
+      "hash": "25d2e0d106fd434675d992268924bf55aed94cd22c0f3596d146d035030c07f8",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -43,7 +43,7 @@
         "artifacts/loops/004-prendre-l-ascendant.md": "db2470d0a3c95fe3e4a41d3144c7f1735e136911e143f74da16d859f038fd9a6",
         "artifacts/loops/005-tenir-le-sort-journal.md": "dc710aa6c52387446a5105dc1d67f151a8cee524d7ca97656c63d3b1ea63a4b6",
         "artifacts/loops/005-tenir-le-sort.md": "13cde7a9c6b32959688fe30d26ff17d24e17aee7d3564ee1dd1f4e41aa61c081",
-        "artifacts/loops/006-jouer-sur-mobile.md": "d1f651934e21859a8cfb199e880776569d83822ddb02ec39687529c70494cc59",
+        "artifacts/loops/006-jouer-sur-mobile.md": "c9f54eb1a8aba062eaad2d56926f2c487f188d88a73b6c44760961ae66262ff1",
         "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
       }
     },
@@ -88,7 +88,7 @@
       }
     },
     "ui": {
-      "hash": "f865dc79a84ebf3881bffc1526b00cffbdd0b76ea5e2626d2c0063b955d809a1",
+      "hash": "16d1e1f6faef6b55eb06f312c08046fcb8a92e3b70e9f30e8354d364d550cf3c",
       "files": {
         "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
         "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
@@ -98,7 +98,7 @@
         "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
         "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
         "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
-        "src/renderer/styles.css": "67f48492e4b3f29cb3ea121030898a149891bd27537d798e8e9e0c93cc992aa2"
+        "src/renderer/styles.css": "2d74d9ed0a3430fa823a82cc7e4aac0f5eae401c0624a7d57f576ef4fdee8221"
       }
     },
     "assets": {
@@ -137,9 +137,9 @@
       }
     },
     "project": {
-      "hash": "fbd8c0d106ca4db61dc8532489ffcdb66745dcd2fb56ac4fd6f356c76dfa7f3f",
+      "hash": "32ac91c83f21682cfc74b93309fd4c9212436b3b98a20a5e44a2740465ac524f",
       "files": {
-        ".gitignore": "6e370c8f4485cfbbe3a98d90af955bfef725e76103d55aa6ff8398bdabbb02d2",
+        ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
         "package-lock.json": "bcaea3d4bdaf7d08b6c6a484e227ee3a758dd1fc99ce2ec8e3fb25ba26265918",
         "package.json": "572f53887ded9bcda73f7bcca2970fe783814dc1a0dc33aca5165e4ae6a97e74",
@@ -151,12 +151,13 @@
         "src/pwa/icons/sorcerer-sigil-192.png": "85403382a14b6847734878e61bf15e447c2fa10c72e3249700f17dfbf897bd13",
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
-        "src/pwa/service-worker.js": "3c2a81f768071a2af3f34c293555a7cd744211078a8cc3b467d9a08828fe50dc",
-        "tools/build-pwa.js": "08bf3a3818559af150910234205f17b951de2cfd9e70fbf4d0b246f48b6ca988",
-        "tools/capture-pwa-qa.js": "0cee055c4cbbba40795c970dcb49dd14df600368083c0f73d39c397fff0ea11b",
+        "src/pwa/service-worker.js": "f8b37c76c5ac9e4a5676391d57d6244a26a9d92dfbc61922011a091691f56d85",
+        "tools/build-pwa.js": "4d4329d6e51676a2bd0a44cf29faa9accbc1d8c58e1a494b2a4f4d4fed874362",
+        "tools/capture-pwa-qa.js": "a515e4e67bdb81b7cad543fda127de568261f9ed1a58b9aa602998611c328c5d",
         "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
         "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339",
-        "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c"
+        "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c",
+        "vercel.json": "0b3c926f5b286497311266e44ed76b7bf2aba96cfa362d289942603763673d1a"
       }
     }
   },
@@ -202,5 +203,5 @@
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-24T11:01:21.111Z"
+  "generatedAt": "2026-07-24T11:26:05.914Z"
 }

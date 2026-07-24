@@ -9,7 +9,7 @@
 - **Point de départ :** l’application Electron partage déjà une interface HTML/CSS et possède une vue étroite à 760 px, mais son runtime dépend du pont IPC et sa sauvegarde du système de fichiers.
 - **Conséquence visible :** à 390 × 844, le joueur démarre une route, choisit une branche, joue un tour de combat, ferme la PWA puis retrouve le même état.
 - **Branches héritées ou ouvertes :** toutes les branches, combats, coûts, récompenses et conséquences existants restent identiques ; aucune branche n’est ajoutée.
-- **Dans la boucle :** catalogue de récits partagé, runtime navigateur, sauvegarde IndexedDB, build et manifeste PWA, cache hors ligne, ergonomie tactile, hauteurs dynamiques, safe areas et QA 390 × 844.
+- **Dans la boucle :** catalogue de récits partagé, runtime navigateur, sauvegarde IndexedDB, build et manifeste PWA, cache hors ligne, ergonomie tactile, hauteurs dynamiques, safe areas et QA 390 × 844 ainsi que 844 × 390.
 - **Hors boucle :** synchronisation entre PC et téléphone, compte distant, serveur public, chat Codex sur mobile, atelier narratif mobile, notifications, nouvelle mécanique, nouveau contenu et publication sur les stores.
 
 ## Parcours joueur
@@ -39,7 +39,8 @@ Installer ou ouvrir la PWA → démarrer La Route des Ronces → choisir l’anc
   - l’adaptateur PWA hydrate et persiste l’état canonique dans IndexedDB après chaque mutation ;
   - le manifeste, les icônes 180/192/512, le service worker et le build autonome rendent le jeu installable et jouable hors ligne ;
   - à 390 × 844, la hiérarchie reste stable, les cibles tactiles mesurent au moins 44 px et la main de combat se parcourt horizontalement ;
+  - à 844 × 390, la coque desktop disparaît et le combat réunit adversaire, intention, Tempo, Sorcier et main dans une table horizontale compacte, sans dupliquer l’interface ;
   - un choix, l’entrée en combat et une carte jouée survivent à un rechargement complet puis à un redémarrage sans serveur.
-- **Preuves :** `npm run check`, 64 tests, `npm run qa:visual` et `npm run qa:pwa` réussissent ; captures `pwa-route-390x844.png` et `pwa-combat-390x844.png`.
-- **Reste incertain :** confort tactile sur le téléphone physique du joueur et choix d’un hébergement HTTPS privé.
+- **Preuves :** `npm run check`, 64 tests, `npm run qa:visual` et `npm run qa:pwa` réussissent ; captures `pwa-route-390x844.png`, `pwa-combat-390x844.png` et `pwa-combat-landscape-844x390.png`.
+- **Reste incertain :** confort du plateau corrigé sur le téléphone physique du joueur.
 - **Verdict :** à jouer.

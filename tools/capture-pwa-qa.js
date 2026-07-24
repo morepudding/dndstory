@@ -61,6 +61,15 @@ app.whenReady().then(async () => {
   }
   fs.writeFileSync(path.join(output, 'pwa-combat-390x844.png'), (await player.capturePage()).toPNG());
 
+  player.setContentSize(844, 390);
+  await delay(120);
+  await forceRepaint(player, 844, 390);
+  const landscape = await inspect(player);
+  assertLandscapeLayout(landscape);
+  fs.writeFileSync(path.join(output, 'pwa-combat-landscape-844x390.png'), (await player.capturePage()).toPNG());
+  player.setContentSize(390, 844);
+  await forceRepaint(player);
+
   const before = await player.webContents.executeJavaScript(`(async () => {
     const button = [...document.querySelectorAll('.combat-card')].find((item) => !item.disabled);
     if (!button) throw new Error('Aucune carte jouable');
@@ -113,12 +122,14 @@ app.whenReady().then(async () => {
     origin,
     initial,
     combat,
+    landscape,
     persistedRevision: after.revision,
     serviceWorker: after.registration,
     offlineReady: true,
     screenshots: [
       'artifacts/qa/pwa-route-390x844.png',
       'artifacts/qa/pwa-combat-390x844.png',
+      'artifacts/qa/pwa-combat-landscape-844x390.png',
     ],
   }, null, 2));
   player.destroy();
@@ -147,6 +158,15 @@ function inspect(window) {
       cardCount: document.querySelectorAll('.combat-card').length,
       minTouchTarget: touchTargets.length ? Math.min(...touchTargets) : 0,
       maxTouchTarget: touchTargets.length ? Math.max(...touchTargets) : 0,
+      navVisible: getComputedStyle(document.querySelector('.nav-rail')).display !== 'none',
+      profileVisible: getComputedStyle(document.querySelector('.profile-panel')).display !== 'none',
+      sceneHeight: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().height),
+      combatTop: Math.round(document.querySelector('#combat-panel').getBoundingClientRect().top),
+      combatVisibleHeight: Math.round(Math.max(
+        0,
+        Math.min(innerHeight, document.querySelector('#combat-panel').getBoundingClientRect().bottom)
+          - Math.max(0, document.querySelector('#combat-panel').getBoundingClientRect().top),
+      )),
       ready: window.CANDY_PWA_READY === true,
     };
   })()`).then(async (layout) => ({
@@ -158,6 +178,23 @@ function inspect(window) {
 function assertMobileLayout(layout, label) {
   if (!layout.ready || layout.viewport !== 390 || layout.scrollWidth > layout.viewport + 1) {
     throw new Error(`Vue mobile ${label} invalide : ${JSON.stringify(layout)}`);
+  }
+}
+
+function assertLandscapeLayout(layout) {
+  if (
+    !layout.ready
+    || layout.viewport !== 844
+    || layout.height !== 390
+    || layout.scrollWidth > layout.viewport + 1
+    || layout.navVisible
+    || layout.profileVisible
+    || layout.sceneHeight < 270
+    || layout.combatTop >= layout.height
+    || layout.combatVisibleHeight < 220
+    || layout.minTouchTarget < 44
+  ) {
+    throw new Error(`Vue mobile paysage invalide : ${JSON.stringify(layout)}`);
   }
 }
 
@@ -199,10 +236,10 @@ function waitForServer(child) {
   });
 }
 
-async function forceRepaint(window) {
-  window.setContentSize(389, 844);
+async function forceRepaint(window, width = 390, height = 844) {
+  window.setContentSize(width - 1, height);
   await delay(40);
-  window.setContentSize(390, 844);
+  window.setContentSize(width, height);
   await window.webContents.executeJavaScript('document.body.offsetHeight');
   await delay(480);
 }

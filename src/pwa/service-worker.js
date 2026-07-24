@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fantasy-story-v1';
+const CACHE_NAME = self.__FANTASY_STORY_CACHE__ || 'fantasy-story-dev';
 const APP_SHELL = self.__FANTASY_STORY_ASSETS__ || [];
 
 self.addEventListener('install', (event) => {

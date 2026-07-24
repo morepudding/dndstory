@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const esbuild = require('esbuild');
 
 const root = path.join(__dirname, '..');
@@ -33,7 +34,14 @@ fs.writeFileSync(path.join(output, 'index.html'), html);
 const assets = listFiles(output)
   .map((file) => `./${path.relative(output, file).replaceAll('\\', '/')}`)
   .filter((file) => file !== './service-worker.js');
+const cacheVersion = crypto.createHash('sha256');
+assets.forEach((asset) => {
+  cacheVersion.update(asset);
+  cacheVersion.update(fs.readFileSync(path.join(output, asset.slice(2))));
+});
+const cacheName = `fantasy-story-${cacheVersion.digest('hex').slice(0, 12)}`;
 const workerSource = fs.readFileSync(path.join(root, 'src', 'pwa', 'service-worker.js'), 'utf8')
+  .replace("self.__FANTASY_STORY_CACHE__ || 'fantasy-story-dev'", JSON.stringify(cacheName))
   .replace('self.__FANTASY_STORY_ASSETS__ || []', JSON.stringify(assets));
 fs.writeFileSync(path.join(output, 'service-worker.js'), workerSource);
 

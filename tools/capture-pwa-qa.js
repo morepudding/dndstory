@@ -46,8 +46,19 @@ app.whenReady().then(async () => {
     await click(player, '#adult-start');
   }
   await waitFor(player, "document.querySelectorAll('#story-options button').length === 2");
+  await waitFor(player, "document.querySelector('#scene-art').complete && document.querySelector('#scene-art').naturalWidth > 0");
   await forceRepaint(player);
+  const route = await inspect(player);
+  assertChoiceLayout(route);
   fs.writeFileSync(path.join(output, 'pwa-route-390x844.png'), (await player.capturePage()).toPNG());
+
+  player.setContentSize(844, 390);
+  await forceRepaint(player, 844, 390);
+  const routeLandscape = await inspect(player);
+  assertChoiceLandscapeLayout(routeLandscape);
+  fs.writeFileSync(path.join(output, 'pwa-route-landscape-844x390.png'), (await player.capturePage()).toPNG());
+  player.setContentSize(390, 844);
+  await forceRepaint(player);
 
   await click(player, '#story-options button:nth-child(1)');
   await waitFor(player, "document.querySelectorAll('#story-options button').length === 4");
@@ -121,6 +132,8 @@ app.whenReady().then(async () => {
   console.log(JSON.stringify({
     origin,
     initial,
+    route,
+    routeLandscape,
     combat,
     landscape,
     persistedRevision: after.revision,
@@ -128,6 +141,7 @@ app.whenReady().then(async () => {
     offlineReady: true,
     screenshots: [
       'artifacts/qa/pwa-route-390x844.png',
+      'artifacts/qa/pwa-route-landscape-844x390.png',
       'artifacts/qa/pwa-combat-390x844.png',
       'artifacts/qa/pwa-combat-landscape-844x390.png',
     ],
@@ -165,6 +179,15 @@ function inspect(window) {
       sceneTop: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().top),
       sceneWidth: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().width),
       sceneHeight: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().height),
+      sceneArtSrc: document.querySelector('#scene-art').getAttribute('src'),
+      choiceRunning: document.documentElement.classList.contains('choice-running'),
+      visibleChoiceCount: [...document.querySelectorAll('#story-options button')].filter((item) => {
+        const style = getComputedStyle(item);
+        const rect = item.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      }).length,
+      dialogueOverflow: document.querySelector('#scene-dialogue-text').scrollHeight
+        > document.querySelector('#scene-dialogue-text').clientHeight + 1,
       combatTop: Math.round(document.querySelector('#combat-panel').getBoundingClientRect().top),
       combatVisibleHeight: Math.round(Math.max(
         0,
@@ -202,6 +225,54 @@ function inspect(window) {
 function assertMobileLayout(layout, label) {
   if (!layout.ready || layout.viewport !== 390 || layout.scrollWidth > layout.viewport + 1) {
     throw new Error(`Vue mobile ${label} invalide : ${JSON.stringify(layout)}`);
+  }
+}
+
+function assertChoiceLayout(layout) {
+  if (
+    !layout.ready
+    || !layout.choiceRunning
+    || layout.viewport !== 390
+    || layout.height !== 844
+    || layout.scrollWidth > layout.viewport + 1
+    || layout.navVisible
+    || layout.profileVisible
+    || layout.chatHeaderVisible
+    || !layout.narrativeBarVisible
+    || layout.sceneTop !== 0
+    || layout.sceneWidth !== layout.viewport
+    || layout.sceneHeight !== layout.height
+    || !layout.sceneArtSrc?.includes('route-etranglee.jpg')
+    || layout.visibleChoiceCount !== 2
+    || layout.dialogueOverflow
+    || layout.minTouchTarget < 44
+    || layout.storyNode !== 'depart'
+  ) {
+    throw new Error(`Écran de choix narratif invalide : ${JSON.stringify(layout)}`);
+  }
+}
+
+function assertChoiceLandscapeLayout(layout) {
+  if (
+    !layout.ready
+    || !layout.choiceRunning
+    || layout.viewport !== 844
+    || layout.height !== 390
+    || layout.scrollWidth > layout.viewport + 1
+    || layout.navVisible
+    || layout.profileVisible
+    || layout.chatHeaderVisible
+    || !layout.narrativeBarVisible
+    || layout.sceneTop !== 0
+    || layout.sceneWidth !== layout.viewport
+    || layout.sceneHeight !== layout.height
+    || !layout.sceneArtSrc?.includes('route-etranglee.jpg')
+    || layout.visibleChoiceCount !== 2
+    || layout.dialogueOverflow
+    || layout.minTouchTarget < 44
+    || layout.storyNode !== 'depart'
+  ) {
+    throw new Error(`Écran de choix narratif paysage invalide : ${JSON.stringify(layout)}`);
   }
 }
 

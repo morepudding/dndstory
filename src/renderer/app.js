@@ -10,6 +10,38 @@ const STAT_PRESENTATION = {
   wisdom: { short: 'SAG', name: 'Sagesse', effect: (value) => `${value} cartes piochées par round` },
   intelligence: { short: 'INT', name: 'Intelligence', effect: (value) => `${value} charges de sort par combat` },
 };
+const ROUTE_SCENES = {
+  depart: {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'Le Sorcier, Toma et leur mule avancent sur une route étroite entre des collines couvertes de ronces',
+    label: 'Route de Brumepont · Fin d’après-midi',
+  },
+  charrette: {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'La route étranglée par les ronces avant le convoi brisé',
+    label: 'Route de Brumepont · Le passage se resserre',
+  },
+  pillard: {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'Les ronces et les talus sombres autour de la route de Brumepont',
+    label: 'Sous le talus · Embuscade',
+  },
+  'fin-victoire': {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'La route de Brumepont se poursuit au-delà des ronces',
+    label: 'Route de Brumepont · Passage rouvert',
+  },
+  'fin-collet': {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'La route sombre disparaît entre les ronces',
+    label: 'Route de Brumepont · Le collet',
+  },
+  'fin-combat': {
+    src: 'assets/visuals/route-des-ronces/route-etranglee.jpg',
+    alt: 'La route hostile sous les ronces après le combat',
+    label: 'Route de Brumepont · Dernière étincelle',
+  },
+};
 const BRUMEPONT_SCENES = {
   'relais-arrivee': {
     src: 'assets/visuals/brumepont/relais-nuit.png',
@@ -216,6 +248,10 @@ function renderStory(story) {
   $('#chapter-continue').textContent = story.continueLabel || 'Revenir à l’accueil';
   setText('#scene-dialogue-text', story.active ? story.node?.text || story.ending?.outcomeSummary || '' : '');
   const choices = story.choices || []; $('#choices').hidden = !choices.length;
+  document.documentElement.classList.toggle(
+    'choice-running',
+    Boolean(story.active && choices.length && !story.combat && !resolvingLevelUp),
+  );
   renderCombat(story.combat, story.combatItems || []);
   $('.composer-wrap').classList.toggle('narrative-active', story.active);
   $('#story-options').replaceChildren(...choices.map((choice,index)=>{
@@ -289,11 +325,13 @@ function makeSceneMarker(label, value, kind) {
 }
 
 function renderSceneArt(story) {
-  const scene = story.storyId === 'la-nuit-a-brumepont'
-    ? BRUMEPONT_SCENES[story.node?.id]
-    : story.storyId === 'la-cage-du-treuil'
-      ? cageSceneFor(story)
-      : null;
+  const scene = story.storyId === 'la-route-des-ronces'
+    ? ROUTE_SCENES[story.node?.id]
+    : story.storyId === 'la-nuit-a-brumepont'
+      ? BRUMEPONT_SCENES[story.node?.id]
+      : story.storyId === 'la-cage-du-treuil'
+        ? cageSceneFor(story)
+        : null;
   const image = $('#scene-art');
   const visual = $('#scene-visual');
   visual.classList.remove('cage-scene', 'cage-from-passage', 'cage-from-road', 'cage-outcome-saved', 'cage-outcome-orders');

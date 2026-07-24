@@ -4,9 +4,9 @@
 
 ## Référence
 
-- **Empreinte :** `578262cf6303754d`
-- **Générée :** 2026-07-24T11:26:05.914Z
-- **Git informatif :** branche `main`, HEAD `065cde0b2ecd`, 13 entrée(s) dans le worktree
+- **Empreinte :** `fd699bf08c4e08e7`
+- **Générée :** 2026-07-24T11:27:48.177Z
+- **Git informatif :** branche `main`, HEAD `fb705654bd77`, 8 entrée(s) dans le worktree
 - **Comparaison fiable :** les changements sont détectés par le contenu des fichiers, même si le worktree n'est pas commité.
 - **Boucle active :** `artifacts/loops/006-jouer-sur-mobile.md` — `à jouer`
 - **Dernier verdict :** `artifacts/loops/003-la-cage-du-treuil.md` — `garder`
@@ -22,7 +22,7 @@
 | Application et interface | `16d1e1f6faef` | `src/main.js`<br>`src/preload.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run qa:visual` si le rendu ou l'interaction change |
 | Ressources visuelles | `ba0aafb0ffd7` | `src/renderer/assets/`<br>`content/visuals/`<br>`tools/capture-visual-qa.js` | licences, puis `npm run qa:visual` si l'affichage change |
 | Tests | `dbd681c8bd84` | `test/` | test ciblé du contrat modifié |
-| Configuration et reste du projet | `32ac91c83f21` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
+| Configuration et reste du projet | `104bcf541193` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
 
 ## Démarrage d'une boucle
 

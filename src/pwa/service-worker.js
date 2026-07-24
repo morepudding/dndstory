@@ -9,8 +9,16 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
-      .then(() => self.clients.claim()),
+      .then(async (keys) => {
+        const staleCaches = keys.filter(
+          (key) => key.startsWith('fantasy-story-') && key !== CACHE_NAME,
+        );
+        await Promise.all(staleCaches.map((key) => caches.delete(key)));
+        await self.clients.claim();
+        if (staleCaches.length === 0) return;
+        const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+        await Promise.all(windows.map((client) => client.navigate(client.url)));
+      }),
   );
 });
 

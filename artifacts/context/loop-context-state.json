@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "065cde0b2ecd",
-    "dirtyCount": 13
+    "head": "fb705654bd77",
+    "dirtyCount": 8
   },
-  "overallHash": "578262cf6303754d461b46c2db3ffe6f56a1f1fe8f9fd86cc53b19516bb676f7",
+  "overallHash": "fd699bf08c4e08e71a7b2bd0250fa5f66cf857225a8c0fe234aafe9ef01ca04e",
   "domains": {
     "workflow": {
       "hash": "25d2e0d106fd434675d992268924bf55aed94cd22c0f3596d146d035030c07f8",
@@ -137,7 +137,7 @@
       }
     },
     "project": {
-      "hash": "32ac91c83f21682cfc74b93309fd4c9212436b3b98a20a5e44a2740465ac524f",
+      "hash": "104bcf54119363fa2d3a3b317a880a67324c146da9915b26ec481ae66387596f",
       "files": {
         ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
@@ -151,7 +151,7 @@
         "src/pwa/icons/sorcerer-sigil-192.png": "85403382a14b6847734878e61bf15e447c2fa10c72e3249700f17dfbf897bd13",
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
-        "src/pwa/service-worker.js": "f8b37c76c5ac9e4a5676391d57d6244a26a9d92dfbc61922011a091691f56d85",
+        "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
         "tools/build-pwa.js": "4d4329d6e51676a2bd0a44cf29faa9accbc1d8c58e1a494b2a4f4d4fed874362",
         "tools/capture-pwa-qa.js": "a515e4e67bdb81b7cad543fda127de568261f9ed1a58b9aa602998611c328c5d",
         "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
@@ -203,5 +203,5 @@
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-24T11:26:05.914Z"
+  "generatedAt": "2026-07-24T11:27:48.177Z"
 }

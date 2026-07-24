@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 4,
+  "format": "branching-book",
+  "status": "approved",
+  "id": "la-route-des-ronces",
+  "title": "La Route des Ronces",
+  "globalPremise": "Un jeune Sorcier escorte des provisions jusqu’à Brumepont. Une charrette abandonnée et des traces dans les ronces transforment le trajet en première épreuve.",
+  "chapterSummary": "Une route coupée, un survivant à retrouver et un seul combat pour prouver que votre magie suffit.",
+  "showChapterSummary": true,
+  "rating": "general",
+  "participantsAllAdults": true,
+  "contentWarnings": [
+    "violence de fantasy",
+    "mort possible du personnage"
+  ],
+  "designRules": [
+    "Une seule classe jouable : Sorcier.",
+    "Un seul combat, sans déplacement.",
+    "La mort peut venir d’un choix narratif ou d’une défaite.",
+    "La première victoire mène au niveau 2, accorde un point de statistique et une récompense en or."
+  ],
+  "hero": {
+    "className": "Sorcier",
+    "level": 1,
+    "stats": {
+      "strength": 1,
+      "constitution": 2,
+      "agility": 2,
+      "wisdom": 3,
+      "intelligence": 2
+    }
+  },
+  "entryNodeId": "depart",
+  "acts": [
+    {
+      "id": "acte-1",
+      "index": 1,
+      "title": "La route coupée",
+      "entryNodeId": "depart",
+      "summary": "Le Sorcier découvre une attaque, choisit son approche et affronte le pillard qui garde la piste."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "depart",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Trois jours de poussière",
+      "text": "Au troisième jour, les collines se resserrent autour de la route. Toma guide la mule ; vous marchez près de la charrette, avec deux charges de magie en réserve et le goût du voyage dans la bouche.\n\n« Brumepont avant la nuit », promet Toma. Devant vous, un vol de corneilles s’arrache soudain des arbres.",
+      "role": "anchoring",
+      "humanStake": "Faire sentir au joueur qu’il incarne déjà le Sorcier avant le premier danger.",
+      "relationalMovement": "Toma attend un signe simple avant de poursuivre.",
+      "choices": [
+        {
+          "id": "ancrage-etincelle",
+          "role": "anchoring",
+          "label": "Faire danser une étincelle entre vos doigts",
+          "playerText": "Je laisse une étincelle courir entre mes doigts. « Avant la nuit. »",
+          "targetNodeId": "charrette"
+        },
+        {
+          "id": "ancrage-silence",
+          "role": "anchoring",
+          "label": "Resserrer votre manteau et écouter la forêt",
+          "playerText": "Je resserre mon manteau et tends l’oreille vers les bois.",
+          "targetNodeId": "charrette"
+        }
+      ]
+    },
+    {
+      "id": "charrette",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Le convoi brisé",
+      "text": "Cinquante pas plus loin, une charrette barre le chemin. Une roue tourne encore. Des sacs éventrés blanchissent la boue de farine, mais il n’y a aucun corps.\n\nToma retient la mule. « Ce n’est pas un accident. »\n\nDes traces quittent la route. Certaines s’enfoncent dans les ronces ; une autre paire s’arrête derrière un talus, tout près.",
+      "role": "strategic",
+      "humanStake": "Décider si la mission mérite un risque réel.",
+      "relationalMovement": "Toma laisse la décision au Sorcier.",
+      "choices": [
+        {
+          "id": "examiner-talus",
+          "role": "strategic",
+          "label": "Examiner le talus avant de suivre la piste",
+          "playerText": "« Reste avec la mule. Je vérifie le talus avant qu’on avance. »",
+          "targetNodeId": "pillard",
+          "requirements": [
+            {
+              "stat": "wisdom",
+              "min": 2
+            }
+          ]
+        },
+        {
+          "id": "sonder-talus",
+          "role": "strategic",
+          "label": "Sonder le talus avec votre magie",
+          "playerText": "Je laisse une onde arcanique courir sous le talus pour révéler ce qui s’y cache.",
+          "targetNodeId": "pillard",
+          "requirements": [
+            {
+              "stat": "intelligence",
+              "min": 2
+            }
+          ]
+        },
+        {
+          "id": "deplacer-charrette",
+          "role": "strategic",
+          "label": "Soulever l’essieu pour dégager la vue",
+          "playerText": "Je saisis l’essieu brisé et soulève la charrette pour voir derrière le talus.",
+          "targetNodeId": "pillard",
+          "requirements": [
+            {
+              "stat": "strength",
+              "min": 2
+            }
+          ]
+        },
+        {
+          "id": "foncer-ronces",
+          "role": "strategic",
+          "label": "Foncer dans les ronces à la poursuite des ravisseurs",
+          "playerText": "« Ils ne doivent pas être loin. Je les poursuis maintenant. »",
+          "targetNodeId": "fin-collet"
+        }
+      ]
+    },
+    {
+      "id": "pillard",
+      "actId": "acte-1",
+      "kind": "combat",
+      "title": "Sous le talus",
+      "text": "Vous contournez la charrette. Une silhouette jaillit du fossé, le visage couvert d’un masque d’écorce. Sa serpe vise votre gorge.\n\nToma crie votre nom. Le temps des mots est passé.",
+      "role": "strategic",
+      "humanStake": "Survivre sans gaspiller les deux seules charges de magie.",
+      "relationalMovement": "Toma découvre si le Sorcier tient face au danger.",
+      "choices": [],
+      "victoryTargetNodeId": "fin-victoire",
+      "defeatTargetNodeId": "fin-combat",
+      "combat": {
+        "player": {
+          "name": "Sorcier",
+          "cards": [
+            {
+              "id": "baton-de-voyage",
+              "name": "Bâton de voyage",
+              "type": "action",
+              "kind": "weapon",
+              "cost": 0,
+              "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
+              "effect": {
+                "damage": 2
+              }
+            },
+            {
+              "id": "braise-occulte",
+              "name": "Braise occulte",
+              "type": "action",
+              "kind": "cantrip",
+              "cost": 0,
+              "description": "Une attaque gratuite et fiable.",
+              "effect": {
+                "damage": 3
+              }
+            },
+            {
+              "id": "eclat-arcanique",
+              "name": "Éclat arcanique",
+              "type": "action",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une décharge puissante qui consomme 1 charge.",
+              "effect": {
+                "damage": 5
+              }
+            },
+            {
+              "id": "voile-azur",
+              "name": "Voile d’azur",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
+              "effect": {
+                "block": 3
+              }
+            },
+            {
+              "id": "entrave-de-givre",
+              "name": "Entrave de givre",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
+              "effect": {
+                "block": 1,
+                "status": {
+                  "id": "slowed",
+                  "target": "enemy",
+                  "stacks": 1
+                }
+              }
+            }
+          ],
+          "deck": [
+            "braise-occulte",
+            "voile-azur",
+            "entrave-de-givre",
+            "eclat-arcanique",
+            "baton-de-voyage",
+            "voile-azur",
+            "braise-occulte",
+            "baton-de-voyage",
+            "entrave-de-givre",
+            "braise-occulte",
+            "baton-de-voyage",
+            "eclat-arcanique"
+          ]
+        },
+        "enemy": {
+          "name": "Pillard des Ronces",
+          "maxHp": 20,
+          "drawCount": 2,
+          "cards": [
+            {
+              "id": "serpe-rouillee",
+              "name": "Serpe rouillée",
+              "damage": 2,
+              "description": "Une taille brutale visant le torse."
+            },
+            {
+              "id": "coup-de-pommeau",
+              "name": "Coup de pommeau",
+              "damage": 1,
+              "description": "Un coup court destiné à briser la garde."
+            }
+          ],
+          "deck": [
+            "serpe-rouillee",
+            "coup-de-pommeau",
+            "serpe-rouillee",
+            "coup-de-pommeau",
+            "serpe-rouillee",
+            "coup-de-pommeau",
+            "serpe-rouillee",
+            "coup-de-pommeau"
+          ]
+        }
+      }
+    },
+    {
+      "id": "fin-victoire",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "La piste continue",
+      "text": "Le masque d’écorce se fend sous votre dernier sort. Le pillard tombe et la forêt retrouve son souffle.\n\nSous le talus, vous trouvez un courrier blessé mais vivant. Il serre contre lui un médaillon de Brumepont. « Ils ont emmené les autres vers les vieilles carrières », murmure-t-il.\n\nVous atteignez Brumepont avant la fermeture des portes. Le prévôt écoute le courrier, puis compte douze pièces dans votre paume. Toma pousse la bourse vers vous. « Garde-la. Je conduisais la mule. C’est toi qui as arrêté la serpe. »\n\nDans la cour du relais, vous reprenez enfin votre souffle. Votre magie répond avec plus de netteté qu’au matin. Il reste à choisir comment cette première victoire changera le Sorcier.",
+      "role": "strategic",
+      "humanStake": "Sauver le courrier et obtenir la piste qui permettra de poursuivre l’aventure.",
+      "relationalMovement": "Toma accorde sa confiance au Sorcier.",
+      "choices": [],
+      "terminal": {
+        "endingId": "courrier-sauve",
+        "reason": "Le Sorcier a observé le terrain puis remporté le combat.",
+        "outcomeSummary": "Le courrier est sauvé, Brumepont vous récompense et le Sorcier atteint le niveau 2.",
+        "reward": {
+          "id": "route-des-ronces-premiere-victoire",
+          "title": "Première victoire",
+          "level": 2,
+          "statPoints": 1,
+          "gold": 12
+        }
+      }
+    },
+    {
+      "id": "fin-collet",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "Le nœud dans les feuilles",
+      "text": "Vous forcez le passage entre les épines. Le sol cède sous votre troisième foulée.\n\nUne corde se referme autour de votre cheville et vous arrache du sol. Avant que vous puissiez former un sort, une lame cachée dans les feuilles accomplit le reste.\n\nLe piège n’était pas destiné à ralentir les poursuivants. Il était destiné à n’en laisser aucun.",
+      "role": "strategic",
+      "humanStake": "La précipitation expose le Sorcier à un danger qu’il n’a pas pris le temps de lire.",
+      "relationalMovement": "Toma assiste, impuissant, à la conséquence du choix.",
+      "choices": [],
+      "terminal": {
+        "endingId": "mort-au-collet",
+        "reason": "Le Sorcier a suivi la piste sans examiner l’embuscade.",
+        "outcomeSummary": "Le Sorcier meurt dans un piège dissimulé sous les ronces.",
+        "retryActId": "acte-1"
+      }
+    },
+    {
+      "id": "fin-combat",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "La dernière étincelle",
+      "text": "Votre magie éclaire une dernière fois le fossé, trop faible pour arrêter la serpe.\n\nVous tombez près de la roue qui tournait encore. Toma lâche la bride et fuit entre les arbres tandis que le pillard essuie sa lame dans la farine répandue.\n\nLa route de Brumepont se referme avec vos yeux.",
+      "role": "strategic",
+      "humanStake": "La gestion des cartes et des deux charges décide de la survie du Sorcier.",
+      "relationalMovement": "Toma perd son compagnon et la mission s’achève.",
+      "choices": [],
+      "terminal": {
+        "endingId": "mort-au-combat",
+        "reason": "Les points de vie du Sorcier sont tombés à zéro pendant le combat.",
+        "outcomeSummary": "Le Sorcier meurt face au Pillard des Ronces.",
+        "retryActId": "acte-1"
+      }
+    }
+  ]
+}

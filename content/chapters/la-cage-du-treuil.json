@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 4,
+  "format": "branching-book",
+  "status": "approved",
+  "id": "la-cage-du-treuil",
+  "title": "La Cage du Treuil",
+  "globalPremise": "Aux vieilles carrières, le Sorcier ne peut sauver Mira ou poursuivre Varek qu’une seule fois.",
+  "chapterSummary": "Un choix de charge arcanique sépare le sauvetage de Mira de la poursuite de Varek.",
+  "showChapterSummary": true,
+  "rating": "general",
+  "participantsAllAdults": true,
+  "contentWarnings": [],
+  "designRules": [
+    "La provenance héritée reste perceptible jusque dans la conséquence jouée.",
+    "Une seule décision stratégique ferme réellement l’autre parcours.",
+    "La charge arcanique est débitée avant le texte de conséquence."
+  ],
+  "hero": {
+    "className": "Sorcier",
+    "level": 2,
+    "stats": {
+      "strength": 1,
+      "constitution": 2,
+      "agility": 2,
+      "wisdom": 3,
+      "intelligence": 2
+    }
+  },
+  "entryNodeId": "arrivee-carrieres",
+  "usesArcaneChargePool": true,
+  "continueLabel": "Descendre vers la cage du treuil",
+  "acts": [
+    {
+      "id": "acte-1",
+      "index": 1,
+      "title": "La cage du treuil",
+      "entryNodeId": "arrivee-carrieres",
+      "summary": "Une captive descend vers les galeries pendant que le chef de convoi s’éloigne avec ses ordres."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "arrivee-carrieres",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Les vieilles carrières",
+      "text": "Au pied des vieilles carrières, le treuil grince au-dessus d’un puits taillé dans le schiste. Une cage attend sous la roue ; des pas pressés résonnent déjà dans les galeries.",
+      "role": "anchoring",
+      "humanStake": "Prendre la mesure du lieu avant que le transfert impose son dilemme.",
+      "relationalMovement": "La provenance de Brumepont détermine une information utile, sans créer un choix stratégique supplémentaire.",
+      "sourceVariants": {
+        "carriere-par-passage": {
+          "title": "Sous les roues mortes",
+          "text": "Le conduit oublié débouche sous une charpente mangée de poussière. Au-dessus du Sorcier, les grandes roues ne tournent plus, mais une tige de frein vibre contre le bois : la cage est retenue par ce seul verrou. À gauche, une galerie d’entretien longe le puits.\n\nDes bottes passent sur le plancher.\n\n— La sondeuse descend au troisième palier, ordonne un homme. Le registre vient avec moi.\n\nPersonne ne regarde sous les roues."
+        },
+        "carriere-par-la-route": {
+          "title": "Les gradins alertés",
+          "text": "Le Sorcier atteint les gradins au moment où un sifflet bref fend la carrière. Sur la tour, le poste du guetteur est vide.\n\n— Il ne répond plus, lance un manœuvre.\n\nUn homme en manteau de convoi referme une gaine de cuir et désigne la rampe nord.\n\n— Descendez la sondeuse. Deux avec la cage. Les autres, derrière moi.\n\nVarek part sans se retourner ; son escorte prend la galerie haute."
+        }
+      },
+      "choices": [
+        {
+          "id": "ancrage-treuil",
+          "role": "anchoring",
+          "label": "Examiner le treuil",
+          "playerText": "Je glisse jusqu’au bâti du treuil et cherche ce qui retient encore la cage.",
+          "targetNodeId": "cage-du-treuil"
+        },
+        {
+          "id": "ancrage-activite",
+          "role": "anchoring",
+          "label": "Écouter l’activité de la carrière",
+          "playerText": "Je reste à couvert et compte les voix, les pas, puis la direction qu’ils prennent.",
+          "targetNodeId": "cage-du-treuil"
+        }
+      ]
+    },
+    {
+      "id": "cage-du-treuil",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "La captive et les ordres",
+      "text": "Le treuil se met en branle. Dans la cage, Mira repousse de l’épaule un madrier descendu avec elle. Elle lève la tête vers le Sorcier.\n\n— Le cliquet va sauter ! Bloquez la roue, pas la chaîne !\n\nVarek serre la gaine de cuir sous son manteau. Déjà au seuil de la galerie, il fait signe à son escorte.\n\n— Palier trois pour la sondeuse. On ne retient pas le convoi.\n\nLa cage descend. Varek s’éloigne. Il ne reste assez de temps que pour l’un des deux.",
+      "role": "strategic",
+      "humanStake": "Choisir la personne présente ou la preuve qui peut poursuivre l’organisation.",
+      "relationalMovement": "Le Sorcier accepte une perte immédiatement visible au lieu d’une solution cumulée.",
+      "choices": [
+        {
+          "id": "sauver-mira",
+          "role": "strategic",
+          "label": "Stabiliser et ouvrir la cage — 1 charge",
+          "playerText": "Je concentre une charge dans la roue et saisis la porte de la cage.",
+          "targetNodeId": "fin-mira-sauvee",
+          "requirements": [
+            {
+              "arcaneCharges": 1
+            }
+          ],
+          "arcaneChargeCost": 1
+        },
+        {
+          "id": "poursuivre-varek",
+          "role": "strategic",
+          "label": "Laisser descendre la cage et poursuivre Varek",
+          "playerText": "Je laisse la cage passer sous le plancher et m’élance derrière Varek.",
+          "targetNodeId": "combat-varek"
+        }
+      ]
+    },
+    {
+      "id": "fin-mira-sauvee",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "Mira sauvée",
+      "text": "La charge frappe la roue. Le frein se verrouille dans un bruit sec ; la cage s’immobilise au ras du plancher. Mira force la porte avec son épaule et se hisse hors du vide.\n\n— L’air tire par là. Suivez-moi.\n\nElle conduit le Sorcier jusqu’à une galerie d’évacuation et retrouve le jour derrière la carrière. Sur la voie haute, la poussière retombe autour des traces de l’escorte.\n\n— Varek avait les ordres dans une gaine de cuir : les noms, les horaires, les paliers. Il les a emportés.",
+      "role": "strategic",
+      "humanStake": "Mira est hors de la carrière, mais la preuve écrite a disparu.",
+      "relationalMovement": "Mira devient un témoin vivant sans devenir un compagnon permanent.",
+      "choices": [],
+      "terminal": {
+        "endingId": "captive-sauvee",
+        "reason": "Le Sorcier a dépensé une charge pour arrêter la cage et sauver Mira.",
+        "outcomeSummary": "Mira est sauvée ; Varek s’échappe avec les ordres."
+      },
+      "sourceVariants": {
+        "carriere-par-passage": {
+          "text": "La charge frappe la roue. Le cliquet s’enfonce et la cage s’arrête au ras du plancher. Mira force la porte avec son épaule ; le Sorcier la tire hors du vide.\n\n— La sortie ?\n\nIl lui montre le boyau d’entretien repéré sous les roues. Elle pose deux doigts contre la paroi, écoute l’air, puis bifurque avant un étançon fendu.\n\n— Pas sous cet étançon. Leur galerie revient au puits ; l’air vient du ravin.\n\nIls débouchent dans le ravin derrière la carrière. Mira se retourne vers la voie haute. Il n’y reste que la poussière soulevée par l’escorte.\n\n— Varek avait les ordres dans une gaine de cuir : les noms, les horaires, les paliers. Il les a emportés.",
+          "title": "Mira sauvée"
+        },
+        "carriere-par-la-route": {
+          "text": "La charge mord la roue et la cage s’immobilise. Mira pousse la porte tordue ; le Sorcier la tire sur le plancher au moment où l’alarme reprend dans les gradins.\n\n— La rampe est fermée, dit-elle. Le déversoir, derrière vous. Baissez la tête.\n\nElle s’engage dans la conduite de trop-plein et le guide entre les étais jusqu’au flanc de la carrière. Dehors, le Sorcier retrouve la galerie haute qu’il avait vue depuis la route. Une lanterne s’y éloigne entre les hommes de l’escorte.\n\nMira suit son regard.\n\n— Varek garde la gaine sous son manteau. Dedans, il y a nos noms et l’ordre des descentes.\n\nLa lanterne disparaît derrière la crête.",
+          "title": "Mira sauvée"
+        }
+      }
+    },
+    {
+      "id": "combat-varek",
+      "actId": "acte-1",
+      "kind": "combat",
+      "title": "Poursuite de Varek",
+      "text": "La cage glisse sous le plancher. Les barreaux, puis Mira, disparaissent dans le puits. Le Sorcier rejoint Varek avant la sortie des carrières.\n\nLe chef de convoi cale la gaine de cuir dans son manteau et décroche une pique.\n\n— La sondeuse a déjà passé le deuxième palier. Le convoi continue. Vous, vous restez ici.",
+      "role": "strategic",
+      "humanStake": "Obtenir les ordres au prix du transfert de Mira.",
+      "relationalMovement": "Le Sorcier garde sa magie pour combattre mais ne peut plus atteindre la cage.",
+      "choices": [],
+      "victoryTargetNodeId": "fin-ordres-recuperes",
+      "defeatTargetNodeId": "echec-varek",
+      "combat": {
+        "player": {
+          "name": "Sorcier",
+          "cards": [
+            {
+              "id": "baton-de-voyage",
+              "name": "Bâton de voyage",
+              "type": "action",
+              "kind": "weapon",
+              "cost": 0,
+              "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
+              "effect": {
+                "damage": 2
+              }
+            },
+            {
+              "id": "braise-occulte",
+              "name": "Braise occulte",
+              "type": "action",
+              "kind": "cantrip",
+              "cost": 0,
+              "description": "Une attaque gratuite et fiable.",
+              "effect": {
+                "damage": 3
+              }
+            },
+        {
+          "id": "eclat-arcanique",
+          "name": "Éclat arcanique",
+              "type": "action",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une décharge puissante qui consomme 1 charge.",
+              "effect": {
+            "damage": 5
+          }
+        },
+        {
+          "id": "orbe-suspendu",
+          "name": "Orbe suspendu",
+          "type": "action",
+          "kind": "spell",
+          "cost": 0,
+          "description": "Inflige 2 dégâts, puis 5 au prochain tour si vos Réactions empêchent tout dégât.",
+          "effect": {
+            "damage": 2,
+            "concentration": {
+              "damage": 5
+            }
+          }
+        },
+            {
+              "id": "voile-azur",
+              "name": "Voile d’azur",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
+              "effect": {
+                "block": 3
+              }
+            },
+            {
+              "id": "entrave-de-givre",
+              "name": "Entrave de givre",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
+              "effect": {
+                "block": 1,
+                "status": {
+                  "id": "slowed",
+                  "target": "enemy",
+                  "stacks": 1
+                }
+              }
+            },
+            {
+              "id": "elan-arcanique",
+              "name": "Élan arcanique",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Accepte l’impact pour préparer une Action gratuite au prochain tour.",
+              "effect": {
+                "status": {
+                  "id": "advantage",
+                  "target": "player",
+                  "stacks": 1
+                }
+              }
+            }
+          ],
+          "deck": [
+        "orbe-suspendu",
+        "voile-azur",
+        "entrave-de-givre",
+        "eclat-arcanique",
+        "baton-de-voyage",
+        "braise-occulte",
+        "baton-de-voyage",
+        "elan-arcanique",
+        "braise-occulte",
+        "braise-occulte",
+        "baton-de-voyage",
+        "eclat-arcanique"
+          ]
+        },
+        "enemy": {
+          "name": "Varek, chef de convoi",
+          "maxHp": 15,
+          "drawCount": 2,
+          "cards": [
+            {
+              "id": "pique-de-convoi",
+              "name": "Pique de convoi",
+              "damage": 2,
+              "description": "Une estocade pour protéger les ordres."
+            },
+            {
+              "id": "lanterne-brisee",
+              "name": "Lanterne brisée",
+              "damage": 2,
+              "description": "Un éclat lancé dans la poussière de la carrière."
+            },
+            {
+              "id": "coup-de-hampe",
+              "name": "Coup de hampe",
+              "damage": 1,
+              "description": "Un choc qui brise le rythme de la prochaine Action.",
+              "effect": {
+                "status": {
+                  "id": "disadvantage",
+                  "target": "player",
+                  "stacks": 1
+                }
+              }
+            }
+          ],
+          "deck": [
+        "lanterne-brisee",
+        "coup-de-hampe",
+        "pique-de-convoi",
+        "lanterne-brisee",
+        "pique-de-convoi",
+        "lanterne-brisee",
+        "pique-de-convoi",
+        "lanterne-brisee"
+          ]
+        }
+      },
+      "sourceVariants": {
+        "carriere-par-passage": {
+          "text": "La cage glisse sous le plancher. Les barreaux, puis Mira, disparaissent dans le puits. Le Sorcier plonge dans la galerie d’entretien repérée sous les roues. Elle coupe la courbe du puits ; il ressort devant Varek, dans une chambre de pesée.\n\nLe chef de convoi cale la gaine de cuir dans son manteau et décroche une pique du râtelier.\n\n— La sondeuse a déjà passé le deuxième palier. Le convoi continue. Vous, vous restez ici.",
+          "title": "Poursuite de Varek"
+        },
+        "carriere-par-la-route": {
+          "text": "La cage passe sous le plancher et Mira disparaît avec elle. Le Sorcier gagne la galerie haute prise par l’escorte. À l’embranchement, Varek pousse ses hommes vers la rampe nord.\n\n— Continuez. Je ferme derrière vous.\n\nIl cale la gaine de cuir dans son manteau et se retourne avec sa pique.\n\n— La sondeuse descend. Vous ne la rattraperez plus.",
+          "title": "Poursuite de Varek"
+        }
+      }
+    },
+    {
+      "id": "fin-ordres-recuperes",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "Les ordres récupérés",
+      "text": "La pique de Varek tombe sur les dalles. Le Sorcier le maintient contre un pilier du passage et arrache la gaine de cuir de son manteau.\n\nSous le rabat, des feuilles règlent les transferts par noms, heures et paliers. La dernière ligne porte encore l’encre fraîche : « Mira — palier III. »\n\nVarek ramène un genou sous lui.\n\n— Comptez les lignes si vous voulez. La cage a continué pendant que vous me reteniez.\n\nAu treuil, le câble descend droit dans le puits. Le Sorcier appelle Mira. Très bas, une porte roule sur ses gonds, puis un verrou retombe. Son nom reste découvert sous le pouce du Sorcier.",
+      "role": "strategic",
+      "humanStake": "Les ordres sont en main, mais Mira reste captive.",
+      "relationalMovement": "Le Sorcier possède une piste concrète et porte la responsabilité du transfert laissé se poursuivre.",
+      "choices": [],
+      "terminal": {
+        "endingId": "ordres-recuperes",
+        "reason": "Le Sorcier a poursuivi Varek, remporté le combat et récupéré les ordres.",
+        "outcomeSummary": "Les ordres sont récupérés ; Mira a été emportée dans les galeries profondes."
+      }
+    },
+    {
+      "id": "echec-varek",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "Le transfert se poursuit",
+      "text": "La hampe de Varek écarte le bâton du Sorcier et le rabat contre le garde-corps de la galerie. Le chef de convoi récupère sa gaine de cuir sans quitter le passage des yeux.\n\n— Fermez la traverse après moi. S’il remonte, il remontera seul.\n\nSes pas s’éloignent avec ceux de l’escorte. Dans le puits, la chaîne file encore quelques secondes ; un battant claque au fond. Varek a gardé les ordres, et Mira n’est plus à portée de voix.",
+      "role": "strategic",
+      "humanStake": "La défaite laisse Varek et le transfert gagner du terrain sans juger le choix du joueur.",
+      "relationalMovement": "La reprise permet de revoir le dilemme avec une réserve arcanique restaurée.",
+      "choices": [],
+      "terminal": {
+        "endingId": "echec-poursuite-varek",
+        "reason": "Le Sorcier est vaincu avant de récupérer les ordres.",
+        "outcomeSummary": "Varek s’échappe pendant que Mira est transférée plus profondément.",
+        "retryActId": "acte-1"
+      }
+    }
+  ]
+}

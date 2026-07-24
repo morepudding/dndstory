@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "git": {
+    "branch": "main",
+    "head": "862061a6b1e1",
+    "dirtyCount": 0
+  },
+  "overallHash": "9a30f81350ab9572cf0835f93c9473294aaca6ea4edec66bc0f54498bdae717d",
+  "domains": {
+    "workflow": {
+      "hash": "fd6cc416e66f894c78b9e3d507ca163cdd05ebd9c710b1466ed289a765c4f7e3",
+      "files": {
+        ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
+        ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
+        ".agents/skills/concevoir-branches-fantasy-story/references/architecture-branches.md": "4a0a5dcc2addabd48f1489e7b53828dae6e1cf0f7d186f5386971f13a06f45b1",
+        ".agents/skills/concevoir-branches-fantasy-story/references/audit.md": "08a945b35cad883be641942fa53b448ca227eabced1dfe204817c4b445b2c1c5",
+        ".agents/skills/concevoir-branches-fantasy-story/references/format-structurel.md": "d84703b12e6b0377fac75fc8a2b7f2d98d2d1fdd9c9e66909a62037d975161dc",
+        ".agents/skills/concevoir-branches-fantasy-story/SKILL.md": "6e746011145625a94385e9478149d5b5ec16ee2d009409f0470a519b5a6f0237",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/agents/openai.yaml": "b98a5374d56de770558bfa9f9bef4b65e00c3685324a5a2a6fbc29f2203ea7ba",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/references/principes-de-fun.md": "9c47b45f06678abde59b1d3148ea72547148b3afed13c6d251208057c1ffe50c",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/references/protocole-de-test.md": "8622ee94b1c5409f1b6553aaa0d64677cd3e56c81e723271892de7a329dc2236",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/SKILL.md": "570f6278f8291901b55bf27eb9c613fb862ecdb2c3eee2e0e568693e471cf279",
+        ".agents/skills/concevoir-progression-fantasy-story/agents/openai.yaml": "a9931e491a5c3727a4d7d9cf1b987a57bc79ccaa2da48725704adab4328f7020",
+        ".agents/skills/concevoir-progression-fantasy-story/SKILL.md": "4d462206bf147419fe6013c988b78401312b34182ad0dc7b4f08a536b7e35027",
+        ".agents/skills/concevoir-visuels-fantasy-story/agents/openai.yaml": "e5883a33852256201b67d2651d28d096afd699880477695dde985dfdbe2cb691",
+        ".agents/skills/concevoir-visuels-fantasy-story/references/direction-combat-premium.md": "a116e8233884b3ab6bdae3433c8acf9a74228996b6c3d3a26e47c6306047d356",
+        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "bb66e390564aafc47a6c1c90fd0e8b29511331cf8fb306f0b6fbc650b3e9bfd6",
+        ".agents/skills/conduire-boucle-fantasy-story/agents/openai.yaml": "f5abdebaa3f41aef4e1a5aa6f11bab7a26f7bbb3c2582f4c0cb9152dbbb0d115",
+        ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "e13082ba15b540083865a5df2e2cf374612b7fb64d55078918b4d5954a8d5497",
+        ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "f81db70fc5d96c1c8843e8097bfaceba54f192d85c987250a60b8691ad0f1773",
+        ".agents/skills/ecrire-dialogues-fantasy-story/agents/openai.yaml": "43cab97b3a8816dcdcd5269fa62e997355bcb50a76d41a13da642a0b492b7ab0",
+        ".agents/skills/ecrire-dialogues-fantasy-story/references/defauts-ia.md": "69557b9aae94e9f27620c68e85d298cff2d2d165d77185f3004b59e07062c931",
+        ".agents/skills/ecrire-dialogues-fantasy-story/references/enjeu-et-progression.md": "4c4fcb4d1835878c2746c83853b4a47652aea3af2c451df234697c2c7e59ecb5",
+        ".agents/skills/ecrire-dialogues-fantasy-story/references/exemples-francais.md": "0c51ade4f87cb238f297afff6d65aeefb31a012b95ee92611321d7069670af8f",
+        ".agents/skills/ecrire-dialogues-fantasy-story/references/formulations-ia.md": "6387714375c41192cf173ff86ed695d9138878de69709f3f4e2f9c5152b2ff28",
+        ".agents/skills/ecrire-dialogues-fantasy-story/references/prose-et-dialogue.md": "affb90936fc5da39eec6f63634b629ac9299897e4bdb6e28819603784c301e3b",
+        ".agents/skills/ecrire-dialogues-fantasy-story/SKILL.md": "a87b20b39244bd5a989d7e1f127321dcc498a14bee5250e9f5323f3f671b0a33",
+        "AGENTS.md": "56b95c572733d0f6af0310cf9cb8668e3b5fdbafb7b5bda43634e9d07e836ab9",
+        "artifacts/loops/001-passage-niveau-2.md": "0cc8d7f5dbf93b2734a60171aea14e0438e829fd32152bca07e2f57d87a699b4",
+        "artifacts/loops/002-la-nuit-a-brumepont.md": "6077d124a132d2cb9aa4d660a168037c0ae3551cb74ab605870eb7791f4c30cf",
+        "artifacts/loops/003-la-cage-du-treuil-structure.md": "9e44bb398e4c16812090b3f5dfe3700016938ba02c90397c4ca164c46642d3d6",
+        "artifacts/loops/003-la-cage-du-treuil.md": "ecb5c0c7e155b8708d0b7160c5b42c7443b872b90a18948e6936a7c08eb303a5",
+        "artifacts/loops/004-prendre-l-ascendant.md": "db2470d0a3c95fe3e4a41d3144c7f1735e136911e143f74da16d859f038fd9a6",
+        "artifacts/loops/005-tenir-le-sort-journal.md": "dc710aa6c52387446a5105dc1d67f151a8cee524d7ca97656c63d3b1ea63a4b6",
+        "artifacts/loops/005-tenir-le-sort.md": "13cde7a9c6b32959688fe30d26ff17d24e17aee7d3564ee1dd1f4e41aa61c081",
+        "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
+      }
+    },
+    "story": {
+      "hash": "04a19fa95a8508dffc8f198dae59ee3c32b92cfd3563f53bb16e53e2f0a18db9",
+      "files": {
+        "content/chapters/la-cage-du-treuil.json": "f6aa03f0d952f827d95cafa328d59ad6cb87d6becc209b67db9731b452c90e7b",
+        "content/chapters/la-nuit-a-brumepont.json": "836ae3398a8ac73b30bd4389ddb74e202fff9a9fffe32bb190ad0f666738fbdc",
+        "content/chapters/la-route-des-ronces.json": "1acd86e692c11186b2e69b32e0d94f32d970650cbc56ffb4419215612b7088f3",
+        "src/server/narrative-tree.js": "ee479197212d79c9bc35d960e9a107c94f9719d5cb96654e0add01ee2ff26d5b",
+        "src/server/story-format.js": "4223e06fe9fce7e7cd226f8652b135b0ac52273079633431ed8734cc5cd54a8d",
+        "tools/build-story.js": "caed08b9b6ebf676bd4d20009685195a614c02f104a0b3bd3406fb6f03bde302",
+        "tools/verify-story.js": "dd1267397cc014cb3f82f2d5ab1bab8172c73b73f78707a7f186906a1792fda2"
+      }
+    },
+    "persistence": {
+      "hash": "621d265ad3998f99ac6d06116c5772bb04f1e7b82c106b9efb23a2f450277cd5",
+      "files": {
+        "src/server/book-session-service.js": "b77f045c8ef4d5b0235cc53dac114da306a07d63210f88b40d74047144568868",
+        "src/server/character-store.js": "2992097757e6c5786f35fd3a9f218fe01a67e45b5979867308e6c284682737a4",
+        "src/server/state-schema.js": "3acecf82325dec36890ee366839937200457b632dab1e7e84831709ce7d586e2",
+        "src/server/story-repository.js": "2c17812f4d099ae6470f3900bf65ceede1970954cd2d3b6249398e8a1f4d3568"
+      }
+    },
+    "engine": {
+      "hash": "f341fc4fe67fdd711eb5f8dbe1f3b32a67d41cd954e0b5fbfc3fd365d3b9526c",
+      "files": {
+        "src/server/branching-book-runtime.js": "0783d0ee3e3fc2e8e1ab2ef22771e9f45f6c6485c0f1380d38eef82872622a6e",
+        "src/server/codex-client.js": "6cde2ffe51957a504df377099b03050912f6d3d1244355ce71090229e816aec9",
+        "src/server/combat-engine.js": "a81604b82074300c187d0ed4bd8f396070e7ecb482bbe854a21446b18fd5657a",
+        "src/server/context-composer.js": "90570923397c198fc8c06cccabca86e932bdb896eaf8a84766aaa29d0084c056",
+        "src/server/conversation-service.js": "28d14fbc1077917a0eaa6f60d94402316328e0038208d30e0ca8bbd825e765c8",
+        "src/server/diagnostics.js": "7376b9e1ba24f45d8ef429649b55cf7b0a2a4721a1247a3a8aa7d7afc3a8b10f",
+        "src/server/narrative-studio.js": "09ee06f9d91cdb6533124535c4baa4db039c47d7a0c4b77170b28b277c5eeebd",
+        "src/server/progression-service.js": "a69d276b2a38a19bd88dcb65313f8101e894f01fcfbbeb0d10564abcf7482e37",
+        "tools/play-branching-book.js": "182d47cc81479d81e4b2ca5fe300ec0359b56f6e9d05756529b1d2d6ecfbcc2b",
+        "tools/simulate-combat.js": "20a86ded76c1302af9d6ac538b90f94522b449ba9fb80a5ebf56480fcd36dc32",
+        "tools/smoke-studio-assistant.js": "fbc9eafc672aed749c55160a1d268eac253de753394946a7d62419b0958e4156"
+      }
+    },
+    "ui": {
+      "hash": "1c34fb7a552200cfe22a5e7425484a5bc7360a02518a89871335eb66ed69190b",
+      "files": {
+        "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
+        "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
+        "src/preload.js": "9fd93654eb494ec141f26fd5b92bacde05b3ba0560b316488b8f1a517faa6944",
+        "src/renderer/app.js": "d6ef1a0510085c0941572a72e1a745fa7324f834fa019f5f6d552b021e34252e",
+        "src/renderer/index.html": "50a27b54527b1b970db9d2d558a762e45e1f1bdc5125d37bfa163d7abfcc1981",
+        "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
+        "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
+        "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
+        "src/renderer/styles.css": "0da34ebfa9f59c9696be632a663cf2c00be0430ef0b499ecd0d13092b61231c2"
+      }
+    },
+    "assets": {
+      "hash": "ba0aafb0ffd73d8d72fcf3c6b64c8e94b9922005540cac1b1c21cd8e611276c0",
+      "files": {
+        "src/renderer/assets/fonts/Newsreader-Variable.ttf": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1",
+        "src/renderer/assets/fonts/OFL-Newsreader.txt": "865f0949b59fab5925506f80102dff3d12e8666412daf52d212db969d40adc25",
+        "src/renderer/assets/game-icons-healing-potion.svg": "79abe17a2317bcc4deaaa65693343f97866fcf94864ad7d3b62e889c3c1f5668",
+        "src/renderer/assets/GAME-ICONS-LICENSE.txt": "237af3d2168c9cb83a3d9ea0b6ac23400d572cd3f6399e5b0b91270a21f15d08",
+        "src/renderer/assets/game-icons-rank-3.svg": "1d63965fe64defe8e65d66f7de4d7af2473586075a9c4fc6244ba2a92e10da62",
+        "src/renderer/assets/sorcerer-sigil.svg": "5f5f00fb1a1dac4fe0eb0a2754e50307edb44bb6c7a42216ac27a6d4a8f189f7",
+        "src/renderer/assets/visuals/brumepont/relais-nuit.png": "8d99ac20b49393538ac3fa46e8863cbd3d95e22a892297657881a5121a286a93",
+        "src/renderer/assets/visuals/brumepont/route-carrieres.png": "087eccd1f9c1d00f44d906d69cb6cff96d686a6fba89daff0c680eb600e03ee8",
+        "src/renderer/assets/visuals/cage-du-treuil/ravin-evasion.png": "398320bb02e482c20b09d95ef2a498abdce0cd2e7014bd5e13ff0c686206450f",
+        "src/renderer/assets/visuals/cage-du-treuil/registre-et-puits.png": "f2ad796c841653caf19904ac40016c603bbf8c4dc13287fe337c13d0bf14b641",
+        "src/renderer/assets/visuals/cage-du-treuil/treuil-et-puits.png": "0c0de307d8a1ca5161d7b0a668eda893229f0f86a03a8b86f7cfe7d7100d9749",
+        "tools/capture-visual-qa.js": "b25e81683ef8132a0cd14a87b4d120ea35bc84295d257d9fb0237cf66ca69943"
+      }
+    },
+    "tests": {
+      "hash": "dbd681c8bd846a57afe07b4ae4e77698a83ca5ed74b09ac08a88736131c5aa28",
+      "files": {
+        "test/branching-book-runtime.test.js": "cf1fdbf5f09ef9cbe7b75fe76ece1e88cc80b4b4e313e5df12c18feeff42df08",
+        "test/brumepont-economy.test.js": "e68d9807253f9335b000e905731623649b2eda751265149a8d9e026c387f3014",
+        "test/cage-du-treuil.test.js": "d001b9d7c4737797db05b7f5e0fec98d20772968f9a331c085220ecbb9f211e6",
+        "test/combat-balance.test.js": "fa87b1f3013ba46917a3cc425f8912c999e0cd220ca111eb6400b927d8868512",
+        "test/combat-concentration.test.js": "c8e556fcd53df61fc86689ab5d61cf30b5f1028d0a5d1109884273716fa18641",
+        "test/combat-tempo.test.js": "cf98a347c627d666404ef555a10c0a7a429220161073006dcabf9b13baff10e0",
+        "test/free-chat.test.js": "982d736920d86647c12e3fae85a6794d2b013b66d38f084bef924e5fba6981e3",
+        "test/helpers.js": "1af82ee90452a779943a6fadfd0d9f3ad888ec6f0db57e4e1be74a0c76260e8e",
+        "test/narrative-tree.test.js": "e32f258f3326c7a78a0eed0fda225c8d257cdad36cc8032af92da7f1cbd0275d",
+        "test/progression.test.js": "8002fd514395a027fadf07b517d096396b995f163d3c0a064b3b27a89e2d0aa8",
+        "test/state-and-consent.test.js": "76b89549e6c0f5e932d5babfc5ae21a20c3231313890a4ec45fe511975d84b38",
+        "test/story-runtime.test.js": "5e14e0a73f66750a56b7af97dbf185359f3d357405d0d854a0da2f078234783f",
+        "test/studio-and-api.test.js": "80ee77ce0536194c4704447615a67d8e552ddb3b88de00051dfbd4772215e436"
+      }
+    },
+    "project": {
+      "hash": "3864a239c734f1c9ffa77aa3da3660ef8a2186475dfd060bb6e47df31aefc3ef",
+      "files": {
+        ".gitignore": "6e370c8f4485cfbbe3a98d90af955bfef725e76103d55aa6ff8398bdabbb02d2",
+        "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
+        "package-lock.json": "7d7a414832548e171f313c90f81e8b2e59109ad46457689053f38d45eef1da21",
+        "package.json": "5ed6e2bd2377387fd72dae2593dda4381a4eb0ffdc8d47e4032f81530ce84c67",
+        "README.md": "d04734b847e205bfd5badb0952d73d86244566709fe01405c8e586a385daf543",
+        "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339"
+      }
+    }
+  },
+  "loops": [
+    {
+      "path": "artifacts/loops/001-passage-niveau-2.md",
+      "title": "Boucle 001 — Passage au niveau 2",
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/002-la-nuit-a-brumepont.md",
+      "title": "Boucle 002 — La nuit à Brumepont",
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/003-la-cage-du-treuil-structure.md",
+      "title": "Boucle 003 — Structure à approuver",
+      "status": "inconnu"
+    },
+    {
+      "path": "artifacts/loops/003-la-cage-du-treuil.md",
+      "title": "Boucle 003 — La cage du treuil",
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/004-prendre-l-ascendant.md",
+      "title": "Boucle 004 — Prendre l’ascendant",
+      "status": "à jouer"
+    },
+    {
+      "path": "artifacts/loops/005-tenir-le-sort-journal.md",
+      "title": "Journal comparatif — Boucle 005",
+      "status": "ready_to_play"
+    },
+    {
+      "path": "artifacts/loops/005-tenir-le-sort.md",
+      "title": "Boucle 005 — Tenir le sort",
+      "status": "à jouer"
+    }
+  ],
+  "generatedAt": "2026-07-24T09:31:42.061Z"
+}

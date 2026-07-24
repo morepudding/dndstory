@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 4,
+  "format": "branching-book",
+  "status": "approved",
+  "id": "la-nuit-a-brumepont",
+  "title": "La Nuit à Brumepont",
+  "globalPremise": "Au relais de Brumepont, douze pièces peuvent acheter de la sécurité, un passage vers les vieilles carrières ou simplement une nuit plus douce.",
+  "chapterSummary": "Dans un lieu vivant, l'or ouvre des routes différentes vers les vieilles carrières.",
+  "showChapterSummary": true,
+  "rating": "general",
+  "participantsAllAdults": true,
+  "contentWarnings": [
+    "violence de fantasy",
+    "mort possible du personnage"
+  ],
+  "designRules": [
+    "Chaque dépense appartient à un personnage et à un lieu.",
+    "Le repas annonce clairement qu'il n'accorde aucun bonus.",
+    "La potion ne modifie aucune carte et coûte une Action lorsqu'elle est bue.",
+    "Le guide ouvre une route sûre ; conserver l'or garde une route plus dangereuse mais plus rentable."
+  ],
+  "hero": {
+    "className": "Sorcier",
+    "level": 2,
+    "stats": {
+      "strength": 2,
+      "constitution": 2,
+      "agility": 2,
+      "wisdom": 3,
+      "intelligence": 2
+    }
+  },
+  "entryNodeId": "relais-arrivee",
+  "acts": [
+    {
+      "id": "acte-1",
+      "index": 1,
+      "title": "Le Relais du Pont",
+      "entryNodeId": "relais-arrivee",
+      "summary": "Choisir ce que valent douze pièces avant de suivre la piste des captifs."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "relais-arrivee",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "La salle basse",
+      "text": "La pluie commence quand vous poussez la porte du relais. La salle sent la laine mouillée, la soupe aux poireaux et la fumée qui tire mal. Toma conduit le courrier blessé vers une table, près du feu.\n\nVous gardez dans la paume les douze pièces du prévôt. Au fond de la salle, un vieux carrier trace des lignes dans la bière renversée. Derrière le comptoir, l’aubergiste range une fiole rouge dans un coffret de bois.",
+      "role": "anchoring",
+      "humanStake": "Prendre possession de ce premier argent gagné avant de décider ce qu'il permettra.",
+      "relationalMovement": "Toma cesse de guider le Sorcier et le laisse choisir seul.",
+      "choices": [
+        {
+          "id": "ancrage-feu",
+          "role": "anchoring",
+          "label": "Réchauffer vos mains près du feu",
+          "playerText": "Je m’approche du feu et tends les mains vers les braises.",
+          "targetNodeId": "offres-du-relais"
+        },
+        {
+          "id": "ancrage-pieces",
+          "role": "anchoring",
+          "label": "Compter les douze pièces",
+          "playerText": "Je compte les pièces une à une dans ma paume.",
+          "targetNodeId": "offres-du-relais"
+        },
+        {
+          "id": "ancrage-carrier",
+          "role": "anchoring",
+          "label": "Observer le vieux carrier",
+          "playerText": "Je reste près de la porte et observe le vieux carrier.",
+          "targetNodeId": "offres-du-relais"
+        }
+      ]
+    },
+    {
+      "id": "offres-du-relais",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Ce que l’or achète",
+      "text": "L’aubergiste pose le coffret sur le comptoir. « Potion de soin. Huit pièces. Elle referme une plaie, pas une mauvaise idée. »\n\nLe carrier lève deux doigts tachés de charbon. Il connaît un ancien conduit d’évacuation sous les carrières et propose de vous y mener pour six pièces. Il part avant l’aube, avec ou sans vous.\n\nUne marmite fume encore. Pour deux pièces, vous aurez une écuelle, du pain et rien de plus. La route du nord, elle, ne coûte rien.",
+      "role": "strategic",
+      "humanStake": "Décider si la première bourse du Sorcier achète la sûreté, une chance de survivre, un confort honnête ou une réserve pour plus tard.",
+      "relationalMovement": "Le monde ne récompense pas une valeur morale : il vend des possibilités aux prix annoncés.",
+      "choices": [
+        {
+          "id": "acheter-potion",
+          "label": "Acheter la potion de soin — 8 or",
+          "playerText": "Je pose huit pièces sur le comptoir et prends la potion.",
+          "targetNodeId": "route-surveillee",
+          "requirements": [
+            {
+              "gold": 8
+            }
+          ],
+          "transaction": {
+            "id": "relais-potion-soin",
+            "title": "Potion de soin",
+            "gold": 8,
+            "item": {
+              "id": "healing-potion",
+              "quantity": 1
+            }
+          }
+        },
+        {
+          "id": "payer-guide",
+          "label": "Payer le carrier pour le passage oublié — 6 or",
+          "playerText": "Je donne six pièces au carrier. Il me conduira par l’ancien passage.",
+          "targetNodeId": "fin-passage-oublie",
+          "requirements": [
+            {
+              "gold": 6
+            }
+          ],
+          "transaction": {
+            "id": "relais-guide-carrier",
+            "title": "Guide des vieilles carrières",
+            "gold": 6
+          }
+        },
+        {
+          "id": "prendre-repas",
+          "label": "Prendre un repas chaud, sans bonus — 2 or",
+          "playerText": "Je paie deux pièces pour une écuelle et du pain.",
+          "targetNodeId": "route-surveillee",
+          "requirements": [
+            {
+              "gold": 2
+            }
+          ],
+          "transaction": {
+            "id": "relais-repas-chaud",
+            "title": "Repas chaud",
+            "gold": 2
+          }
+        },
+        {
+          "id": "garder-bourse",
+          "label": "Garder les douze pièces et prendre la route du nord",
+          "playerText": "Je referme la bourse. Je partirai par la route du nord.",
+          "targetNodeId": "route-surveillee"
+        }
+      ]
+    },
+    {
+      "id": "route-surveillee",
+      "actId": "acte-1",
+      "kind": "combat",
+      "title": "La borne renversée",
+      "text": "À l’aube, la route du nord grimpe entre deux parois de schiste. Une borne a été renversée au milieu du passage. Quand vous la contournez, une pique descend de la corniche.\n\nLe guetteur porte au cou le même médaillon d’écorce que le pillard des ronces. Derrière lui, le sentier continue vers les vieilles carrières.",
+      "role": "strategic",
+      "humanStake": "Atteindre les carrières avec les moyens que le Sorcier a choisi de garder ou d'acheter.",
+      "relationalMovement": "La dépense faite au relais devient une conséquence concrète plutôt qu'un chiffre abstrait.",
+      "choices": [],
+      "victoryTargetNodeId": "fin-guetteur",
+      "defeatTargetNodeId": "echec-guetteur",
+      "combat": {
+        "player": {
+          "name": "Sorcier",
+          "cards": [
+            {
+              "id": "baton-de-voyage",
+              "name": "Bâton de voyage",
+              "type": "action",
+              "kind": "weapon",
+              "cost": 0,
+              "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
+              "effect": {
+                "damage": 2
+              }
+            },
+            {
+              "id": "braise-occulte",
+              "name": "Braise occulte",
+              "type": "action",
+              "kind": "cantrip",
+              "cost": 0,
+              "description": "Une attaque gratuite et fiable.",
+              "effect": {
+                "damage": 3
+              }
+            },
+            {
+              "id": "eclat-arcanique",
+              "name": "Éclat arcanique",
+              "type": "action",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une décharge puissante qui consomme 1 charge.",
+              "effect": {
+                "damage": 5
+              }
+            },
+            {
+              "id": "voile-azur",
+              "name": "Voile d’azur",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
+              "effect": {
+                "block": 3
+              }
+            },
+            {
+              "id": "entrave-de-givre",
+              "name": "Entrave de givre",
+              "type": "reaction",
+              "kind": "spell",
+              "cost": 1,
+              "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
+              "effect": {
+                "block": 1,
+                "status": {
+                  "id": "slowed",
+                  "target": "enemy",
+                  "stacks": 1
+                }
+              }
+            }
+          ],
+          "deck": [
+            "braise-occulte",
+            "voile-azur",
+            "entrave-de-givre",
+            "eclat-arcanique",
+            "baton-de-voyage",
+            "voile-azur",
+            "braise-occulte",
+            "baton-de-voyage",
+            "entrave-de-givre",
+            "braise-occulte",
+            "baton-de-voyage",
+            "eclat-arcanique"
+          ]
+        },
+        "enemy": {
+          "name": "Guetteur des Carrières",
+          "maxHp": 20,
+          "drawCount": 2,
+          "cards": [
+            {
+              "id": "pique-courte",
+              "name": "Pique courte",
+              "damage": 2,
+              "description": "Une estocade lancée depuis la hauteur."
+            },
+            {
+              "id": "pierre-de-fronde",
+              "name": "Pierre de fronde",
+              "damage": 2,
+              "description": "Une pierre visant les mains et le visage."
+            }
+          ],
+          "deck": [
+            "pique-courte",
+            "pierre-de-fronde",
+            "pique-courte",
+            "pierre-de-fronde",
+            "pique-courte",
+            "pierre-de-fronde",
+            "pique-courte",
+            "pierre-de-fronde"
+          ]
+        }
+      }
+    },
+    {
+      "id": "fin-passage-oublie",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "Sous les roues mortes",
+      "text": "Le carrier vous mène hors des murs avant le premier appel des cloches. Sous un ancien treuil, il dégage une dalle que les ronces avaient presque avalée.\n\nLe conduit sent l’eau froide et le minerai. Vous rampez longtemps dans le noir, puis une lueur grise apparaît entre deux roues de levage immobiles. En contrebas, les vieilles carrières s’ouvrent sans qu’aucun guetteur vous ait vu.\n\nLe carrier prend ses six pièces et repart vers Brumepont. Le passage reste derrière vous ; les captifs sont quelque part devant.",
+      "role": "strategic",
+      "humanStake": "Échanger une part de la récompense contre une arrivée sûre et discrète.",
+      "relationalMovement": "Le Sorcier découvre que payer peut éviter un danger sans garantir la suite.",
+      "choices": [],
+      "terminal": {
+        "endingId": "carriere-par-passage",
+        "reason": "Le Sorcier a payé un guide local pour contourner la route surveillée.",
+        "outcomeSummary": "Le Sorcier atteint les vieilles carrières par le conduit oublié, avec 6 or encore en poche."
+      }
+    },
+    {
+      "id": "fin-guetteur",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "La route des carrières",
+      "text": "Le guetteur recule contre la borne renversée et sa pique lui échappe. Dans sa sacoche, quatre pièces portent le sceau de Brumepont ; le reste n’est que ficelle, silex et croûtes de pain.\n\nPlus haut, le sentier débouche sur des gradins de pierre noyés de brume. Des voix montent du fond de la carrière. Vous avez trouvé la piste des captifs, mais quelqu’un, là-dessous, sait maintenant que le guetteur ne répond plus.",
+      "role": "strategic",
+      "humanStake": "Transformer le risque assumé sur la route en accès aux carrières.",
+      "relationalMovement": "Le choix économique laisse une trace visible dans les ressources et l'état du Sorcier.",
+      "choices": [],
+      "terminal": {
+        "endingId": "carriere-par-la-route",
+        "reason": "Le Sorcier a vaincu le guetteur de la route du nord.",
+        "outcomeSummary": "Le Sorcier atteint les vieilles carrières par la route surveillée et récupère 4 or sur le guetteur.",
+        "reward": {
+          "id": "brumepont-guetteur-vaincu",
+          "title": "Bourse du guetteur",
+          "level": 2,
+          "statPoints": 0,
+          "gold": 4
+        }
+      }
+    },
+    {
+      "id": "echec-guetteur",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "La pierre et le sang",
+      "text": "La pique vous force contre la paroi. Une pierre de fronde frappe votre tempe avant que le prochain sort ne prenne forme.\n\nLe guetteur fouille votre manteau, pousse votre corps dans le fossé et remet la borne en travers du chemin. Les cloches de Brumepont sonnent derrière les collines. Aux carrières, personne ne saura que vous étiez si près.",
+      "role": "strategic",
+      "humanStake": "Payer le prix d'une route dangereuse sans transformer la défaite en jugement moral.",
+      "relationalMovement": "La reprise permet d'essayer une autre dépense ou une autre ligne de combat.",
+      "choices": [],
+      "terminal": {
+        "endingId": "mort-au-guetteur",
+        "reason": "Les points de vie du Sorcier sont tombés à zéro sur la route des carrières.",
+        "outcomeSummary": "Le Sorcier meurt avant d'atteindre les vieilles carrières.",
+        "retryActId": "acte-1"
+      }
+    }
+  ]
+}

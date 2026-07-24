@@ -1,0 +1,4 @@
+interface:
+  display_name: "Concevoir les visuels Fantasy Story"
+  short_description: "Visuels de jeu lisibles et cohérents"
+  default_prompt: "Utilise $concevoir-visuels-fantasy-story pour concevoir, intégrer et valider ce visuel dans Fantasy Story."

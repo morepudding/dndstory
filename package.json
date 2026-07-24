@@ -1,0 +1,30 @@
+{
+  "name": "fantasy-story",
+  "productName": "Fantasy Story",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Une application privée de récits interactifs à embranchements.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "check": "node --check src/main.js && node --check src/preload.js && node --check src/server/codex-client.js && node --check src/server/story-format.js && node --check src/server/narrative-tree.js && node --check src/server/combat-engine.js && node --check src/server/branching-book-runtime.js && node --check src/server/book-session-service.js && node --check src/server/progression-service.js && node --check src/server/story-repository.js && node --check src/server/narrative-studio.js && node --check src/server/conversation-service.js && node --check src/renderer/app.js && node --check src/renderer/studio.js && node --check tools/simulate-combat.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "build:story": "node tools/build-story.js",
+    "verify:story": "node tools/verify-story.js",
+    "simulate:combat": "node tools/simulate-combat.js",
+    "smoke:studio-ai": "node tools/smoke-studio-assistant.js",
+    "qa:visual": "electron tools/capture-visual-qa.js",
+    "play:cli": "node tools/play-branching-book.js",
+    "context:loop": "node tools/build-loop-context.js --check",
+    "context:loop:refresh": "node tools/build-loop-context.js --refresh",
+    "loop:003": "pwsh -NoProfile -File tools/run-loop-003.ps1"
+  },
+  "devDependencies": {
+    "electron": "^40.2.0"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "cytoscape": "^3.34.0"
+  }
+}

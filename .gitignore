@@ -1,0 +1,21 @@
+node_modules/
+data/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+tools/comfyui/
+image-generation/outputs/
+image-generation/logs/
+.loop*-electron-profile/
+artifacts/concepts/combat-premium-v1*
+artifacts/concepts/capture-combat-premium-v1.js
+
+# Ancien prototype conservé localement, hors dépôt D&D Story.
+image-generation/
+artifacts/branching-comparison/
+content/profiles/
+src/renderer/assets/paige-portrait*.png

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Concevoir la progression Fantasy Story"
+  short_description: "Niveaux, statistiques, récompenses et économie"
+  default_prompt: "Utilise $concevoir-progression-fantasy-story pour concevoir et valider cette progression dans le jeu réel."

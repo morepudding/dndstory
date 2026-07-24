@@ -1,0 +1,4 @@
+interface:
+  display_name: "Concevoir et équilibrer les cartes"
+  short_description: "Cartes et combats amusants et équilibrés"
+  default_prompt: "Utilise $concevoir-equilibrer-cartes-fantasy-story pour concevoir, tester et équilibrer cette mécanique de combat."

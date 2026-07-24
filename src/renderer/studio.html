@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atelier narratif — Fantasy Story</title>
+    <link rel="stylesheet" href="studio.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span>Fantasy Story</span><strong>Atelier narratif</strong></div>
+      <nav class="main-tabs" aria-label="Vues de l’Atelier">
+        <button class="active" data-view="overview">Résumé</button>
+        <button data-view="play">Jouer</button>
+        <button data-view="tree">Arbre</button>
+        <button data-view="edit">Modifier</button>
+      </nav>
+      <div class="top-actions"><span class="draft-badge">Livre-jeu canonique</span><span id="save-status">Chargement…</span><button id="analyze">Vérifier</button><button id="publish">Publier dans Electron</button></div>
+    </header>
+
+    <main class="workspace">
+      <section id="overview" class="view active">
+        <article class="story-hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Fantasy Story</span>
+            <h1 id="story-title">La Route des Ronces</h1>
+            <p id="story-summary"></p>
+            <div class="hero-actions"><button id="start-story" class="primary">Commencer le playtest</button><span id="quality-badge" class="quality-badge"></span></div>
+          </div>
+          <div id="key-metrics" class="key-metrics"></div>
+        </article>
+
+        <div class="overview-grid">
+          <section class="act-section">
+            <div class="section-heading"><span class="eyebrow">Déroulé</span><h2>Les cinq actes</h2></div>
+            <div id="act-overview" class="act-overview"></div>
+          </section>
+          <aside class="overview-side">
+            <article class="summary-card">
+              <span class="eyebrow">Principe</span>
+              <h2>Une histoire, deux bonnes routes</h2>
+              <p>Chaque choix ouvre une scène écrite. La plupart des chemins se referment naturellement ; seuls le parcours direct et une variante réparée atteignent la fin.</p>
+            </article>
+            <article class="summary-card route-card">
+              <span class="route-line"><i class="direct"></i><b>Route directe</b><em>13 choix</em></span>
+              <span class="route-line"><i class="repair"></i><b>Route réparée</b><em>15 choix</em></span>
+            </article>
+            <article id="quality-summary" class="summary-card quality-summary"></article>
+          </aside>
+        </div>
+      </section>
+
+      <section id="play" class="view">
+        <div class="view-heading">
+          <div><span class="eyebrow">Playtest</span><h1>Jouer le chapitre</h1></div>
+          <div class="play-controls"><button id="play-start">Recommencer</button><button id="play-back">Retour</button><button id="play-retry">Reprendre l’acte</button></div>
+        </div>
+        <div class="play-layout">
+          <aside><h2>Progression</h2><div id="play-acts" class="play-acts"></div></aside>
+          <section class="play-stage">
+            <div id="play-path" class="play-path"></div>
+            <article id="play-card" class="play-card"><p>Lance le chapitre pour commencer.</p></article>
+            <div id="play-choices" class="play-choices"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="tree" class="view tree-view">
+        <div class="view-heading">
+          <div><span class="eyebrow">Structure</span><h1>L’arborescence complète</h1></div>
+          <div class="graph-tools"><button id="layout">Réorganiser</button><button id="fit">Tout cadrer</button></div>
+        </div>
+        <div id="graph" aria-label="Graphe narratif"></div>
+      </section>
+
+      <section id="edit" class="view edit-view">
+        <div class="view-heading">
+          <div><span class="eyebrow">Édition avancée</span><h1>Modifier une scène</h1></div>
+          <button id="add-node">Ajouter un nœud</button>
+        </div>
+        <div class="edit-layout">
+          <aside class="node-library"><nav id="node-list" aria-label="Actes et nœuds"></nav></aside>
+          <section class="inspector">
+            <div class="inspector-heading"><strong id="selection-title">Scène</strong><span id="selection-kind"></span></div>
+            <form id="node-form">
+              <label>Identifiant<input name="id" readonly /></label>
+              <div class="two"><label>Acte<select name="actId"></select></label><label>Type<select name="kind"><option value="choice">Décision</option><option value="combat">Combat</option><option value="success">Réussite</option><option value="failure">Échec</option></select></label></div>
+              <label>Titre<input name="title" /></label>
+              <label>Texte narratif<textarea name="text" rows="5"></textarea></label>
+            </form>
+            <section id="terminal-editor" class="terminal-editor" hidden>
+              <h2>Fin de branche</h2>
+              <label>Identifiant de fin<input name="endingId" /></label>
+              <label>Raison<textarea name="reason" rows="2"></textarea></label>
+              <label>Résumé persistant<textarea name="outcomeSummary" rows="3"></textarea></label>
+              <label id="retry-act-label">Reprendre à l’acte<select name="retryActId"></select></label>
+            </section>
+            <section id="choice-editor" class="choice-editor"><div class="choice-title"><h2>Choix proposés</h2><button id="add-choice">Ajouter</button></div><div id="choice-list"></div></section>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="../../node_modules/cytoscape/dist/cytoscape.min.js"></script>
+    <script src="studio.js"></script>
+  </body>
+</html>

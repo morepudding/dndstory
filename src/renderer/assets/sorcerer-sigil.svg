@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title">
+  <title id="title">Sceau arcanique du Sorcier</title>
+  <defs>
+    <radialGradient id="night" cx="50%" cy="42%" r="68%">
+      <stop offset="0" stop-color="#273657"/>
+      <stop offset="1" stop-color="#0d101a"/>
+    </radialGradient>
+    <linearGradient id="magic" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#d9c6ff"/>
+      <stop offset=".52" stop-color="#8aa9ff"/>
+      <stop offset="1" stop-color="#5b62d8"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="36" fill="url(#night)"/>
+  <circle cx="160" cy="160" r="104" fill="none" stroke="#b8c7ff" stroke-width="3" opacity=".45"/>
+  <circle cx="160" cy="160" r="78" fill="none" stroke="#b8c7ff" stroke-width="2" opacity=".25"/>
+  <path d="M160 55 183 132 264 160 183 187 160 266 136 187 57 160 136 132Z" fill="url(#magic)" opacity=".95"/>
+  <circle cx="160" cy="160" r="31" fill="#111728" stroke="#eef1ff" stroke-width="4"/>
+  <path d="M143 175c27-2 37-19 33-43 20 27 10 57-16 57-14 0-24-8-26-20 3 4 6 6 9 6Z" fill="#eef1ff"/>
+</svg>

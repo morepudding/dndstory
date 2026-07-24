@@ -1,0 +1,4 @@
+interface:
+  display_name: "Écrire des dialogues Fantasy Story"
+  short_description: "Dialogues français naturels et incarnés"
+  default_prompt: "Utilise $ecrire-dialogues-fantasy-story pour écrire ou réviser ces dialogues sans modifier leur logique narrative."

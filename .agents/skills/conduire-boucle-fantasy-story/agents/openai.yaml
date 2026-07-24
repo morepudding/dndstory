@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conduire une boucle Fantasy Story"
+  short_description: "Orchestrer une passe verticale complète"
+  default_prompt: "Utilise $conduire-boucle-fantasy-story pour conduire cette passe du cadrage au verdict joué."

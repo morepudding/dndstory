@@ -1,0 +1,15 @@
+Rank 3 icon
+Author: Skoll
+Source: https://game-icons.net/1x1/skoll/rank-3.html
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+License URL: https://creativecommons.org/licenses/by/3.0/
+
+The SVG is used as the level-up emblem in Fantasy Story.
+
+Health potion icon
+Author: Delapouite
+Source: https://game-icons.net/1x1/delapouite/health-potion.html
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+License URL: https://creativecommons.org/licenses/by/3.0/
+
+The SVG is used for the persistent inventory counter and the combat potion action.

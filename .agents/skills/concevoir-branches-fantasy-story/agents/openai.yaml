@@ -1,0 +1,4 @@
+interface:
+  display_name: "Concevoir des branches Fantasy Story"
+  short_description: "Scénarios interactifs et choix crédibles"
+  default_prompt: "Utilise $concevoir-branches-fantasy-story pour construire cette arborescence narrative avant toute écriture de dialogue."

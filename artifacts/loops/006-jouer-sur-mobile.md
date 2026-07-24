@@ -40,6 +40,7 @@ Installer ou ouvrir la PWA → démarrer La Route des Ronces → choisir l’anc
   - le manifeste, les icônes 180/192/512, le service worker et le build autonome rendent le jeu installable et jouable hors ligne ;
   - à 390 × 844, la hiérarchie reste stable, les cibles tactiles mesurent au moins 44 px et la main de combat se parcourt horizontalement ;
   - à 844 × 390, le combat remplace entièrement la coque applicative, occupe le viewport bord à bord et réunit adversaire, intention, Tempo, Sorcier, main et contrôles dans une table sombre horizontale, sans dupliquer l’interface ;
+  - les descriptions permanentes, sous-textes répétitifs et jetons provisoires disparaissent du combat PWA ; seuls restent noms, coûts, états, valeurs et actions ;
   - un choix, l’entrée en combat et une carte jouée survivent à un rechargement complet puis à un redémarrage sans serveur.
 - **Preuves :** `npm run check` et `npm run qa:pwa` réussissent pour la passe mobile ; captures `pwa-route-390x844.png`, `pwa-combat-390x844.png` et `pwa-combat-landscape-844x390.png`.
 - **Reste incertain :** confort du plateau corrigé sur le téléphone physique du joueur.

@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "7b810cb23d47",
-    "dirtyCount": 12
+    "head": "fd680de8694e",
+    "dirtyCount": 14
   },
-  "overallHash": "b5a469d3603c187e0197da429dac2b0aa69f10d7b718f689c4d6a45134812745",
+  "overallHash": "b8eb2fc4731b0bd84bef22a150dbc6400c65ed4453b712dbe583b65cb07c64e3",
   "domains": {
     "workflow": {
-      "hash": "6a03c006eb34fbd6f9dfc295086cab7832e0775ad6fddaeec4087c7ba997a257",
+      "hash": "85f3658d7d94ebaaec54bce84dcfffebae4545e7f4c1607cc06a61587f91ff64",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -24,7 +24,7 @@
         ".agents/skills/concevoir-progression-fantasy-story/SKILL.md": "4d462206bf147419fe6013c988b78401312b34182ad0dc7b4f08a536b7e35027",
         ".agents/skills/concevoir-visuels-fantasy-story/agents/openai.yaml": "e5883a33852256201b67d2651d28d096afd699880477695dde985dfdbe2cb691",
         ".agents/skills/concevoir-visuels-fantasy-story/references/direction-combat-premium.md": "a116e8233884b3ab6bdae3433c8acf9a74228996b6c3d3a26e47c6306047d356",
-        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "bb66e390564aafc47a6c1c90fd0e8b29511331cf8fb306f0b6fbc650b3e9bfd6",
+        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "d5e0d4bdc77525286584c690d1708617046e79287defa8aab34e66c0348abbae",
         ".agents/skills/conduire-boucle-fantasy-story/agents/openai.yaml": "f5abdebaa3f41aef4e1a5aa6f11bab7a26f7bbb3c2582f4c0cb9152dbbb0d115",
         ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "e13082ba15b540083865a5df2e2cf374612b7fb64d55078918b4d5954a8d5497",
         ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "f81db70fc5d96c1c8843e8097bfaceba54f192d85c987250a60b8691ad0f1773",
@@ -43,7 +43,7 @@
         "artifacts/loops/004-prendre-l-ascendant.md": "db2470d0a3c95fe3e4a41d3144c7f1735e136911e143f74da16d859f038fd9a6",
         "artifacts/loops/005-tenir-le-sort-journal.md": "dc710aa6c52387446a5105dc1d67f151a8cee524d7ca97656c63d3b1ea63a4b6",
         "artifacts/loops/005-tenir-le-sort.md": "13cde7a9c6b32959688fe30d26ff17d24e17aee7d3564ee1dd1f4e41aa61c081",
-        "artifacts/loops/006-jouer-sur-mobile.md": "6cb3a4ac1b7bff35b5d10ae18a47eac27373e0cd3055c40eba7005b92f80a9a3",
+        "artifacts/loops/006-jouer-sur-mobile.md": "7a13477c8326751243ab1790fec9dee8980fa53a53f45d0a6d17da83748b5a73",
         "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
       }
     },
@@ -88,17 +88,17 @@
       }
     },
     "ui": {
-      "hash": "61b718f2528625064c4b87f00de00d955504bfb9ea04cd8fb0d42d24f0073e83",
+      "hash": "44ef51ea256e3d2135111a56f35e55d7ade3ea6bc09048563ae1d230cbb2aceb",
       "files": {
         "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
         "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
         "src/preload.js": "9fd93654eb494ec141f26fd5b92bacde05b3ba0560b316488b8f1a517faa6944",
-        "src/renderer/app.js": "cf6cab26c44b4c1ca0ded8774fa87e9cb82656c20ab0684fd8003b66e8ea1a58",
+        "src/renderer/app.js": "2534e46b286f19700bd9099a165bebd3618de07f8be9fdd3aea57913b1e2d88a",
         "src/renderer/index.html": "50a27b54527b1b970db9d2d558a762e45e1f1bdc5125d37bfa163d7abfcc1981",
         "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
         "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
         "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
-        "src/renderer/styles.css": "62c4c4c62ec7d68d7899d6548e18f770d63d5828de270df64dca5852aded414c"
+        "src/renderer/styles.css": "d402e5dca87cc0a9c8552a3ea105b643b890beb6cf13c0f5670d7acaa84dc0d9"
       }
     },
     "assets": {
@@ -137,7 +137,7 @@
       }
     },
     "project": {
-      "hash": "2c759e3c13fecf060fb18b034a596549fbd9b042d9f7aec9db8ed29052e8f411",
+      "hash": "76032031b86e01a507660afb41c3dc4a2a65e878dca1b0a6a7a0c843f39ff1ef",
       "files": {
         ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
@@ -153,7 +153,7 @@
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
         "tools/build-pwa.js": "4d4329d6e51676a2bd0a44cf29faa9accbc1d8c58e1a494b2a4f4d4fed874362",
-        "tools/capture-pwa-qa.js": "68758c6d0018eea4461baf170a5c9368a33e8f3e16823f07ecce5189e2adac45",
+        "tools/capture-pwa-qa.js": "a6c55a5cf3d3f1d8447843d4f961499f0cadaa2eb521dfc20b219d6c10450b9d",
         "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
         "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339",
         "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c",
@@ -203,5 +203,5 @@
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-24T11:34:07.066Z"
+  "generatedAt": "2026-07-24T14:09:41.439Z"
 }

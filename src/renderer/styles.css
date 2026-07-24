@@ -434,6 +434,13 @@ html.pwa, html.pwa body, html.pwa .app-shell, html.pwa .conversation { height: 1
 html.pwa body { position: fixed; inset: 0; width: 100%; }
 html.pwa .composer-wrap { display: none; }
 html.pwa .chat-header, html.pwa .narrative-bar { flex: 0 0 auto; }
+html.pwa.combat-running .combat-intent p,
+html.pwa.combat-running .combat-intent small,
+html.pwa.combat-running .combat-tempo small,
+html.pwa.combat-running .combat-card small,
+html.pwa.combat-running .combat-action-track small {
+  display: none;
+}
 .pwa-boot-error { min-height: 100dvh; display: grid; place-content: center; gap: 14px; padding: 28px; text-align: center; }
 .pwa-boot-error button { min-height: 48px; border: 0; border-radius: 14px; color: #fff; background: var(--coral); }
 
@@ -731,7 +738,7 @@ html.pwa .chat-header, html.pwa .narrative-bar { flex: 0 0 auto; }
   html.pwa .combat-charges { padding: 6px 8px; }
 
   html.pwa .combat-board {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 1.25fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(200px, 1fr) minmax(0, 1.2fr);
     align-items: stretch;
     gap: 5px;
     padding: 6px;
@@ -763,12 +770,21 @@ html.pwa .chat-header, html.pwa .narrative-bar { flex: 0 0 auto; }
   html.pwa .fighter { grid-template-columns: 32px minmax(0, 1fr); gap: 4px; }
   html.pwa .fighter.enemy { grid-template-columns: minmax(0, 1fr) 32px; }
   html.pwa .fighter-token { width: 32px; height: 32px; border-width: 2px; font-size: 15px; }
+  html.pwa.combat-running .fighter,
+  html.pwa.combat-running .fighter.enemy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  html.pwa.combat-running .fighter-token { display: none; }
+  html.pwa.combat-running .fighter.enemy .fighter-sheet {
+    grid-column: 1;
+    grid-row: 1;
+  }
   html.pwa .fighter-sheet { gap: 4px; padding: 5px 6px; }
   html.pwa .fighter-sheet > div:first-child { align-items: center; gap: 5px; }
   html.pwa .fighter span { font-size: 12px; }
   html.pwa .fighter b { font-size: 7px; }
   html.pwa .combat-table-center {
-    grid-template-columns: minmax(0, 1fr) 94px;
+    grid-template-columns: minmax(0, 1fr) 84px;
     gap: 5px;
     padding: 0;
     border: 0;
@@ -784,6 +800,7 @@ html.pwa .chat-header, html.pwa .narrative-bar { flex: 0 0 auto; }
   html.pwa .combat-card { min-height: 104px; padding: 8px; }
   html.pwa.combat-running .combat-cards { min-height: 0; height: 100%; }
   html.pwa.combat-running .combat-card { height: 100%; min-height: 0; }
+  html.pwa.combat-running .combat-card strong { font-size: 18px; }
   html.pwa .combat-controls {
     position: sticky;
     z-index: 4;

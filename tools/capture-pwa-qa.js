@@ -171,6 +171,23 @@ function inspect(window) {
         Math.min(innerHeight, document.querySelector('#combat-panel').getBoundingClientRect().bottom)
           - Math.max(0, document.querySelector('#combat-panel').getBoundingClientRect().top),
       )),
+      explanatoryTextVisible: [
+        '#combat-intent-text',
+        '#combat-enemy-hand-count',
+        '#combat-tempo-cost',
+        '.combat-card small',
+        '.combat-action-track small',
+      ].flatMap((selector) => [...document.querySelectorAll(selector)]).filter((item) => {
+        const style = getComputedStyle(item);
+        const rect = item.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      }).length,
+      fighterTokensVisible: [...document.querySelectorAll('.fighter-token')].some((item) => {
+        const style = getComputedStyle(item);
+        const rect = item.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      }),
+      endTurnText: document.querySelector('#combat-end-turn').textContent,
       ready: window.CANDY_PWA_READY === true,
     };
   })()`).then(async (layout) => ({
@@ -200,6 +217,9 @@ function assertLandscapeLayout(layout) {
     || layout.sceneHeight !== layout.height
     || layout.combatTop > 8
     || layout.combatVisibleHeight < 380
+    || layout.explanatoryTextVisible !== 0
+    || layout.fighterTokensVisible
+    || layout.endTurnText !== 'Terminer le tour'
     || layout.minTouchTarget < 44
   ) {
     throw new Error(`Vue mobile paysage invalide : ${JSON.stringify(layout)}`);

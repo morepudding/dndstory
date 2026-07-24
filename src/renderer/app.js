@@ -416,7 +416,7 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-player-meter').style.width = `${(combat.player.hp / combat.player.maxHp) * 100}%`;
   $('#combat-enemy-meter').style.width = `${(combat.enemy.hp / combat.enemy.maxHp) * 100}%`;
   const pendingDisadvantage = combat.pendingAttack?.effect?.status?.id === 'disadvantage';
-  setText('#combat-intent-title', combat.pendingAttack?.name || 'Prenez l’initiative');
+  setText('#combat-intent-title', combat.pendingAttack?.name || 'Initiative');
   setText(
     '#combat-intent-text',
     combat.pendingAttack
@@ -562,7 +562,7 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-potion b').textContent = `×${potion?.count || 0}`;
   $('#combat-end-turn').hidden = combat.phase !== 'player';
   $('#combat-end-turn').disabled = false;
-  $('#combat-end-turn').textContent = `Terminer le tour · ${combat.player.actionsPlayed}/${combat.player.actionLimit} Actions`;
+  $('#combat-end-turn').textContent = 'Terminer le tour';
   $('#combat-pass').hidden = combat.phase !== 'reaction';
   $('#combat-pass').disabled = false;
   $('#combat-log').replaceChildren(...combat.log.slice(-4).reverse().map((entry) => {

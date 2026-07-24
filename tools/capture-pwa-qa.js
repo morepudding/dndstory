@@ -160,6 +160,10 @@ function inspect(window) {
       maxTouchTarget: touchTargets.length ? Math.max(...touchTargets) : 0,
       navVisible: getComputedStyle(document.querySelector('.nav-rail')).display !== 'none',
       profileVisible: getComputedStyle(document.querySelector('.profile-panel')).display !== 'none',
+      chatHeaderVisible: getComputedStyle(document.querySelector('.chat-header')).display !== 'none',
+      narrativeBarVisible: getComputedStyle(document.querySelector('.narrative-bar')).display !== 'none',
+      sceneTop: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().top),
+      sceneWidth: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().width),
       sceneHeight: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().height),
       combatTop: Math.round(document.querySelector('#combat-panel').getBoundingClientRect().top),
       combatVisibleHeight: Math.round(Math.max(
@@ -189,9 +193,13 @@ function assertLandscapeLayout(layout) {
     || layout.scrollWidth > layout.viewport + 1
     || layout.navVisible
     || layout.profileVisible
-    || layout.sceneHeight < 270
-    || layout.combatTop >= layout.height
-    || layout.combatVisibleHeight < 220
+    || layout.chatHeaderVisible
+    || layout.narrativeBarVisible
+    || layout.sceneTop !== 0
+    || layout.sceneWidth !== layout.viewport
+    || layout.sceneHeight !== layout.height
+    || layout.combatTop > 8
+    || layout.combatVisibleHeight < 380
     || layout.minTouchTarget < 44
   ) {
     throw new Error(`Vue mobile paysage invalide : ${JSON.stringify(layout)}`);

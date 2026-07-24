@@ -383,6 +383,7 @@ function formatRequirement(requirement) {
 function renderCombat(combat, combatItems = []) {
   const panel = $('#combat-panel');
   panel.hidden = !combat;
+  document.documentElement.classList.toggle('combat-running', Boolean(combat));
   $('#scene-visual').classList.toggle('combat-active', Boolean(combat));
   if (!combat) {
     $('#combat-cards').replaceChildren();

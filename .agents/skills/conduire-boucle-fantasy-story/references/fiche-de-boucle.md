@@ -1,49 +1,35 @@
 # Fiche de boucle
 
-Limiter chaque fiche à une page courte. Remplacer les indications entre chevrons et retirer les lignes inutiles.
+Limiter chaque fiche à 150–250 mots. Retirer toute ligne inutile et ne jamais en faire un journal technique.
 
 ```markdown
 # Boucle <numéro> — <nom>
 
 **Statut :** `cadrée` | `intégrée` | `à jouer` | `garder` | `ajuster` | `retirer`
 
-## Contrat
+## Cap
 
 - **Nouveauté centrale :** <une seule nouveauté>
-- **Décision ou sensation :** <ce que le joueur doit éprouver ou choisir>
-- **Point de départ :** <état observable avant la boucle>
-- **Étoffement scénaristique :** <arc, lieu ou personnage existant que cette boucle approfondit ; retirer la ligne si elle n'en offre aucune occasion utile>
-- **Conséquence visible :** <changement vécu et montré avant la fin de cette boucle, pas seulement promis pour plus tard>
-- **Branches héritées ou ouvertes :** <états antérieurs repris, futurs distincts conservés et point éventuel de reconvergence>
-- **Dans la boucle :** <contenu, règle, état, interface et persistance nécessaires>
+- **Effet recherché :** <décision ou sensation visible>
+- **Dans la boucle :** <strict nécessaire>
 - **Hors boucle :** <extensions explicitement refusées>
 
-## Parcours joueur
+## À tester par le joueur
 
 <suite courte d'actions allant du point de départ au verdict>
 
-## Routage des tours
+## Budget Codex
 
-**Mode :** `manuel` | `orchestré`
+- **Contexte :** carte du projet, fiche active et fichiers du domaine modifié seulement.
+- **Automatique :** <aucune ou une commande ciblée>.
+- **Manuel :** <parcours laissé au joueur>.
+- **Suite complète :** seulement pour <risque exceptionnel>, sur publication importante ou sur demande.
 
-| Tour et étape(s) | Modèle | Effort | Condition d'escalade |
-| --- | --- | --- | --- |
-| <1 — cadrer> | <Sol> | <xhigh> | <preuve qui justifierait un changement> |
-| <2 — étapes cohérentes suivantes> | <Terra, Sol ou Luna> | <low, medium, high ou xhigh> | <condition précise> |
-
-- **Prochaine étape :** <étape, modèle et effort>
-
-## Budget de preuve
-
-- **Automatique ciblée :** <commande minimale>
-- **Acceptation :** <suite large seulement si le risque la justifie>
-- **Application réelle :** <chemin et tailles de fenêtre à essayer>
-
-## Résultat
+## État
 
 - **Intégré :** <faits vérifiables>
 - **Reste incertain :** <questions que seul le jeu tranche>
 - **Verdict :** <garder, ajuster ou retirer, avec une phrase de raison>
 ```
 
-Regrouper dans un même tour les étapes adjacentes qui utilisent le même réglage. Retirer les lignes de routage inutiles. Ne pas recopier la conversation, détailler chaque fichier ni accumuler les sorties de tests. Lier les preuves existantes lorsqu'elles sont utiles.
+Ne pas recopier la conversation, les fichiers touchés, les sorties de commandes, les captures ni l'historique des tentatives.

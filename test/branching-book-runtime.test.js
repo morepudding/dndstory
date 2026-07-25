@@ -45,7 +45,7 @@ test('les cinq statistiques initialisent directement les ressources du combat', 
   assert.equal(view.combat.player.drawCount, 3);
   assert.equal(view.combat.player.maxSpellUses, 2);
   assert.equal(view.combat.hand.length, 3);
-  assert.equal(view.combat.drawPile.length, 9);
+  assert.equal(view.combat.drawPile.length, 7);
   assert.equal(view.combat.enemy.drawCount, 2);
   assert.equal(view.combat.enemy.drawPile.length, 8);
 });

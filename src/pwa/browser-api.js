@@ -1,6 +1,7 @@
 const route = require('../../content/chapters/la-route-des-ronces.json');
 const brumepont = require('../../content/chapters/la-nuit-a-brumepont.json');
 const cage = require('../../content/chapters/la-cage-du-treuil.json');
+const thirdLevel = require('../../content/chapters/le-troisieme-palier.json');
 const { StoryCatalog } = require('../server/story-catalog');
 const { StoryGameService } = require('../server/story-game-service');
 const { BrowserCharacterStore } = require('./browser-store');
@@ -9,7 +10,7 @@ async function createBrowserApi() {
   const store = await BrowserCharacterStore.create();
   const service = new StoryGameService({
     store,
-    storyRepository: new StoryCatalog([route, brumepont, cage]),
+    storyRepository: new StoryCatalog([route, brumepont, cage, thirdLevel]),
   });
 
   async function call(method, ...args) {
@@ -26,7 +27,7 @@ async function createBrowserApi() {
       throw new Error('Le narrateur libre reste disponible dans l’application PC.');
     },
     readStory: () => call('readStory'),
-    startStory: () => call('startStory'),
+    startStory: (storyId = null, options = {}) => call('startStory', storyId, options),
     restartStory: () => call('restartStory'),
     chooseStoryOption: (choiceId) => call('chooseStoryOption', choiceId),
     playCombatCard: (cardId) => call('playCombatCard', cardId),

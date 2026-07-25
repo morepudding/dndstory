@@ -50,6 +50,10 @@ test('le deck refuse une carte inconnue et conserve au moins un sort mineur grat
   unknown.nodes.find((node) => node.kind === 'combat').combat.player.deck[0] = 'carte-inconnue';
   assert.ok(validateNarrativeTree(unknown).errors.some((error) => error.code === 'combat_deck'));
 
+  const wrongSize = clone();
+  wrongSize.nodes.find((node) => node.kind === 'combat').combat.player.deck.pop();
+  assert.ok(validateNarrativeTree(wrongSize).errors.some((error) => error.code === 'combat_deck'));
+
   const paidCantrip = clone();
   paidCantrip.nodes.find((node) => node.kind === 'combat').combat.player.cards
     .find((card) => card.kind === 'cantrip').cost = 1;

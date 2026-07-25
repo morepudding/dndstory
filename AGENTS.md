@@ -31,11 +31,14 @@
 
 ## Validation proportionnelle au risque
 
-- Pendant l'implémentation, lancer le test ciblé le plus petit qui couvre le contrat modifié.
+- Le parcours manuel du joueur est la preuve d'expérience principale.
+- Pendant l'implémentation, vérifier seulement les fichiers modifiés et ajouter au plus un test ciblé lorsqu'une régression déterministe pourrait rester invisible au joueur.
+- Ne pas créer de test automatisé par défaut. Conserver la suite complète comme filet exceptionnel, sans la lancer à chaque boucle.
 - Pour un changement de skill ou de documentation, utiliser son validateur et `git diff --check` ; ne pas lancer l'application.
-- Pour le livre ou son schéma, lancer `npm run verify:story` et les tests narratifs concernés.
-- Pour le moteur, l'état ou la progression, lancer `npm run check` et les tests ciblés ; lancer `npm test` une seule fois avant livraison.
+- Pour le livre ou son schéma, lancer `npm run verify:story` seulement si sa structure change.
+- Pour le moteur, l'état ou la progression, lancer le contrôle ciblé le plus court. Réserver `npm test` aux migrations risquées, aux publications importantes ou à une demande explicite.
 - Lancer `npm run simulate:combat` uniquement si les règles, cartes, adversaires ou statistiques de combat changent.
-- Lancer `npm run qa:visual` uniquement si l'interface, les ressources ou un comportement affiché changent.
+- Ne lancer `npm run qa:visual` ou `npm run qa:pwa` que sur demande ; sinon ouvrir l'application et laisser le joueur parcourir lui-même la boucle.
 - Ne pas répéter une commande réussie si aucun fichier qu'elle couvre n'a changé depuis.
-- Une boucle complète exige toujours un parcours réel dans Electron et un verdict utilisateur `garder`, `ajuster` ou `retirer`.
+- Avant une publication PWA, exécuter `npm run build:pwa`, `git diff --check` et un smoke test de l'URL publique.
+- Une boucle complète exige un verdict utilisateur `garder`, `ajuster` ou `retirer`.

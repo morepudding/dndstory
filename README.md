@@ -6,11 +6,12 @@ Le livre, les choix, les combats, la progression et les mutations de ressources 
 
 ## Aventure jouable
 
-L'aventure actuelle suit un Sorcier à travers trois chapitres :
+L'aventure actuelle suit un Sorcier à travers quatre chapitres :
 
 1. **La Route des Ronces** — premiers choix et combat contre le Pillard.
 2. **La Nuit à Brumepont** — utilisation diégétique de l'or : potion, repas, guide ou épargne.
 3. **La Cage du Treuil** — sauver Mira ou conserver sa magie pour poursuivre Varek.
+4. **Le Troisième Palier** — prolonger l’héritage de Mira ou des ordres, libérer les sondeurs puis décider du sort du passage ancien.
 
 La première victoire ouvre le niveau 2, accorde 12 pièces d'or et permet d'améliorer une statistique.
 
@@ -33,6 +34,8 @@ Les mécaniques actuellement intégrées comprennent notamment :
 - **Concentration** : `Orbe suspendu` produit des dégâts différés s'il est protégé pendant le tour ennemi.
 
 Le moteur persiste les PV, charges, états, round, phase, mains, pioches, défausses et conséquences narratives.
+
+Le deck initial forme un grimoire de dix cartes visible pendant le combat : quatre Braises occultes, deux Bâtons de voyage, deux Éclats arcaniques, un Voile d’azur et une Entrave de givre.
 
 ## Direction artistique
 
@@ -65,15 +68,15 @@ npm run build:pwa
 
 Une installation sur un téléphone exige de servir ce dossier en HTTPS. Le chat Codex et l’Atelier restent réservés à l’application PC ; le livre-jeu, les combats, la progression et la sauvegarde fonctionnent hors ligne dans la PWA.
 
-## Validation
+## Validation légère
 
-```powershell
-npm run check
-npm run verify:story
-npm run simulate:combat
-npm test
-npm run qa:visual
-npm run qa:pwa
-```
+Le joueur vérifie lui-même chaque parcours. Pendant une boucle, Codex limite donc la preuve à un contrôle ciblé lorsque le risque le justifie.
+
+- `npm run verify:story` seulement si le livre ou son schéma change ;
+- `npm run simulate:combat` seulement si les règles ou l’équilibrage changent ;
+- `npm test` pour une migration risquée, une publication importante ou sur demande ;
+- `npm run qa:visual` et `npm run qa:pwa` uniquement sur demande.
+
+Avant une publication PWA : `npm run build:pwa`, `git diff --check`, puis smoke test de l’URL publique.
 
 L'Atelier narratif reste disponible en développement et utilise le même validateur ainsi que le même moteur de prévisualisation que le jeu.

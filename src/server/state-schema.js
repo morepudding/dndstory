@@ -1,9 +1,11 @@
-const SCHEMA_VERSION = 14;
+const SCHEMA_VERSION = 15;
 const RELATION_KEYS = ['trust', 'attraction', 'irritation', 'curiosity', 'vulnerability'];
 const PROGRESSION_STAT_KEYS = ['strength', 'constitution', 'agility', 'wisdom', 'intelligence'];
 
 function nowIso() { return new Date().toISOString(); }
-function createStoryState() { return { activeRun: null, cageOutcome: null }; }
+function createStoryState() {
+  return { activeRun: null, cageOutcome: null, thirdLevelOutcome: null };
+}
 function createDefaultProgression() {
   return {
     level: 1,
@@ -51,15 +53,10 @@ function createDefaultState() {
 function migrateState(input) {
   if (!input || typeof input !== 'object') return createDefaultState();
   if (input.schemaVersion === SCHEMA_VERSION) return input;
-  if (input.schemaVersion === 13) {
+  if ([12, 13, 14].includes(input.schemaVersion)) {
     const next = structuredClone(input);
     next.schemaVersion = SCHEMA_VERSION;
-    ensureCombatPlayerStatuses(next);
-    return next;
-  }
-  if (input.schemaVersion === 12) {
-    const next = structuredClone(input);
-    next.schemaVersion = SCHEMA_VERSION;
+    next.story = { ...createStoryState(), ...(next.story || {}) };
     ensureCombatPlayerStatuses(next);
     return next;
   }
@@ -220,6 +217,9 @@ function validateStory(story, fail) {
   if (!story || !Object.prototype.hasOwnProperty.call(story, 'activeRun')) return fail('story invalide');
   if (![null, 'captive-sauvee', 'ordres-recuperes'].includes(story.cageOutcome)) {
     fail('story.cageOutcome invalide');
+  }
+  if (![null, 'passage-condamne', 'passage-maintenu'].includes(story.thirdLevelOutcome)) {
+    fail('story.thirdLevelOutcome invalide');
   }
   if (story.activeRun === null) return;
   const run = story.activeRun;

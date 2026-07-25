@@ -71,6 +71,16 @@ app.whenReady().then(async () => {
     throw new Error(`Interaction tactile invalide : ${JSON.stringify(combat)}`);
   }
   fs.writeFileSync(path.join(output, 'pwa-combat-390x844.png'), (await player.capturePage()).toPNG());
+  await click(player, '#combat-deck-open');
+  await waitFor(player, "document.querySelector('#combat-grimoire').open");
+  await delay(220);
+  await player.webContents.executeJavaScript("document.querySelector('#combat-grimoire').offsetHeight");
+  const grimoire = await player.webContents.executeJavaScript("({open:document.querySelector('#combat-grimoire').open,width:Math.round(document.querySelector('#combat-grimoire').getBoundingClientRect().width),height:Math.round(document.querySelector('#combat-grimoire').getBoundingClientRect().height),display:getComputedStyle(document.querySelector('#combat-grimoire')).display,visibility:getComputedStyle(document.querySelector('#combat-grimoire')).visibility,opacity:getComputedStyle(document.querySelector('#combat-grimoire')).opacity,topElement:document.elementFromPoint(innerWidth/2,innerHeight/2)?.closest('dialog')?.id || document.elementFromPoint(innerWidth/2,innerHeight/2)?.id || document.elementFromPoint(innerWidth/2,innerHeight/2)?.className,cards:document.querySelectorAll('#combat-grimoire-cards .grimoire-card').length,description:document.querySelector('#combat-grimoire-description').textContent,kinds:[...document.querySelectorAll('#combat-grimoire-cards .grimoire-card span')].map((item)=>item.textContent)})");
+  if (!grimoire.open || grimoire.width < 300 || grimoire.height < 500 || grimoire.display === 'none' || grimoire.visibility !== 'visible' || grimoire.opacity !== '1' || grimoire.topElement !== 'combat-grimoire' || grimoire.cards !== 10 || !grimoire.description.startsWith('10 cartes') || !['Arme', 'Sort mineur', 'Sort niveau 1'].every((kind) => grimoire.kinds.includes(kind))) {
+    throw new Error(`Grimoire PWA invalide : ${JSON.stringify(grimoire)}`);
+  }
+  fs.writeFileSync(path.join(output, 'pwa-combat-grimoire-390x844.png'), (await player.capturePage()).toPNG());
+  await player.webContents.executeJavaScript("document.querySelector('#combat-grimoire').close()");
 
   player.setContentSize(844, 390);
   await delay(120);
@@ -116,6 +126,44 @@ app.whenReady().then(async () => {
     throw new Error(`Installation PWA incomplète : ${JSON.stringify(after)}`);
   }
 
+  await player.webContents.executeJavaScript(
+    "window.candy.startStory('le-troisieme-palier', { sourceEndingId: 'ordres-recuperes' })",
+  );
+  await waitFor(player, "document.querySelector('#scene-art').getAttribute('src')?.includes('cage-de-service')");
+  await click(player, '#story-options button:nth-child(1)');
+  await waitFor(player, "document.querySelector('#story-options button:nth-child(1)').textContent.includes('deuxième cloche')");
+  await click(player, '#story-options button:nth-child(1)');
+  await waitFor(player, "document.querySelector('#story-options button:nth-child(1)').textContent.includes('Faire tomber')");
+  await click(player, '#story-options button:nth-child(2)');
+  await waitFor(player, "document.querySelector('#scene-title').textContent === 'Victoire'");
+  await forceRepaint(player);
+  const thirdLevel = await inspect(player);
+  if (
+    !thirdLevel.ready
+    || thirdLevel.viewport < 389
+    || thirdLevel.viewport > 390
+    || thirdLevel.storyNode !== 'fin-passage-maintenu'
+    || !thirdLevel.sceneArtSrc?.includes('passage-maintenu')
+    || thirdLevel.scrollWidth > thirdLevel.viewport + 1
+  ) {
+    throw new Error(`Troisième palier mobile invalide : ${JSON.stringify(thirdLevel)}`);
+  }
+  fs.writeFileSync(
+    path.join(output, 'pwa-troisieme-palier-maintenu-390x844.png'),
+    (await player.capturePage()).toPNG(),
+  );
+  const thirdPersisted = await player.webContents.executeJavaScript('window.candy.readCharacter()');
+  await player.reload();
+  await waitForReady(player);
+  const thirdReopened = await player.webContents.executeJavaScript('window.candy.readCharacter()');
+  if (
+    thirdReopened.revision !== thirdPersisted.revision
+    || thirdReopened.story.activeRun?.activeNodeId !== 'fin-passage-maintenu'
+    || thirdReopened.story.thirdLevelOutcome !== 'passage-maintenu'
+  ) {
+    throw new Error('La reprise PWA du troisième palier diverge.');
+  }
+
   await player.webContents.executeJavaScript('navigator.serviceWorker.ready');
   server.kill();
   server = null;
@@ -125,7 +173,11 @@ app.whenReady().then(async () => {
   const offline = await inspect(player);
   assertMobileLayout(offline, 'hors ligne');
   const offlineState = await player.webContents.executeJavaScript('window.candy.readCharacter()');
-  if (offlineState.revision !== before.revision || offlineState.story.activeRun.activeNodeId !== before.activeNodeId) {
+  if (
+    offlineState.revision !== thirdPersisted.revision
+    || offlineState.story.activeRun.activeNodeId !== 'fin-passage-maintenu'
+    || offlineState.story.thirdLevelOutcome !== 'passage-maintenu'
+  ) {
     throw new Error('La reprise hors ligne ne conserve pas la partie.');
   }
 
@@ -135,15 +187,19 @@ app.whenReady().then(async () => {
     route,
     routeLandscape,
     combat,
+    grimoire,
     landscape,
     persistedRevision: after.revision,
     serviceWorker: after.registration,
     offlineReady: true,
+    thirdLevel,
     screenshots: [
       'artifacts/qa/pwa-route-390x844.png',
       'artifacts/qa/pwa-route-landscape-844x390.png',
       'artifacts/qa/pwa-combat-390x844.png',
+      'artifacts/qa/pwa-combat-grimoire-390x844.png',
       'artifacts/qa/pwa-combat-landscape-844x390.png',
+      'artifacts/qa/pwa-troisieme-palier-maintenu-390x844.png',
     ],
   }, null, 2));
   player.destroy();
@@ -179,6 +235,9 @@ function inspect(window) {
       sceneTop: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().top),
       sceneWidth: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().width),
       sceneHeight: Math.round(document.querySelector('#scene-visual').getBoundingClientRect().height),
+      sceneMargin: getComputedStyle(document.querySelector('#scene-visual')).margin,
+      sceneFlex: getComputedStyle(document.querySelector('#scene-visual')).flex,
+      conversationHeight: Math.round(document.querySelector('.conversation').getBoundingClientRect().height),
       sceneArtSrc: document.querySelector('#scene-art').getAttribute('src'),
       choiceRunning: document.documentElement.classList.contains('choice-running'),
       visibleChoiceCount: [...document.querySelectorAll('#story-options button')].filter((item) => {

@@ -84,7 +84,7 @@ test('une sauvegarde de combat conserve main, pioche, défausse et économie d�
   const reopened = new CharacterStore(file).read().story.activeRun.combat;
   assert.equal(reopened.player.actionsPlayed, 1);
   assert.equal(reopened.hand.length, 2);
-  assert.equal(reopened.drawPile.length, 9);
+  assert.equal(reopened.drawPile.length, 7);
   assert.equal(reopened.discardPile.length, 1);
   assert.equal(reopened.player.stats.wisdom, 3);
   assert.equal(reopened.enemy.drawPile.length, 8);
@@ -106,6 +106,19 @@ test('la migration v12 ajoute les états de tempo sans perdre le combat actif', 
   assert.equal(migrated.schemaVersion, SCHEMA_VERSION);
   assert.equal(migrated.story.activeRun.combat.nodeId, 'pillard');
   assert.deepEqual(migrated.story.activeRun.combat.player.statuses, []);
+});
+
+test('la migration v14 ajoute l’issue du troisième palier sans perdre la partie', () => {
+  const { file, store } = tempStore();
+  const legacy = store.read();
+  legacy.schemaVersion = 14;
+  delete legacy.story.thirdLevelOutcome;
+  fs.writeFileSync(file, JSON.stringify(legacy));
+
+  const migrated = new CharacterStore(file).read();
+  assert.equal(migrated.schemaVersion, SCHEMA_VERSION);
+  assert.equal(migrated.story.activeRun, null);
+  assert.equal(migrated.story.thirdLevelOutcome, null);
 });
 
 test('les écritures persistantes restent atomiques et récupérables', () => {

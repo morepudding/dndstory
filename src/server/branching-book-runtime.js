@@ -55,6 +55,7 @@ class BranchingBookEngine {
         ? {
           ...session.combat,
           cards: combatEngine.cardsFor(session.combat),
+          deckCards: combatEngine.deckCardsFor(session.combat),
         }
         : null,
       historyLength: session.history.length,
@@ -74,19 +75,24 @@ class BranchingBookEngine {
     if (!meetsChoiceRequirements(choice, this.tree.hero.stats, this.context.progression, session)) {
       throw codedError('CHOICE_REQUIREMENT_NOT_MET', 'Les statistiques du Sorcier ne permettent pas ce choix.');
     }
-    const target = this.nodes.get(choice.targetNodeId);
+    const targetNodeId = choice.sourceTargetNodeIds?.[session.sourceEndingId] || choice.targetNodeId;
+    const target = this.nodes.get(targetNodeId);
     const next = structuredClone(session);
     next.history.push({
       kind: 'choice',
       nodeId: node.id,
       choiceId: choice.id,
       playerText: choice.playerText,
-      targetNodeId: choice.targetNodeId,
+      targetNodeId,
       chosenAt: at,
     });
     if (choice.arcaneChargeCost) next.arcaneCharges -= choice.arcaneChargeCost;
     this.activateNode(next, target, at);
-    return { session: next, choice: structuredClone(choice), view: this.read(next) };
+    return {
+      session: next,
+      choice: { ...structuredClone(choice), targetNodeId },
+      view: this.read(next),
+    };
   }
 
   playCard(session, cardId, at) {

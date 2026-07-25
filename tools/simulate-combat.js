@@ -17,12 +17,14 @@ function simulateCombat({
   initialPotions = 0,
   heroStats = null,
   enemyMaxHp = null,
+  playerDeck = null,
 } = {}) {
   const tree = JSON.parse(fs.readFileSync(storyPath, 'utf8'));
   if (heroStats) tree.hero.stats = { ...tree.hero.stats, ...heroStats };
   const node = tree.nodes.find((candidate) => candidate.kind === 'combat');
   if (!node) throw new Error('Aucun combat à simuler.');
   if (enemyMaxHp !== null) node.combat.enemy.maxHp = enemyMaxHp;
+  if (playerDeck) node.combat.player.deck = structuredClone(playerDeck);
   const engine = new CombatEngine(node.combat, tree.hero);
   const queue = [{
     combat: engine.start(node.id),

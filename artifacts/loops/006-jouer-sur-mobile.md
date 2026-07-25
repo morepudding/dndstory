@@ -2,46 +2,15 @@
 
 **Statut :** `garder`
 
-## Contrat
+## Cap
 
-- **Nouveauté centrale :** rendre le livre-jeu installable et jouable comme PWA sur téléphone en réutilisant le livre, les moteurs et l’interface d’Electron.
-- **Décision ou sensation :** retrouver sur mobile la même aventure et les mêmes décisions, avec des actions tactiles lisibles et une reprise locale fiable.
-- **Point de départ :** l’application Electron partage déjà une interface HTML/CSS et possède une vue étroite à 760 px, mais son runtime dépend du pont IPC et sa sauvegarde du système de fichiers.
-- **Conséquence visible :** à 390 × 844, le joueur démarre une route, choisit une branche, joue un tour de combat, ferme la PWA puis retrouve le même état.
-- **Branches héritées ou ouvertes :** toutes les branches, combats, coûts, récompenses et conséquences existants restent identiques ; aucune branche n’est ajoutée.
-- **Dans la boucle :** catalogue de récits partagé, runtime navigateur, sauvegarde IndexedDB, build et manifeste PWA, cache hors ligne, ergonomie tactile, hauteurs dynamiques, safe areas et QA PWA 390 × 844 ainsi que 844 × 390.
-- **Hors boucle :** synchronisation entre PC et téléphone, compte distant, serveur public, chat Codex sur mobile, atelier narratif mobile, notifications, nouvelle mécanique, nouveau contenu et publication sur les stores.
+- **Nouveauté centrale :** rendre le livre-jeu installable et jouable comme PWA.
+- **Effet recherché :** retrouver sur téléphone la même aventure avec sauvegarde locale et hors ligne.
+- **Dans la boucle :** runtime partagé, IndexedDB, manifeste, service worker, tactile et responsive.
+- **Hors boucle :** compte distant, synchronisation PC, chat Codex ou Atelier mobile.
 
-## Parcours joueur
+## État
 
-Installer ou ouvrir la PWA → démarrer La Route des Ronces → choisir l’ancrage puis la route de combat → jouer une carte → recharger complètement la page → constater que le nœud, le round, la main et les PV sont conservés → terminer une interaction tactile sans débordement horizontal.
-
-## Routage des tours
-
-**Mode :** `manuel — un seul assistant, un seul fil, aucun sous-agent`
-
-- **Audit et cadrage :** vérifier la séparation actuelle entre moteurs, stockage, IPC et renderer.
-- **Intégration :** partager le catalogue et les services de jeu, ajouter uniquement les adaptateurs PWA et le build.
-- **Visuel :** compacter la hiérarchie existante pour 390 × 844 sans modifier les règles.
-- **Preuve :** exécuter une preuve PWA ciblée, les validations larges nécessaires, la QA Electron et un parcours navigateur réel.
-- **Prochaine étape :** intégrer le runtime PWA et sa sauvegarde, puis adapter le téléphone.
-
-## Budget de preuve
-
-- **Automatique ciblée :** build PWA, manifeste et service worker présents ; démarrage, choix, combat et reprise IndexedDB à état identique.
-- **Acceptation :** `npm run check` si le runtime ou l’outil de capture change ; aucun test Electron pour une passe exclusivement mobile.
-- **Application réelle :** `npm run qa:pwa`, puis parcours PWA en 390 × 844 et 844 × 390.
-
-## Résultat
-
-- **Intégré :**
-  - Electron et la PWA utilisent `StoryGameService`, `StoryCatalog`, les mêmes chapitres, les mêmes moteurs et la même interface ;
-  - l’adaptateur PWA hydrate et persiste l’état canonique dans IndexedDB après chaque mutation ;
-  - le manifeste, les icônes 180/192/512, le service worker et le build autonome rendent le jeu installable et jouable hors ligne ;
-  - à 390 × 844, la hiérarchie reste stable, les cibles tactiles mesurent au moins 44 px et la main de combat se parcourt horizontalement ;
-  - à 844 × 390, le combat remplace entièrement la coque applicative, occupe le viewport bord à bord et réunit adversaire, intention, Tempo, Sorcier, main et contrôles dans une table sombre horizontale, sans dupliquer l’interface ;
-  - les descriptions permanentes, sous-textes répétitifs et jetons provisoires disparaissent du combat PWA ; seuls restent noms, coûts, états, valeurs et actions ;
-  - un choix, l’entrée en combat et une carte jouée survivent à un rechargement complet puis à un redémarrage sans serveur.
-- **Preuves :** `npm run check` et `npm run qa:pwa` réussissent pour la passe mobile ; captures `pwa-route-390x844.png`, `pwa-combat-390x844.png` et `pwa-combat-landscape-844x390.png`.
-- **Reste incertain :** aucun point bloquant relevé pendant l’essai sur le téléphone physique du joueur.
-- **Verdict :** `garder` — boucle jouée et validée par le joueur le 24 juillet 2026.
+- **Intégré :** Electron et PWA partagent histoires, moteurs et interface ; la PWA conserve l’état après rechargement et redémarrage hors ligne.
+- **Reste incertain :** aucun blocage relevé sur le téléphone du joueur.
+- **Verdict :** `garder` — validé le 24 juillet 2026.

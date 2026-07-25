@@ -4,7 +4,8 @@ const { normalizeStory } = require('./story-format');
 const STORY_ID = 'la-route-des-ronces';
 const BRUMEPONT_STORY_ID = 'la-nuit-a-brumepont';
 const CAGE_STORY_ID = 'la-cage-du-treuil';
-const STORY_IDS = [STORY_ID, BRUMEPONT_STORY_ID, CAGE_STORY_ID];
+const THIRD_LEVEL_STORY_ID = 'le-troisieme-palier';
+const STORY_IDS = [STORY_ID, BRUMEPONT_STORY_ID, CAGE_STORY_ID, THIRD_LEVEL_STORY_ID];
 
 class StoryCatalog {
   constructor(stories) {
@@ -38,6 +39,7 @@ class StoryCatalog {
       return this.get(BRUMEPONT_STORY_ID);
     }
     if (storyId === BRUMEPONT_STORY_ID) return this.get(CAGE_STORY_ID);
+    if (storyId === CAGE_STORY_ID) return this.get(THIRD_LEVEL_STORY_ID);
     return null;
   }
 
@@ -51,5 +53,6 @@ module.exports = {
   CAGE_STORY_ID,
   STORY_ID,
   STORY_IDS,
+  THIRD_LEVEL_STORY_ID,
   StoryCatalog,
 };

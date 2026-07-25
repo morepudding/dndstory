@@ -5,6 +5,7 @@ const {
   CAGE_STORY_ID,
   STORY_ID,
   STORY_IDS,
+  THIRD_LEVEL_STORY_ID,
   StoryCatalog,
 } = require('./story-catalog');
 
@@ -45,5 +46,6 @@ module.exports = {
   CAGE_STORY_ID,
   STORY_ID,
   STORY_IDS,
+  THIRD_LEVEL_STORY_ID,
   StoryRepository,
 };

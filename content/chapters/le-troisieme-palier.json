@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 4,
+  "format": "branching-book",
+  "status": "approved",
+  "id": "le-troisieme-palier",
+  "title": "Le Troisième Palier",
+  "globalPremise": "Ce que le Sorcier a sauvé à la cage du treuil devient son seul moyen fiable d’atteindre les sondeurs retenus au troisième palier.",
+  "chapterSummary": "Mira ou les ordres ouvrent deux descentes différentes vers une galerie plus ancienne que la carrière.",
+  "showChapterSummary": true,
+  "rating": "general",
+  "participantsAllAdults": true,
+  "contentWarnings": [],
+  "designRules": [
+    "La provenance héritée change la descente, l’information disponible et le poids du choix final.",
+    "Mira reste libre sur sa route et reste absente sur la route des ordres.",
+    "Les sondeurs sont libérés avant le dilemme final.",
+    "Aucun combat ne résout une erreur d’exploration."
+  ],
+  "hero": {
+    "className": "Sorcier",
+    "level": 2,
+    "stats": {
+      "strength": 1,
+      "constitution": 2,
+      "agility": 2,
+      "wisdom": 3,
+      "intelligence": 2
+    }
+  },
+  "entryNodeId": "seuil-du-palier",
+  "continueLabel": "Revenir à l’accueil",
+  "acts": [
+    {
+      "id": "acte-1",
+      "index": 1,
+      "title": "Le troisième palier",
+      "entryNodeId": "seuil-du-palier",
+      "summary": "Deux accès hérités conduisent aux sondeurs et à un passage que le Sorcier devra condamner ou préserver."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "seuil-du-palier",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Sous les vieilles carrières",
+      "text": "Le troisième palier se trouve sous le treuil, derrière des galeries que la carrière n’utilise plus. Le Sorcier ne possède qu’une indication laissée par l’issue de la cage.",
+      "role": "anchoring",
+      "humanStake": "Reprendre concrètement ce qui a été sauvé sans effacer ce qui a été perdu.",
+      "relationalMovement": "Le témoin vivant ou la preuve écrite cesse d’être un résumé et devient un accès.",
+      "sourceVariants": {
+        "captive-sauvee": {
+          "title": "Le conduit du ravin",
+          "text": "Dans le ravin, Mira s’agenouille devant une fente noyée de ronces. Elle a entouré son épaule d’une bande arrachée à sa manche. Sur la pierre, deux traits de craie descendent vers une ouverture basse.\n\n— Les sondeurs marquaient l’air froid comme ça. Le conduit rejoint le troisième palier.\n\nElle glisse au Sorcier un éclat de schiste couvert de repères, puis s’appuie contre la paroi pour maintenir la corde au-dessus du vide.\n\n— Je tiens la sortie. Si je redescends, il ne reste plus personne dehors pour dire ce qu’ils font ici."
+        },
+        "ordres-recuperes": {
+          "title": "La cage de service",
+          "text": "Au treuil, le registre de Varek est ouvert sur le garde-corps. Une ligne plus sombre que les autres indique : « Cage quatre — palier III — reprise à la deuxième cloche. » Le nom de Mira reste inscrit dans la colonne des sondeurs.\n\nSous le plancher, une petite cage de service attend contre son rail. Le premier coup de cloche vient de vibrer dans le câble. Des voix montent du puits ; l’équipe du dessous prépare déjà la relève."
+        }
+      },
+      "choices": [
+        {
+          "id": "ancrage-acces",
+          "role": "anchoring",
+          "label": "Examiner l’accès au palier",
+          "playerText": "Je m’accroupis près de l’accès et vérifie ce qui peut encore porter mon poids.",
+          "targetNodeId": "conduit-du-ravin",
+          "sourceTargetNodeIds": {
+            "captive-sauvee": "conduit-du-ravin",
+            "ordres-recuperes": "cage-de-service"
+          }
+        },
+        {
+          "id": "ancrage-ecoute",
+          "role": "anchoring",
+          "label": "Écouter le treuil et la roche",
+          "playerText": "Je pose une main contre la pierre et attends que les bruits du dessous se séparent.",
+          "targetNodeId": "conduit-du-ravin",
+          "sourceTargetNodeIds": {
+            "captive-sauvee": "conduit-du-ravin",
+            "ordres-recuperes": "cage-de-service"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conduit-du-ravin",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Les marques de Mira",
+      "text": "Le conduit s’élargit après quelques mètres. Un courant froid passe sous les planches de soutènement et rabat la poussière vers la gauche. À droite, des traces de bottes coupent sous un étai fendu ; ce détour descend plus vite, mais de petits éclats tombent chaque fois que la charpente travaille.\n\nSur le schiste donné par Mira, le double trait suit le courant d’air. Elle a barré l’autre galerie d’une entaille profonde.",
+      "role": "strategic",
+      "humanStake": "Faire confiance à l’expérience de Mira plutôt qu’à un raccourci immédiatement séduisant.",
+      "relationalMovement": "Le Sorcier agit à partir de la parole du témoin sans pouvoir lui demander confirmation sous terre.",
+      "choices": [
+        {
+          "id": "suivre-air-froid",
+          "role": "strategic",
+          "label": "Suivre le courant froid et les doubles traits",
+          "playerText": "Je garde les doubles traits à hauteur d’épaule et suis le courant froid.",
+          "targetNodeId": "passage-ancien"
+        },
+        {
+          "id": "couper-sous-etai",
+          "role": "strategic",
+          "label": "Couper sous l’étai fendu avant le retour de la patrouille",
+          "playerText": "Je prends le raccourci sous l’étai avant que les hommes du treuil ne ferment le ravin.",
+          "targetNodeId": "echec-eboulis"
+        }
+      ]
+    },
+    {
+      "id": "cage-de-service",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "Entre les deux cloches",
+      "text": "La cage de service descend au bout d’un câble séparé. Le registre prévoit une cage vide à la deuxième cloche, lorsque les équipes du palier quittent la salle de transfert. La première vient de sonner.\n\nPlus bas, une porte roule sur ses gonds. Attendre ménage un passage sans escorte. Descendre maintenant réduit la distance avec Mira, mais place la cage au milieu de la relève encore présente.",
+      "role": "strategic",
+      "humanStake": "S’appuyer sur la précision des ordres malgré l’urgence personnelle créée par le nom de Mira.",
+      "relationalMovement": "Le Sorcier choisit s’il traite le registre comme une preuve à lire ou seulement comme la trace d’une personne à rattraper.",
+      "choices": [
+        {
+          "id": "attendre-seconde-cloche",
+          "role": "strategic",
+          "label": "Attendre la deuxième cloche prévue par le registre",
+          "playerText": "Je retiens la cage jusqu’à la deuxième cloche, puis libère le frein.",
+          "targetNodeId": "passage-ancien"
+        },
+        {
+          "id": "descendre-sans-attendre",
+          "role": "strategic",
+          "label": "Descendre immédiatement avant un nouveau transfert",
+          "playerText": "Je monte dans la cage et lâche le frein avant que la première vibration s’éteigne.",
+          "targetNodeId": "echec-interception"
+        }
+      ]
+    },
+    {
+      "id": "passage-ancien",
+      "actId": "acte-1",
+      "kind": "choice",
+      "title": "L’ouvrage ancien",
+      "text": "Au troisième palier, les sondeurs attendent devant une ouverture taillée dans une maçonnerie plus ancienne que la carrière. Le Sorcier libère le groupe, puis découvre que l’accès peut encore être condamné ou maintenu.",
+      "role": "strategic",
+      "humanStake": "Protéger immédiatement les captifs ou conserver la seule route vers ce que recherche l’organisation.",
+      "relationalMovement": "Les captifs cessent d’être l’objet du dilemme et participent à leur propre sortie avant la décision.",
+      "sourceVariants": {
+        "captive-sauvee": {
+          "title": "La salle des sondeurs",
+          "text": "Le courant froid débouche derrière une cloison de planches. De l’autre côté, six sondeurs sont attachés par paires devant une ouverture taillée dans de gros blocs gris. Le Sorcier soulève la barre depuis le conduit et les fait passer un à un.\n\nQuand il donne le nom de Mira, une femme couverte de poussière vérifie deux fois la galerie derrière lui avant de relâcher la corde qu’elle tient.\n\n— Elle est sortie ? Alors leurs repères n’ont pas disparu avec elle.\n\nLes marques de craie convergent vers l’ouverture ancienne. Des traces fraîches y descendent ; celles de Varek se mêlent encore à la poussière. Au-dessus de l’arche, une poche de schiste peut être abattue. Les sondeurs peuvent aussi l’étayer assez longtemps pour conserver le passage."
+        },
+        "ordres-recuperes": {
+          "title": "La salle des transferts",
+          "text": "La deuxième cloche couvre l’arrivée de la cage. La salle de transfert est presque vide. Grâce au registre, le Sorcier appelle chaque sondeur par son nom et ouvre les entraves dans l’ordre des colonnes, avant que l’équipe montante ne revienne.\n\nCelles de Mira pendent seules près d’une ouverture bâtie avec de gros blocs gris. Une sondeuse montre des stries récentes dans la poussière : on l’a conduite au-delà de l’arche quelques minutes plus tôt.\n\nLes captifs gagnent la cage de service. Au-dessus du passage, une poche de schiste peut être abattue. Ils peuvent également consolider l’arche et laisser au Sorcier une route vers les profondeurs."
+        }
+      },
+      "choices": [
+        {
+          "id": "condamner-passage",
+          "role": "strategic",
+          "label": "Faire tomber la voûte derrière les sondeurs",
+          "playerText": "Je fais sortir les sondeurs, puis attaque les coins qui retiennent la poche de schiste.",
+          "targetNodeId": "fin-passage-condamne"
+        },
+        {
+          "id": "maintenir-passage",
+          "role": "strategic",
+          "label": "Étayer l’ouverture et conserver la descente",
+          "playerText": "J’aide les sondeurs à reprendre l’arche pour que le passage reste praticable.",
+          "targetNodeId": "fin-passage-maintenu"
+        }
+      ]
+    },
+    {
+      "id": "fin-passage-condamne",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "Le passage condamné",
+      "text": "Les derniers sondeurs atteignent la sortie avant que le schiste ne tombe dans l’arche. Le passage disparaît sous la pierre et la poussière.",
+      "role": "strategic",
+      "humanStake": "La carrière ne peut plus servir de porte, mais la piste directe est perdue.",
+      "relationalMovement": "Le Sorcier privilégie la sécurité des personnes déjà sorties à la poursuite immédiate.",
+      "choices": [],
+      "terminal": {
+        "endingId": "passage-condamne",
+        "reason": "Le Sorcier a libéré les sondeurs puis abattu la poche de schiste au-dessus de l’ouvrage ancien.",
+        "outcomeSummary": "Les sondeurs sont libres et le passage ancien est condamné ; la piste directe vers les profondeurs disparaît."
+      },
+      "sourceVariants": {
+        "captive-sauvee": {
+          "title": "Le passage condamné",
+          "text": "Mira garde la corde tendue pendant que les sondeurs remontent du conduit. Le dernier lui rend l’éclat de schiste couvert de leurs signes.\n\nSous terre, le Sorcier retire le premier coin. Les autres cèdent avec la charpente ; la poche de schiste s’abat dans l’arche et souffle une poussière froide jusqu’au ravin.\n\nMira écoute le grondement finir, puis range l’éclat dans sa manche. Varek connaît encore les noms et les horaires, mais cette entrée ne lui appartient plus."
+        },
+        "ordres-recuperes": {
+          "title": "Le passage condamné",
+          "text": "La cage emporte les sondeurs au-dessus du troisième palier. Le Sorcier reste le temps d’arracher les coins de l’arche. Le schiste tombe par plaques, puis ferme toute la largeur du passage.\n\nÀ la surface, le registre est toujours ouvert sur le garde-corps. La ligne de Mira indique le troisième palier ; il n’existe désormais plus de route directe derrière ce nombre. Les captifs sont libres et la carrière ne servira plus à d’autres transferts."
+        }
+      }
+    },
+    {
+      "id": "fin-passage-maintenu",
+      "actId": "acte-1",
+      "kind": "success",
+      "title": "Le passage maintenu",
+      "text": "Les sondeurs reprennent l’arche avec les bois du palier. Une route reste ouverte vers les profondeurs, pour le Sorcier comme pour ceux qui connaissent encore la carrière.",
+      "role": "strategic",
+      "humanStake": "La poursuite reste possible au prix d’un accès que l’organisation peut tenter de reprendre.",
+      "relationalMovement": "Le Sorcier accepte de protéger une possibilité dangereuse plutôt que de refermer le lieu.",
+      "choices": [],
+      "terminal": {
+        "endingId": "passage-maintenu",
+        "reason": "Le Sorcier a libéré les sondeurs puis consolidé l’ouvrage ancien.",
+        "outcomeSummary": "Les sondeurs sont libres et la route vers les profondeurs reste ouverte, mais l’organisation peut encore revenir."
+      },
+      "sourceVariants": {
+        "captive-sauvee": {
+          "title": "Le passage maintenu",
+          "text": "Les sondeurs prélèvent les meilleurs bois du palier et doublent les montants de l’arche. Avant de remonter, ils reproduisent leurs repères sur l’éclat de schiste de Mira.\n\nDans le ravin, elle vérifie la suite des traits avec son pouce. La route descend encore. Varek la connaît probablement aussi, mais il n’a plus les sondeurs pour la lire à sa place."
+        },
+        "ordres-recuperes": {
+          "title": "Le passage maintenu",
+          "text": "Les sondeurs calent l’arche pendant que le Sorcier compare leurs marques aux colonnes du registre. Une strie plus profonde quitte les entraves de Mira et disparaît dans le passage.\n\nLe groupe remonte par la cage de service. Le Sorcier conserve les ordres et une route praticable vers les profondeurs. Derrière lui, les étais ne cachent ni le passage ni les traces laissées par ceux qui ont emmené Mira."
+        }
+      }
+    },
+    {
+      "id": "echec-eboulis",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "L’étai fendu",
+      "text": "Le premier appui tient. Le second arrache une poignée de bois au montant fendu. La galerie se tasse d’un seul coup ; le Sorcier recule derrière une traverse pendant que le raccourci disparaît sous le schiste.\n\nLe bruit remonte jusqu’au treuil. Des lanternes apparaissent dans le conduit principal. Il faut regagner le ravin avant que la patrouille ne ferme la sortie. Les marques de Mira étaient exactes, mais cette entrée n’est plus praticable.",
+      "role": "strategic",
+      "humanStake": "Le raccourci ignorait un avertissement concret et détruit l’accès avant d’atteindre les captifs.",
+      "relationalMovement": "La reprise permet de choisir la confiance accordée au témoignage sans modifier l’issue de la cage.",
+      "choices": [],
+      "terminal": {
+        "endingId": "echec-etai-fendu",
+        "reason": "Le Sorcier a pris le raccourci condamné par Mira et provoqué son effondrement.",
+        "outcomeSummary": "Le conduit se ferme avant le troisième palier et la patrouille oblige le Sorcier à regagner le ravin.",
+        "retryActId": "acte-1"
+      }
+    },
+    {
+      "id": "echec-interception",
+      "actId": "acte-1",
+      "kind": "failure",
+      "title": "La relève encore présente",
+      "text": "La cage atteint le troisième palier avant la deuxième cloche. Deux hommes de relève retiennent aussitôt le câble avec une pince de frein. La porte reste bloquée un étage au-dessus du quai, exposée dans le puits.\n\nLe Sorcier force le mécanisme et remonte avant que d’autres lanternes n’arrivent par la galerie. En haut, le registre n’a pas changé : la fenêtre sûre commence à la deuxième cloche, pas avant.",
+      "role": "strategic",
+      "humanStake": "L’urgence transforme une information exacte en risque inutile et ferme la descente.",
+      "relationalMovement": "La reprise permet de s’appuyer sur les ordres sans effacer l’absence de Mira.",
+      "choices": [],
+      "terminal": {
+        "endingId": "echec-cage-interceptee",
+        "reason": "Le Sorcier a engagé la cage avant la relève prévue par les ordres.",
+        "outcomeSummary": "La relève intercepte la cage et contraint le Sorcier à remonter avant d’atteindre les sondeurs.",
+        "retryActId": "acte-1"
+      }
+    }
+  ]
+}

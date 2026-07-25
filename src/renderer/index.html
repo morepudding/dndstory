@@ -181,11 +181,12 @@
                   </div>
 
                   <div class="board-side board-player">
-                    <div class="card-pile player-pile">
+                    <button id="combat-deck-open" class="card-pile player-pile inspectable" type="button" aria-haspopup="dialog">
                       <i aria-hidden="true"></i>
                       <span>Pioche</span>
                       <strong id="combat-draw-count">5</strong>
-                    </div>
+                      <small>Voir le deck</small>
+                    </button>
                     <div class="fighter">
                       <figure class="fighter-portrait" hidden>
                         <img id="combat-player-portrait" alt="">
@@ -196,11 +197,12 @@
                         <div id="combat-player-statuses" class="combat-statuses player-statuses" aria-label="États du Sorcier"></div>
                       </div>
                     </div>
-                    <div class="card-pile player-pile discarded">
+                    <button id="combat-discard-open" class="card-pile player-pile discarded inspectable" type="button" aria-haspopup="dialog">
                       <i aria-hidden="true"></i>
                       <span>Défausse</span>
                       <strong id="combat-discard-count">0</strong>
-                    </div>
+                      <small>Voir le deck</small>
+                    </button>
                   </div>
 
                   <div class="combat-hand-heading">
@@ -253,6 +255,36 @@
       </section>
     </main>
 
+    <section id="game-menu" class="game-menu" aria-labelledby="game-menu-title" aria-modal="true" role="dialog" hidden>
+      <div class="game-menu-atmosphere" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </div>
+      <div class="game-menu-card">
+        <header class="game-menu-brand">
+          <img src="assets/sorcerer-sigil.svg" alt="" />
+          <div><span>Fantasy Story</span><small>Aventure privée</small></div>
+        </header>
+        <div class="game-menu-copy">
+          <span id="game-menu-eyebrow">Chroniques du Sorcier</span>
+          <h1 id="game-menu-title">Fantasy Story</h1>
+          <p id="game-menu-description">Une route, quelques charges de magie, et des choix qui demeurent.</p>
+        </div>
+        <div id="game-menu-progress" class="game-menu-progress" hidden>
+          <span>Partie en cours</span>
+          <strong id="game-menu-chapter"></strong>
+          <small id="game-menu-location"></small>
+        </div>
+        <div class="game-menu-actions">
+          <button id="game-menu-primary" class="game-menu-primary" type="button">Commencer l’aventure</button>
+          <button id="game-menu-restart" type="button" hidden>Recommencer l’aventure</button>
+          <button id="game-menu-home" type="button" hidden>Menu principal</button>
+          <button id="game-menu-settings" type="button">Personnage</button>
+          <button id="game-menu-abandon" class="danger" type="button" hidden>Abandonner la partie</button>
+        </div>
+        <footer><span id="game-menu-hint">Entrée pour jouer</span><span id="game-menu-resume-hint" hidden>Échap pour reprendre</span></footer>
+      </div>
+    </section>
+
     <dialog id="editor">
       <form method="dialog" id="editor-form">
         <div class="dialog-head"><div><span>Profil permanent</span><h2>Modifier le personnage</h2></div><button value="cancel" class="close" aria-label="Fermer">×</button></div>
@@ -275,6 +307,33 @@
         <p id="adult-warnings" class="adult-warnings"></p>
         <label class="adult-check"><input id="adult-confirm" type="checkbox" /> J’ai compris et je souhaite commencer.</label>
         <menu><button value="cancel" class="cancel-button">Annuler</button><button id="adult-start" value="default" disabled>Confirmer et commencer</button></menu>
+      </form>
+    </dialog>
+    <dialog id="game-menu-confirm" class="game-menu-confirm">
+      <form method="dialog" id="game-menu-confirm-form">
+        <div class="dialog-head">
+          <div><span>Confirmation</span><h2 id="game-menu-confirm-title">Recommencer l’aventure ?</h2></div>
+          <button value="cancel" class="close" aria-label="Fermer">×</button>
+        </div>
+        <p id="game-menu-confirm-copy">La progression de cette aventure sera remplacée.</p>
+        <menu>
+          <button value="cancel" class="cancel-button">Annuler</button>
+          <button id="game-menu-confirm-action" value="default">Confirmer</button>
+        </menu>
+      </form>
+    </dialog>
+    <dialog id="combat-grimoire" class="combat-grimoire">
+      <form method="dialog">
+        <header>
+          <div>
+            <span>Deck du Sorcier</span>
+            <h2>Grimoire de combat</h2>
+            <p id="combat-grimoire-description">La défausse reforme la pioche quand elle est vide.</p>
+          </div>
+          <button value="cancel" class="close" aria-label="Fermer le grimoire">×</button>
+        </header>
+        <div id="combat-grimoire-zones" class="combat-grimoire-zones"></div>
+        <div id="combat-grimoire-cards" class="combat-grimoire-cards"></div>
       </form>
     </dialog>
     <script src="app.js"></script>

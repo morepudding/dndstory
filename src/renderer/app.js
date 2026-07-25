@@ -2,6 +2,10 @@ let state;
 let inputMode = 'speech';
 let currentStory = null;
 let selectedLevelStat = null;
+let menuView = null;
+let pendingMenuConfirmation = null;
+let terminalMenuSignature = null;
+let booting = true;
 const $ = (selector) => document.querySelector(selector);
 const STAT_PRESENTATION = {
   strength: { short: 'FOR', name: 'Force', effect: (value) => `${value} dégâts par point de dégâts d’arme` },
@@ -115,6 +119,51 @@ const CAGE_SCENES = {
     label: 'Vieilles carrières · Transfert poursuivi',
   },
 };
+const THIRD_LEVEL_PROVENANCE = {
+  'captive-sauvee': { label: 'Mira sauvée', className: 'third-from-mira' },
+  'ordres-recuperes': { label: 'Ordres récupérés', className: 'third-from-orders' },
+};
+const THIRD_LEVEL_OUTCOMES = {
+  'passage-condamne': { label: 'Passage condamné', className: 'third-outcome-closed' },
+  'passage-maintenu': { label: 'Passage maintenu', className: 'third-outcome-open' },
+};
+const THIRD_LEVEL_SCENES = {
+  'conduit-du-ravin': {
+    src: 'assets/visuals/troisieme-palier/conduit-du-ravin.png',
+    alt: 'Le conduit instable qui descend du ravin vers le troisième palier',
+    label: 'Ravin des carrières · Conduit des sondeurs',
+  },
+  'cage-de-service': {
+    src: 'assets/visuals/troisieme-palier/cage-de-service.png',
+    alt: 'La cage de service suspendue dans le puits des carrières',
+    label: 'Puits des carrières · Entre deux cloches',
+  },
+  'passage-ancien': {
+    src: 'assets/visuals/troisieme-palier/passage-maintenu.png',
+    alt: 'L’ouvrage ancien découvert au troisième palier',
+    label: 'Troisième palier · Ouvrage ancien',
+  },
+  'fin-passage-condamne': {
+    src: 'assets/visuals/troisieme-palier/passage-condamne.png',
+    alt: 'L’arche ancienne entièrement condamnée par un éboulement de schiste',
+    label: 'Troisième palier · Passage condamné',
+  },
+  'fin-passage-maintenu': {
+    src: 'assets/visuals/troisieme-palier/passage-maintenu.png',
+    alt: 'L’arche ancienne consolidée et laissée ouverte vers les profondeurs',
+    label: 'Troisième palier · Passage maintenu',
+  },
+  'echec-eboulis': {
+    src: 'assets/visuals/troisieme-palier/conduit-du-ravin.png',
+    alt: 'Le conduit instable après l’effondrement du raccourci',
+    label: 'Conduit du ravin · Accès perdu',
+  },
+  'echec-interception': {
+    src: 'assets/visuals/troisieme-palier/cage-de-service.png',
+    alt: 'La cage de service immobilisée au-dessus du troisième palier',
+    label: 'Puits des carrières · Cage interceptée',
+  },
+};
 
 function setText(selector, value) { $(selector).textContent = value; }
 function renderProfile() {
@@ -224,6 +273,9 @@ async function boot() {
     setConnection('online', 'Moteur de jeu local prêt');
   }
   installDevelopmentDiagnostics();
+  booting = false;
+  if (sessionStorage.getItem('fantasy-story-entered') !== '1') showGameMenu('home');
+  else syncGameMenuWithStory(story);
 }
 
 function renderStory(story) {
@@ -271,6 +323,136 @@ function renderStory(story) {
     button.addEventListener('click',()=>playStoryChoice(choice.id));
     return button;
   }));
+  syncGameMenuWithStory(story);
+}
+
+function syncGameMenuWithStory(story) {
+  if (booting) return;
+  if (!story.active || !story.terminal || story.canResolveLevelUp) {
+    terminalMenuSignature = null;
+    return;
+  }
+  const signature = `${story.storyId}:${story.status}:${story.node?.id || ''}`;
+  if (terminalMenuSignature === signature) return;
+  terminalMenuSignature = signature;
+  showGameMenu('end');
+}
+
+function showGameMenu(view) {
+  if (!currentStory) return;
+  menuView = view;
+  const menu = $('#game-menu');
+  const active = Boolean(currentStory.active);
+  const failed = currentStory.status === 'failure';
+  const terminal = Boolean(currentStory.terminal);
+  const endReady = terminal && !currentStory.canResolveLevelUp;
+  const primary = $('#game-menu-primary');
+  const restart = $('#game-menu-restart');
+  const home = $('#game-menu-home');
+  const abandon = $('#game-menu-abandon');
+  const progress = $('#game-menu-progress');
+
+  menu.dataset.view = view;
+  progress.hidden = !active;
+  setText('#game-menu-chapter', currentStory.title || 'La Route des Ronces');
+  setText('#game-menu-location', currentStory.node?.title || currentStory.chapterSummary || '');
+  restart.hidden = !active;
+  home.hidden = view === 'home';
+  abandon.hidden = !active || view === 'end';
+  $('#game-menu-resume-hint').hidden = view !== 'pause';
+
+  if (view === 'pause') {
+    setText('#game-menu-eyebrow', 'Partie suspendue');
+    setText('#game-menu-title', 'Le monde attend');
+    setText('#game-menu-description', 'Votre position et vos choix sont conservés sur cet appareil.');
+    primary.textContent = 'Reprendre';
+    primary.dataset.action = 'resume';
+    setText('#game-menu-hint', 'Entrée ou Échap pour reprendre');
+  } else if (view === 'end') {
+    setText('#game-menu-eyebrow', failed ? 'Fin de route' : 'Chapitre accompli');
+    setText('#game-menu-title', failed ? 'La route vous repousse' : currentStory.title);
+    setText(
+      '#game-menu-description',
+      currentStory.ending?.outcomeSummary
+        || (failed ? 'Cette issue n’est pas définitive. Reprenez l’acte et tentez une autre voie.' : 'Vos choix demeurent dans la chronique.'),
+    );
+    primary.textContent = failed
+      ? 'Reprendre l’acte'
+      : currentStory.canContinueAdventure
+        ? currentStory.continueLabel || 'Poursuivre l’aventure'
+        : 'Revenir à l’accueil';
+    primary.dataset.action = failed ? 'retry' : currentStory.canContinueAdventure || currentStory.canContinueFreeChat ? 'continue' : 'home';
+    restart.hidden = false;
+    setText('#game-menu-hint', failed ? 'Entrée pour reprendre' : 'Entrée pour continuer');
+  } else {
+    setText('#game-menu-eyebrow', active ? 'Chronique en cours' : 'Chroniques du Sorcier');
+    setText('#game-menu-title', 'Fantasy Story');
+    setText(
+      '#game-menu-description',
+      active
+        ? endReady ? 'Une conclusion vous attend avant de reprendre la route.' : 'Votre aventure est conservée exactement là où vous l’avez laissée.'
+        : 'Une route, quelques charges de magie, et des choix qui demeurent.',
+    );
+    primary.textContent = active ? endReady ? 'Voir la conclusion' : 'Reprendre la partie' : 'Commencer l’aventure';
+    primary.dataset.action = active ? endReady ? 'end' : 'resume' : 'start';
+    setText('#game-menu-hint', 'Entrée pour jouer');
+  }
+
+  menu.hidden = false;
+  $('.app-shell').setAttribute('inert', '');
+  $('.app-shell').setAttribute('aria-hidden', 'true');
+  if (view === 'home') sessionStorage.removeItem('fantasy-story-entered');
+  requestAnimationFrame(() => primary.focus());
+}
+
+function closeGameMenu() {
+  $('#game-menu').hidden = true;
+  $('.app-shell').removeAttribute('inert');
+  $('.app-shell').removeAttribute('aria-hidden');
+  menuView = null;
+  sessionStorage.setItem('fantasy-story-entered', '1');
+}
+
+async function beginStory() {
+  const story = await window.candy.startStory();
+  if (story.requiresAdultConfirmation) {
+    closeGameMenu();
+    $('#adult-warnings').textContent = (story.warnings || []).join(' · ');
+    $('#adult-gate').showModal();
+    return;
+  }
+  resetConversationView();
+  if (story.opening) appendMessage('assistant', story.opening);
+  renderStory(story);
+  state = await window.candy.readCharacter();
+  renderProfile();
+  closeGameMenu();
+}
+
+async function restartCurrentStory() {
+  const story = await window.candy.restartStory();
+  resetConversationView();
+  if (story.opening) appendMessage('assistant', story.opening);
+  terminalMenuSignature = null;
+  renderStory(story);
+  state = await window.candy.readCharacter();
+  renderProfile();
+  closeGameMenu();
+  $('#chapter-menu').open = false;
+}
+
+async function continueCurrentStory() {
+  const story = await window.candy.continueAfterSuccess();
+  if (story.opening) {
+    resetConversationView();
+    appendMessage('assistant', story.opening);
+  }
+  terminalMenuSignature = null;
+  renderStory(story);
+  state = await window.candy.readCharacter();
+  renderProfile();
+  closeGameMenu();
+  $('#prompt').focus();
 }
 
 function formatChoiceDetail(choice) {
@@ -299,6 +481,22 @@ function cageSceneFor(story) {
   };
 }
 
+function thirdLevelSceneFor(story) {
+  const inheritedScene = story.sourceEndingId === 'ordres-recuperes'
+    ? THIRD_LEVEL_SCENES['cage-de-service']
+    : THIRD_LEVEL_SCENES['conduit-du-ravin'];
+  const scene = story.node?.id === 'seuil-du-palier'
+    ? inheritedScene
+    : THIRD_LEVEL_SCENES[story.node?.id];
+  if (!scene) return null;
+  const provenance = THIRD_LEVEL_PROVENANCE[story.sourceEndingId];
+  const outcome = THIRD_LEVEL_OUTCOMES[story.thirdLevelOutcome];
+  return {
+    ...scene,
+    classNames: ['third-scene', provenance?.className, outcome?.className].filter(Boolean),
+  };
+}
+
 function renderStoryMarkers(story) {
   const markers = $('#scene-state');
   markers.replaceChildren();
@@ -308,9 +506,17 @@ function renderStoryMarkers(story) {
   const outcome = story.storyId === 'la-cage-du-treuil'
     ? CAGE_OUTCOMES[story.cageOutcome]
     : null;
-  markers.hidden = !provenance && !outcome;
+  const thirdProvenance = story.storyId === 'le-troisieme-palier'
+    ? THIRD_LEVEL_PROVENANCE[story.sourceEndingId]
+    : null;
+  const thirdOutcome = story.storyId === 'le-troisieme-palier'
+    ? THIRD_LEVEL_OUTCOMES[story.thirdLevelOutcome]
+    : null;
+  markers.hidden = !provenance && !outcome && !thirdProvenance && !thirdOutcome;
   if (provenance) markers.append(makeSceneMarker('Origine', provenance.label, 'source'));
   if (outcome) markers.append(makeSceneMarker('Issue', outcome.label, 'outcome'));
+  if (thirdProvenance) markers.append(makeSceneMarker('Héritage', thirdProvenance.label, 'source'));
+  if (thirdOutcome) markers.append(makeSceneMarker('Issue', thirdOutcome.label, 'outcome'));
 }
 
 function makeSceneMarker(label, value, kind) {
@@ -331,10 +537,15 @@ function renderSceneArt(story) {
       ? BRUMEPONT_SCENES[story.node?.id]
       : story.storyId === 'la-cage-du-treuil'
         ? cageSceneFor(story)
-        : null;
+        : story.storyId === 'le-troisieme-palier'
+          ? thirdLevelSceneFor(story)
+          : null;
   const image = $('#scene-art');
   const visual = $('#scene-visual');
-  visual.classList.remove('cage-scene', 'cage-from-passage', 'cage-from-road', 'cage-outcome-saved', 'cage-outcome-orders');
+  visual.classList.remove(
+    'cage-scene', 'cage-from-passage', 'cage-from-road', 'cage-outcome-saved', 'cage-outcome-orders',
+    'third-scene', 'third-from-mira', 'third-from-orders', 'third-outcome-closed', 'third-outcome-open',
+  );
   image.hidden = !scene;
   if (!scene) {
     image.removeAttribute('src');
@@ -424,11 +635,15 @@ function renderCombat(combat, combatItems = []) {
   document.documentElement.classList.toggle('combat-running', Boolean(combat));
   $('#scene-visual').classList.toggle('combat-active', Boolean(combat));
   if (!combat) {
+    if ($('#combat-grimoire').open) $('#combat-grimoire').close();
     $('#combat-cards').replaceChildren();
     $('#combat-log').replaceChildren();
     $('#combat-potion').hidden = true;
     return;
   }
+  renderCombatGrimoire(combat);
+  $('#combat-deck-open').disabled = false;
+  $('#combat-discard-open').disabled = false;
   setText('#combat-round', `Round ${combat.round}`);
   setText(
     '#combat-phase',
@@ -619,19 +834,111 @@ function renderCombat(combat, combatItems = []) {
   }));
 }
 
-$('#chapter-action').addEventListener('click', async () => {
-  const story = await window.candy.startStory();
-  if (story.requiresAdultConfirmation) { $('#adult-warnings').textContent=(story.warnings||[]).join(' · ');$('#adult-gate').showModal();return; }
-  resetConversationView(); if (story.opening) appendMessage('assistant', story.opening); renderStory(story); state = await window.candy.readCharacter(); renderProfile();
-});
-$('#chapter-restart').addEventListener('click',async()=>{const story=await window.candy.restartStory();resetConversationView();if(story.opening)appendMessage('assistant',story.opening);renderStory(story);state=await window.candy.readCharacter();renderProfile();$('#chapter-menu').open=false;});
+function renderCombatGrimoire(combat) {
+  const cards = combat.deckCards || [];
+  setText(
+    '#combat-grimoire-description',
+    `${cards.length} cartes. La défausse reforme la pioche quand elle est vide.`,
+  );
+  const zones = {
+    draw: { label: 'Pioche', order: 0 },
+    hand: { label: 'Main', order: 1 },
+    discard: { label: 'Défausse', order: 2 },
+  };
+  const kinds = {
+    weapon: 'Arme',
+    cantrip: 'Sort mineur',
+    spell: 'Sort niveau 1',
+  };
+  $('#combat-grimoire-zones').replaceChildren(...Object.entries(zones).map(
+    ([zone, presentation]) => {
+      const marker = document.createElement('span');
+      marker.className = `grimoire-zone ${zone}`;
+      marker.innerHTML = '<i></i><strong></strong><small></small>';
+      marker.querySelector('strong').textContent = cards.filter(
+        (card) => card.zone === zone,
+      ).length;
+      marker.querySelector('small').textContent = presentation.label;
+      return marker;
+    },
+  ));
+  const orderedCards = [...cards].sort((left, right) => (
+    zones[left.zone].order - zones[right.zone].order
+    || left.instanceId.localeCompare(right.instanceId, 'fr')
+  ));
+  $('#combat-grimoire-cards').replaceChildren(...orderedCards.map((card) => {
+    const item = document.createElement('article');
+    item.className = `grimoire-card ${card.kind} zone-${card.zone}`;
+    item.innerHTML = '<div><span></span><em></em></div><strong></strong><p></p><b></b>';
+    item.querySelector('span').textContent = kinds[card.kind];
+    item.querySelector('em').textContent = zones[card.zone].label;
+    item.querySelector('strong').textContent = card.name;
+    item.querySelector('p').textContent = card.description;
+    item.querySelector('b').textContent = card.kind === 'spell'
+      ? `${card.type === 'reaction' ? 'Réaction' : 'Action'} · ${card.cost} charge`
+      : card.kind === 'weapon'
+        ? 'Action · Force'
+        : 'Action · gratuit';
+    return item;
+  }));
+}
+
+$('#chapter-action').addEventListener('click', beginStory);
+$('#chapter-restart').addEventListener('click', restartCurrentStory);
 $('#act-retry').addEventListener('click',async()=>{const story=await window.candy.retryStoryAct();await reloadConversation();renderStory(story);});
-$('#chapter-continue').addEventListener('click',async()=>{
-  const story=await window.candy.continueAfterSuccess();
-  if(story.opening){resetConversationView();appendMessage('assistant',story.opening);}
-  renderStory(story);state=await window.candy.readCharacter();renderProfile();$('#prompt').focus();
-});
+$('#chapter-continue').addEventListener('click', continueCurrentStory);
 $('#chapter-quit').addEventListener('click',async()=>{renderStory(await window.candy.quitStory());$('#chapter-menu').open=false;});
+
+$('#game-menu-primary').addEventListener('click', async () => {
+  const action = $('#game-menu-primary').dataset.action;
+  if (action === 'start') await beginStory();
+  else if (action === 'resume') closeGameMenu();
+  else if (action === 'end') showGameMenu('end');
+  else if (action === 'retry') {
+    const story = await window.candy.retryStoryAct();
+    await reloadConversation();
+    terminalMenuSignature = null;
+    renderStory(story);
+    closeGameMenu();
+  } else if (action === 'continue') await continueCurrentStory();
+  else showGameMenu('home');
+});
+$('#game-menu-home').addEventListener('click', () => showGameMenu('home'));
+$('#game-menu-settings').addEventListener('click', () => $('#edit-character').click());
+$('#game-menu-restart').addEventListener('click', () => openMenuConfirmation('restart'));
+$('#game-menu-abandon').addEventListener('click', () => openMenuConfirmation('abandon'));
+
+function openMenuConfirmation(action) {
+  pendingMenuConfirmation = action;
+  const abandoning = action === 'abandon';
+  setText('#game-menu-confirm-title', abandoning ? 'Abandonner la partie ?' : 'Recommencer l’aventure ?');
+  setText(
+    '#game-menu-confirm-copy',
+    abandoning
+      ? 'La partie en cours sera fermée. Les conséquences déjà acquises resteront enregistrées.'
+      : 'La progression de cette aventure sera remplacée par son point de départ.',
+  );
+  $('#game-menu-confirm-action').textContent = abandoning ? 'Abandonner' : 'Recommencer';
+  $('#game-menu-confirm-action').classList.toggle('danger', abandoning);
+  $('#game-menu-confirm').showModal();
+}
+
+$('#game-menu-confirm-form').addEventListener('submit', async (event) => {
+  if (event.submitter?.value === 'cancel') {
+    pendingMenuConfirmation = null;
+    return;
+  }
+  event.preventDefault();
+  $('#game-menu-confirm').close();
+  if (pendingMenuConfirmation === 'restart') await restartCurrentStory();
+  else if (pendingMenuConfirmation === 'abandon') {
+    const story = await window.candy.quitStory();
+    terminalMenuSignature = null;
+    renderStory(story);
+    showGameMenu('home');
+  }
+  pendingMenuConfirmation = null;
+});
 
 async function playStoryChoice(choiceId) {
   const buttons=[...document.querySelectorAll('#story-options button')];buttons.forEach((button)=>button.disabled=true);
@@ -707,6 +1014,12 @@ function setCombatBusy(busy) {
 $('#combat-pass').addEventListener('click', passCombatReaction);
 $('#combat-end-turn').addEventListener('click', endCombatTurn);
 $('#combat-potion').addEventListener('click', useCombatItem);
+for (const selector of ['#combat-deck-open', '#combat-discard-open']) {
+  $(selector).addEventListener('click', () => {
+    renderCombatGrimoire(currentStory.combat);
+    $('#combat-grimoire').showModal();
+  });
+}
 $('#level-confirm').addEventListener('click', async () => {
   if (!selectedLevelStat) return;
   const button = $('#level-confirm');
@@ -757,7 +1070,26 @@ function setInputMode(mode) {
   $('#prompt').placeholder = mode === 'action' ? 'Décrivez ce que vous faites…' : 'Dites quelque chose ou décrivez votre action…';
 }
 document.querySelectorAll('.input-mode').forEach((button) => button.addEventListener('click', () => { setInputMode(button.dataset.mode); $('#prompt').focus(); }));
-document.addEventListener('keydown', (event) => { if (/^[1-4]$/.test(event.key) && !['INPUT','TEXTAREA'].includes(event.target.tagName)) $('#story-options button:nth-child('+event.key+')')?.click(); });
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !document.querySelector('dialog[open]')) {
+    if (menuView === 'pause') {
+      event.preventDefault();
+      closeGameMenu();
+    } else if (!menuView && currentStory?.active && !currentStory.terminal) {
+      event.preventDefault();
+      showGameMenu('pause');
+    }
+    return;
+  }
+  if (event.key === 'Enter' && menuView && !document.querySelector('dialog[open]')) {
+    event.preventDefault();
+    $('#game-menu-primary').click();
+    return;
+  }
+  if (!menuView && /^[1-4]$/.test(event.key) && !['INPUT','TEXTAREA'].includes(event.target.tagName)) {
+    $('#story-options button:nth-child('+event.key+')')?.click();
+  }
+});
 
 $('#edit-character').addEventListener('click', () => {
   const c = state.character; const form = $('#editor-form');

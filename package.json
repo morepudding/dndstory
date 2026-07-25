@@ -9,7 +9,7 @@
     "start": "electron .",
     "dev": "electron .",
     "check": "node --check src/main.js && node --check src/preload.js && node --check src/server/codex-client.js && node --check src/server/story-format.js && node --check src/server/narrative-tree.js && node --check src/server/combat-engine.js && node --check src/server/branching-book-runtime.js && node --check src/server/book-session-service.js && node --check src/server/progression-service.js && node --check src/server/story-catalog.js && node --check src/server/story-repository.js && node --check src/server/story-game-service.js && node --check src/server/narrative-studio.js && node --check src/server/conversation-service.js && node --check src/pwa/browser-store.js && node --check src/pwa/browser-api.js && node --check src/pwa/entry.js && node --check src/renderer/app.js && node --check src/renderer/studio.js && node --check tools/build-pwa.js && node --check tools/serve-pwa.js && node --check tools/capture-pwa-qa.js && node --check tools/generate-pwa-icons.js && node --check tools/simulate-combat.js",
-    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "test": "node --test --test-reporter=dot --test-concurrency=1 test/*.test.js",
     "build:story": "node tools/build-story.js",
     "verify:story": "node tools/verify-story.js",
     "simulate:combat": "node tools/simulate-combat.js",

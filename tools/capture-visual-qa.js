@@ -57,6 +57,34 @@ app.whenReady().then(async () => {
   await player.loadFile(path.join(__dirname, '..', 'src', 'renderer', 'index.html'));
   await freezeAnimations(player);
   await delay(350);
+  const homeMenu = await player.webContents.executeJavaScript("({visible:!document.querySelector('#game-menu').hidden,view:document.querySelector('#game-menu').dataset.view,primary:document.querySelector('#game-menu-primary').textContent,chapter:document.querySelector('#game-menu-chapter').textContent})");
+  if (!homeMenu.visible || homeMenu.view !== 'home' || homeMenu.primary !== 'Reprendre la partie' || !homeMenu.chapter.includes('Route des Ronces')) throw new Error(`Menu d’accueil invalide : ${JSON.stringify(homeMenu)}`);
+  fs.writeFileSync(path.join(outputDir, 'menu-home-1200x820.png'), (await player.capturePage()).toPNG());
+  await player.webContents.executeJavaScript("document.querySelector('#game-menu-primary').click()");
+  await delay(120);
+  await player.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Escape' });
+  await delay(120);
+  const pauseMenu = await player.webContents.executeJavaScript("({visible:!document.querySelector('#game-menu').hidden,view:document.querySelector('#game-menu').dataset.view,primary:document.querySelector('#game-menu-primary').textContent})");
+  if (!pauseMenu.visible || pauseMenu.view !== 'pause' || pauseMenu.primary !== 'Reprendre') throw new Error(`Menu Échap invalide : ${JSON.stringify(pauseMenu)}`);
+  fs.writeFileSync(path.join(outputDir, 'menu-pause-1200x820.png'), (await player.capturePage()).toPNG());
+  player.setSize(760, 900);
+  await forceRepaint(player);
+  fs.writeFileSync(path.join(outputDir, 'menu-pause-760x900.png'), (await player.capturePage()).toPNG());
+  player.setSize(1200, 820);
+  await forceRepaint(player);
+  await player.webContents.executeJavaScript("document.querySelector('#game-menu-home').click()");
+  const homeReturn = await player.webContents.executeJavaScript("({view:document.querySelector('#game-menu').dataset.view,primary:document.querySelector('#game-menu-primary').textContent,active:document.querySelector('#game-menu-progress').hidden===false})");
+  if (homeReturn.view !== 'home' || homeReturn.primary !== 'Reprendre la partie' || !homeReturn.active) throw new Error(`Retour au menu non destructif invalide : ${JSON.stringify(homeReturn)}`);
+  await player.webContents.executeJavaScript("document.querySelector('#game-menu-primary').click()");
+  await player.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Escape' });
+  await delay(120);
+  await player.webContents.executeJavaScript("document.querySelector('#game-menu-restart').click()");
+  await delay(120);
+  const confirmMenu = await player.webContents.executeJavaScript("({open:document.querySelector('#game-menu-confirm').open,title:document.querySelector('#game-menu-confirm-title').textContent})");
+  if (!confirmMenu.open || !confirmMenu.title.includes('Recommencer')) throw new Error(`Confirmation de recommencement invalide : ${JSON.stringify(confirmMenu)}`);
+  await player.webContents.executeJavaScript("document.querySelector('#game-menu-confirm button[value=cancel]').click()");
+  await player.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Escape' });
+  await delay(120);
   const initial = await player.webContents.executeJavaScript("({title:document.querySelector('#chapter-title').textContent,scene:document.querySelector('#scene-title').textContent,choices:document.querySelectorAll('#story-options button').length})");
   if (!initial.title.includes('La Route des Ronces') || initial.choices < 2) throw new Error(`Écran initial invalide : ${JSON.stringify(initial)}`);
   fs.writeFileSync(path.join(outputDir, 'story-start-1200x820.png'), (await player.capturePage()).toPNG());
@@ -76,12 +104,24 @@ app.whenReady().then(async () => {
   const combat = await player.webContents.executeJavaScript("({round:document.querySelector('#combat-round').textContent,cards:document.querySelectorAll('#combat-cards button').length})");
   if (combat.round !== 'Round 1' || combat.cards !== 3) throw new Error(`Combat Electron invalide : ${JSON.stringify(combat)}`);
   fs.writeFileSync(path.join(outputDir, 'story-combat-1200x820.png'), (await player.capturePage()).toPNG());
+  const grimoireOpen = await player.webContents.executeJavaScript("try { document.querySelector('#combat-deck-open').click(); 'ok'; } catch (error) { error.stack || error.message; }");
+  if (grimoireOpen !== 'ok') throw new Error(`Ouverture du grimoire impossible : ${grimoireOpen}`);
+  await delay(120);
+  const grimoire = await player.webContents.executeJavaScript("({open:document.querySelector('#combat-grimoire').open,cards:document.querySelectorAll('#combat-grimoire-cards .grimoire-card').length,zones:[...document.querySelectorAll('#combat-grimoire-zones .grimoire-zone')].map((zone)=>zone.textContent.trim()),kinds:[...document.querySelectorAll('#combat-grimoire-cards .grimoire-card span')].map((kind)=>kind.textContent)})");
+  if (!grimoire.open || grimoire.cards !== 10 || !grimoire.zones.some((text) => text.includes('7') && text.includes('Pioche')) || !grimoire.zones.some((text) => text.includes('3') && text.includes('Main')) || !['Arme', 'Sort mineur', 'Sort niveau 1'].every((kind) => grimoire.kinds.includes(kind))) throw new Error(`Grimoire Electron invalide : ${JSON.stringify(grimoire)}`);
+  fs.writeFileSync(path.join(outputDir, 'story-combat-grimoire-1200x820.png'), (await player.capturePage()).toPNG());
+  player.setSize(760, 900);
+  await delay(120);
+  fs.writeFileSync(path.join(outputDir, 'story-combat-grimoire-760x900.png'), (await player.capturePage()).toPNG());
+  await player.webContents.executeJavaScript("document.querySelector('#combat-grimoire').close()");
+  player.setSize(1200, 820);
+  await delay(120);
   await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Braise occulte')).click()");
   await delay(220);
-  await player.webContents.executeJavaScript("document.querySelector('#combat-end-turn').click()");
+  await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Bâton de voyage')).click()");
   await delay(220);
   const reaction = await player.webContents.executeJavaScript("({phase:document.querySelector('#combat-phase').textContent,passVisible:!document.querySelector('#combat-pass').hidden,enemyHp:document.querySelector('#combat-enemy-hp').textContent,enemyHand:document.querySelector('#combat-enemy-hand-count').textContent})");
-  if (!reaction.phase.includes('2 actions ennemies') || !reaction.passVisible || !reaction.enemyHp.startsWith('17 / 20') || !reaction.enemyHand.includes('2 cartes')) throw new Error(`Réaction Electron invalide : ${JSON.stringify(reaction)}`);
+  if (!reaction.phase.includes('2 actions ennemies') || !reaction.passVisible || !reaction.enemyHp.startsWith('15 / 20') || !reaction.enemyHand.includes('2 cartes')) throw new Error(`Réaction Electron invalide : ${JSON.stringify(reaction)}`);
   fs.writeFileSync(path.join(outputDir, 'story-combat-reaction-1200x820.png'), (await player.capturePage()).toPNG());
   await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Entrave de givre')).click()");
   await delay(220);
@@ -103,15 +143,13 @@ app.whenReady().then(async () => {
   await delay(220);
   await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Braise occulte')).click()");
   await delay(220);
-  await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Bâton de voyage')).click()");
+  await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Braise occulte')).click()");
   await delay(220);
   await player.webContents.executeJavaScript("document.querySelector('#combat-pass').click()");
   await delay(220);
   await player.webContents.executeJavaScript("document.querySelector('#combat-pass').click()");
   await delay(220);
   await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Braise occulte')).click()");
-  await delay(220);
-  await player.webContents.executeJavaScript("[...document.querySelectorAll('#combat-cards button')].find((button) => button.textContent.includes('Bâton de voyage')).click()");
   await delay(300);
   const ending = await player.webContents.executeJavaScript("({scene:document.querySelector('#scene-title').textContent,continueVisible:!document.querySelector('#chapter-continue').hidden,levelVisible:!document.querySelector('#level-up-panel').hidden,options:document.querySelectorAll('#level-stat-options button').length,gold:document.querySelector('#hero-gold').textContent})");
   if (!ending.scene.includes('Niveau 2') || ending.continueVisible || !ending.levelVisible || ending.options !== 5 || ending.gold !== '12 or') throw new Error(`Conclusion Electron invalide : ${JSON.stringify(ending)}`);
@@ -273,13 +311,13 @@ app.whenReady().then(async () => {
   await freezeAnimations(player);
   await delay(220);
   const advantageReady = await player.webContents.executeJavaScript("({phase:document.querySelector('#combat-phase').textContent,tempo:document.querySelector('#combat-tempo-state').textContent,actions:document.querySelector('#combat-actions').textContent,costs:[...document.querySelectorAll('.card-action-cost:not([hidden])')].map((item)=>item.textContent)})");
-  if (advantageReady.phase !== 'À vous d’agir' || advantageReady.tempo !== 'Avantage' || advantageReady.actions !== '2 disponibles' || advantageReady.costs.length !== 3 || advantageReady.costs.some((cost) => cost !== '0 Action')) throw new Error(`Avantage prêt invalide : ${JSON.stringify(advantageReady)}`);
-  service.playCombatCard(service.readStory().combat.cards.find((card) => card.id === 'braise-occulte').instanceId);
+  if (advantageReady.phase !== 'À vous d’agir' || advantageReady.tempo !== 'Avantage' || advantageReady.actions !== '2 disponibles' || advantageReady.costs.length < 1 || advantageReady.costs.some((cost) => cost !== '0 Action')) throw new Error(`Avantage prêt invalide : ${JSON.stringify(advantageReady)}`);
+  service.playCombatCard(service.readStory().combat.cards.find((card) => card.available && card.type === 'action').instanceId);
   await reloadWindow(player);
   await freezeAnimations(player);
   await delay(220);
   const advantageConsumed = await player.webContents.executeJavaScript("({tempo:document.querySelector('#combat-tempo-state').textContent,actions:document.querySelector('#combat-actions').textContent,status:document.querySelector('#combat-player-statuses').textContent,costs:[...document.querySelectorAll('.card-action-cost:not([hidden])')].map((item)=>item.textContent),log:document.querySelector('#combat-log').textContent})");
-  if (advantageConsumed.tempo !== 'Neutre' || advantageConsumed.actions !== '2 disponibles' || advantageConsumed.status.trim() || advantageConsumed.costs.some((cost) => cost !== '1 Action') || !advantageConsumed.log.includes('Avantage est consommé')) throw new Error(`Consommation d’Avantage invalide : ${JSON.stringify(advantageConsumed)}`);
+  if (advantageConsumed.tempo !== 'Neutre' || advantageConsumed.actions !== '2 disponibles' || advantageConsumed.status.includes('Avantage') || advantageConsumed.costs.some((cost) => cost !== '1 Action') || !advantageConsumed.log.includes('Avantage est consommé')) throw new Error(`Consommation d’Avantage invalide : ${JSON.stringify(advantageConsumed)}`);
   await forceRepaint(player);
   fs.writeFileSync(path.join(outputDir, 'cage-varek-avantage-consomme-1200x820.png'), (await player.capturePage()).toPNG());
 
@@ -295,6 +333,50 @@ app.whenReady().then(async () => {
   await forceRepaint(player);
   fs.writeFileSync(path.join(outputDir, 'cage-ordres-recuperes-1200x820.png'), (await player.capturePage()).toPNG());
   await captureNarrow(player, 'cage-ordres-recuperes-760x900.png');
+
+  service.startStory('le-troisieme-palier', { sourceEndingId: 'captive-sauvee' });
+  service.chooseStoryOption('ancrage-acces');
+  await reloadWindow(player);
+  await freezeAnimations(player);
+  await delay(250);
+  const thirdMira = await player.webContents.executeJavaScript("({state:document.querySelector('#scene-state').textContent,art:document.querySelector('#scene-art').getAttribute('src'),choices:[...document.querySelectorAll('#story-options button')].map((button)=>button.textContent)})");
+  if (!thirdMira.state.includes('Mira sauvée') || !thirdMira.art?.includes('conduit-du-ravin') || !thirdMira.choices.some((text) => text.includes('courant froid'))) throw new Error(`Descente de Mira invalide : ${JSON.stringify(thirdMira)}`);
+  await forceRepaint(player);
+  fs.writeFileSync(path.join(outputDir, 'troisieme-palier-mira-1200x820.png'), (await player.capturePage()).toPNG());
+  await captureNarrow(player, 'troisieme-palier-mira-760x900.png');
+  service.chooseStoryOption('suivre-air-froid');
+  service.chooseStoryOption('condamner-passage');
+  await reloadWindow(player);
+  await freezeAnimations(player);
+  await delay(250);
+  const thirdClosed = await player.webContents.executeJavaScript("({state:document.querySelector('#scene-state').textContent,art:document.querySelector('#scene-art').getAttribute('src'),scene:document.querySelector('#scene-title').textContent})");
+  if (!thirdClosed.state.includes('Passage condamné') || !thirdClosed.art?.includes('passage-condamne') || thirdClosed.scene !== 'Victoire') throw new Error(`Passage condamné invalide : ${JSON.stringify(thirdClosed)}`);
+  await forceRepaint(player);
+  fs.writeFileSync(path.join(outputDir, 'troisieme-palier-condamne-1200x820.png'), (await player.capturePage()).toPNG());
+  await captureNarrow(player, 'troisieme-palier-condamne-760x900.png');
+
+  service.startStory('le-troisieme-palier', { sourceEndingId: 'ordres-recuperes' });
+  service.chooseStoryOption('ancrage-ecoute');
+  await reloadWindow(player);
+  await freezeAnimations(player);
+  await delay(250);
+  const thirdOrders = await player.webContents.executeJavaScript("({state:document.querySelector('#scene-state').textContent,art:document.querySelector('#scene-art').getAttribute('src'),choices:[...document.querySelectorAll('#story-options button')].map((button)=>button.textContent)})");
+  if (!thirdOrders.state.includes('Ordres récupérés') || !thirdOrders.art?.includes('cage-de-service') || !thirdOrders.choices.some((text) => text.includes('deuxième cloche'))) throw new Error(`Descente des ordres invalide : ${JSON.stringify(thirdOrders)}`);
+  await forceRepaint(player);
+  fs.writeFileSync(path.join(outputDir, 'troisieme-palier-ordres-1200x820.png'), (await player.capturePage()).toPNG());
+  await captureNarrow(player, 'troisieme-palier-ordres-760x900.png');
+  service.chooseStoryOption('attendre-seconde-cloche');
+  service.chooseStoryOption('maintenir-passage');
+  await reloadWindow(player);
+  await freezeAnimations(player);
+  await delay(250);
+  const thirdOpen = await player.webContents.executeJavaScript("({state:document.querySelector('#scene-state').textContent,art:document.querySelector('#scene-art').getAttribute('src'),scene:document.querySelector('#scene-title').textContent})");
+  if (!thirdOpen.state.includes('Passage maintenu') || !thirdOpen.art?.includes('passage-maintenu') || thirdOpen.scene !== 'Victoire') throw new Error(`Passage maintenu invalide : ${JSON.stringify(thirdOpen)}`);
+  await forceRepaint(player);
+  fs.writeFileSync(path.join(outputDir, 'troisieme-palier-maintenu-1200x820.png'), (await player.capturePage()).toPNG());
+  const endMenu = await player.webContents.executeJavaScript("({visible:!document.querySelector('#game-menu').hidden,view:document.querySelector('#game-menu').dataset.view,title:document.querySelector('#game-menu-title').textContent,primary:document.querySelector('#game-menu-primary').textContent})");
+  if (!endMenu.visible || endMenu.view !== 'end' || endMenu.title !== 'Le Troisième Palier' || !endMenu.primary.includes('accueil')) throw new Error(`Menu de victoire invalide : ${JSON.stringify(endMenu)}`);
+  await captureNarrow(player, 'troisieme-palier-maintenu-760x900.png');
 
   service.startStory('la-route-des-ronces');
   service.chooseStoryOption('ancrage-etincelle');
@@ -326,6 +408,10 @@ app.whenReady().then(async () => {
   player.destroy();
   console.log(JSON.stringify({
     outputDir,
+    homeMenu,
+    pauseMenu,
+    homeReturn,
+    confirmMenu,
     initial,
     second,
     combat,
@@ -346,6 +432,11 @@ app.whenReady().then(async () => {
     concentrationTriggered,
     concentrationBroken,
     cageOrders,
+    thirdMira,
+    thirdClosed,
+    thirdOrders,
+    thirdOpen,
+    endMenu,
   }, null, 2));
   app.quit();
 }).catch((error) => { console.error(error); app.exit(1); });

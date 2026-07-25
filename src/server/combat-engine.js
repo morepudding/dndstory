@@ -184,6 +184,20 @@ class CombatEngine {
     });
   }
 
+  deckCardsFor(combat) {
+    this.assertCombat(combat);
+    const zones = [
+      ['draw', combat.drawPile],
+      ['hand', combat.hand],
+      ['discard', combat.discardPile],
+    ];
+    return zones.flatMap(([zone, pile]) => pile.map((instance) => ({
+      instanceId: instance.instanceId,
+      ...structuredClone(this.cards.get(instance.cardId)),
+      zone,
+    })));
+  }
+
   resolveActionCard(combat, card, actionCost) {
     const damage = card.kind === 'weapon'
       ? card.effect.damage * combat.player.stats.strength

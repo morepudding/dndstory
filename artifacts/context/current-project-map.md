@@ -4,25 +4,25 @@
 
 ## Référence
 
-- **Empreinte :** `f5ca18a99d66959b`
-- **Générée :** 2026-07-24T14:35:45.534Z
-- **Git informatif :** branche `main`, HEAD `abc8916802d2`, 21 entrée(s) dans le worktree
+- **Empreinte :** `750fc7a4ec728ca9`
+- **Générée :** 2026-07-25T12:31:59.552Z
+- **Git informatif :** branche `agent/lightweight-loops-pwa`, HEAD `e7f4901ec746`, 98 entrée(s) dans le worktree
 - **Comparaison fiable :** les changements sont détectés par le contenu des fichiers, même si le worktree n'est pas commité.
-- **Boucle active :** `artifacts/loops/005-tenir-le-sort.md` — `à jouer`
-- **Dernier verdict :** `artifacts/loops/006-jouer-sur-mobile.md` — `garder`
+- **Boucle active :** `artifacts/loops/009-le-grimoire-de-combat.md` — `à jouer`
+- **Dernier verdict :** `artifacts/loops/008-la-couche-de-menus.md` — `garder`
 
 ## Routage
 
 | Domaine | Empreinte | Fichiers repères | Validation |
 | --- | --- | --- | --- |
-| Règles et boucle | `0bc381d85cd2` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md`<br>`artifacts/loops/005-tenir-le-sort.md` | validateur du skill, puis `git diff --check` |
-| Livre et structure | `12fb72487322` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
-| État et sauvegarde | `bb640c6b1f6c` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
-| Moteur | `725f53b88453` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |
-| Application et interface | `44ad7f1fb908` | `src/main.js`<br>`src/preload.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run qa:visual` si le rendu ou l'interaction change |
-| Ressources visuelles | `b5b8f4e08bc5` | `src/renderer/assets/`<br>`content/visuals/`<br>`tools/capture-visual-qa.js` | licences, puis `npm run qa:visual` si l'affichage change |
-| Tests | `dbd681c8bd84` | `test/` | test ciblé du contrat modifié |
-| Configuration et reste du projet | `ab579122d965` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
+| Règles et boucle | `446a9f6a53f6` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md`<br>`artifacts/loops/009-le-grimoire-de-combat.md` | validateur du skill, puis `git diff --check` |
+| Livre et structure | `e14975892ce0` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
+| État et sauvegarde | `1b87cb6bc51c` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
+| Moteur | `46c80bfc128d` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |
+| Application et interface | `da59a929159f` | `src/main.js`<br>`src/preload.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run qa:visual` si le rendu ou l'interaction change |
+| Ressources visuelles | `14535cc4d8a3` | `src/renderer/assets/`<br>`content/visuals/`<br>`tools/capture-visual-qa.js` | licences, puis `npm run qa:visual` si l'affichage change |
+| Tests | `ceb1f0735ee3` | `test/` | test ciblé du contrat modifié |
+| Configuration et reste du projet | `a4e413235d8f` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
 
 ## Démarrage d'une boucle
 

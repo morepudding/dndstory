@@ -14,7 +14,10 @@ const NODE_FIELDS = new Set([
   'relationalMovement', 'choices', 'terminal', 'combat',
   'victoryTargetNodeId', 'defeatTargetNodeId', 'sourceVariants',
 ]);
-const CHOICE_FIELDS = new Set(['id', 'role', 'label', 'playerText', 'targetNodeId', 'requirements', 'transaction', 'arcaneChargeCost']);
+const CHOICE_FIELDS = new Set([
+  'id', 'role', 'label', 'playerText', 'targetNodeId', 'sourceTargetNodeIds',
+  'requirements', 'transaction', 'arcaneChargeCost',
+]);
 const REQUIREMENT_FIELDS = new Set(['stat', 'min', 'gold', 'arcaneCharges']);
 const SOURCE_VARIANT_FIELDS = new Set(['title', 'text']);
 const TRANSACTION_FIELDS = new Set(['id', 'title', 'gold', 'item']);
@@ -137,6 +140,7 @@ function validateNarrativeTree(tree, { publish = false } = {}) {
       if (choice?.role != null && !['anchoring', 'strategic'].includes(choice.role)) {
         fail('choice_role', `Rôle de choix invalide : ${choice?.role}`, choiceLocation);
       }
+      validateSourceTargetNodeIds(choice?.sourceTargetNodeIds, fail, choiceLocation);
       if (choiceIds.has(choice?.id)) fail('duplicate_choice', `Choix dupliqué : ${choice?.id}`, choiceLocation);
       choiceIds.add(choice?.id);
       validateRequirements(choice?.requirements, fail, choiceLocation);
@@ -157,7 +161,7 @@ function validateNarrativeTree(tree, { publish = false } = {}) {
       }
       const label = normalize(choice?.label);
       if (localLabels.has(label)) warn('similar_choices', `Deux choix de ${node?.id} ont le même libellé.`, location);
-      const targetSignature = `${choice?.targetNodeId}:${JSON.stringify(choice?.requirements || [])}:${JSON.stringify(choice?.transaction || null)}`;
+      const targetSignature = `${choice?.targetNodeId}:${JSON.stringify(choice?.sourceTargetNodeIds || {})}:${JSON.stringify(choice?.requirements || [])}:${JSON.stringify(choice?.transaction || null)}`;
       if (node?.role !== 'anchoring' && localTargets.has(targetSignature)) {
         warn('same_target', `Deux choix de ${node?.id} mènent directement au même nœud.`, location);
       }
@@ -177,7 +181,10 @@ function validateNarrativeTree(tree, { publish = false } = {}) {
       if (node.kind !== 'choice' || choices.some((choice) => choice.role !== 'anchoring')) {
         fail('anchoring_role', `${node.id} doit contenir uniquement des choix d’ancrage.`, location);
       }
-      if (new Set(choices.map((choice) => choice.targetNodeId)).size !== 1) {
+      if (new Set(choices.map((choice) => JSON.stringify({
+        targetNodeId: choice.targetNodeId,
+        sourceTargetNodeIds: choice.sourceTargetNodeIds || {},
+      }))).size !== 1) {
         fail('anchoring_target', `${node.id} doit faire converger tous ses choix.`, location);
       }
     }
@@ -276,7 +283,9 @@ function analyzeNarrativeTree(tree, suppliedNodeById = null) {
       return;
     }
     if (node.role === 'anchoring') {
-      enumerate(edges[0].targetNodeId, decisionPath, nextNodes, nextGuard);
+      for (const targetNodeId of new Set(edges.map((edge) => edge.targetNodeId))) {
+        enumerate(targetNodeId, decisionPath, nextNodes, new Set(nextGuard));
+      }
       return;
     }
     for (const edge of edges) {
@@ -432,8 +441,8 @@ function validateCombatNode(node, fail, location) {
     fail('free_action', 'Le deck exige au moins une Action gratuite.', `${location}.combat.player.cards`);
   }
   const deck = Array.isArray(combat.player?.deck) ? combat.player.deck : [];
-  if (deck.length < 3 || deck.some((cardId) => !nonEmpty(cardId) || !cardIds.has(cardId))) {
-    fail('combat_deck', 'La pioche doit contenir au moins trois références de cartes valides.', `${location}.combat.player.deck`);
+  if (deck.length < 10 || deck.some((cardId) => !nonEmpty(cardId) || !cardIds.has(cardId))) {
+    fail('combat_deck', 'Le deck du Sorcier doit contenir au moins dix références de cartes valides.', `${location}.combat.player.deck`);
   }
 
   const enemyCards = Array.isArray(combat.enemy?.cards) ? combat.enemy.cards : [];
@@ -572,6 +581,27 @@ function validateSourceVariants(variants, fail, location) {
   }
 }
 
+function validateSourceTargetNodeIds(targets, fail, location) {
+  if (targets == null) return;
+  if (!targets || typeof targets !== 'object' || Array.isArray(targets) || Object.keys(targets).length === 0) {
+    fail(
+      'source_target_nodes',
+      'sourceTargetNodeIds doit associer au moins une provenance à un nœud.',
+      `${location}.sourceTargetNodeIds`,
+    );
+    return;
+  }
+  for (const [sourceEndingId, targetNodeId] of Object.entries(targets)) {
+    if (!nonEmpty(sourceEndingId) || !nonEmpty(targetNodeId)) {
+      fail(
+        'source_target_node',
+        'Chaque cible conditionnelle exige une provenance et un nœud non vides.',
+        `${location}.sourceTargetNodeIds.${sourceEndingId}`,
+      );
+    }
+  }
+}
+
 function validateTerminal(node, actIds, fail, location) {
   const terminal = node?.terminal;
   if (
@@ -608,7 +638,13 @@ function validateTerminal(node, actIds, fail, location) {
 
 function outgoingEdges(node) {
   if (node?.kind === 'choice') {
-    return (node.choices || []).map((choice) => ({ id: choice.id, targetNodeId: choice.targetNodeId }));
+    return (node.choices || []).flatMap((choice) => {
+      const targets = new Map([[choice.targetNodeId, choice.id]]);
+      for (const [sourceEndingId, targetNodeId] of Object.entries(choice.sourceTargetNodeIds || {})) {
+        if (!targets.has(targetNodeId)) targets.set(targetNodeId, `${choice.id}@${sourceEndingId}`);
+      }
+      return [...targets].map(([targetNodeId, id]) => ({ id, targetNodeId }));
+    });
   }
   if (node?.kind === 'combat') {
     return [

@@ -43,6 +43,7 @@ class StoryGameService {
       arcaneCharges: view.arcaneCharges,
       sourceEndingId: storedStory.activeRun?.sourceEndingId || null,
       cageOutcome: storedStory.cageOutcome,
+      thirdLevelOutcome: storedStory.thirdLevelOutcome,
       act: { id: view.act.id, index: view.act.index, title: view.act.title },
       node: { id: view.node.id, kind: view.node.kind, title: view.node.title, text: view.node.text },
       status: view.status,
@@ -102,7 +103,8 @@ class StoryGameService {
 
   restartStory() {
     this.assertProgressionResolved();
-    return this.startStory(this.store.read().story.activeRun?.storyId || null);
+    const run = this.store.read().story.activeRun;
+    return this.startStory(run?.storyId || null, { sourceEndingId: run?.sourceEndingId || null });
   }
 
   allocateProgressionStat(stat) {

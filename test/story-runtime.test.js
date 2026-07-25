@@ -134,7 +134,7 @@ test('une carte hors phase est refusée sans aucune mutation', () => {
   enterCombat(context.service);
   const before = context.store.read();
   assert.throws(
-    () => context.service.playCombatCard('voile-azur:2'),
+    () => context.service.playCombatCard('entrave-de-givre:3'),
     (error) => error.code === 'CARD_WRONG_PHASE',
   );
   assert.deepEqual(context.store.read(), before);
@@ -185,7 +185,7 @@ test('une partie provenant d’une autre histoire est retirée au prochain déma
   assert.equal(reopened.store.read().recoveryEvents.at(-1).type, 'story_source_changed');
 });
 
-test('après la victoire, Brumepont s’ouvre avant le retour à la conversation libre', async () => {
+test('après la victoire, les chapitres s’enchaînent jusqu’au troisième palier avant la conversation libre', async () => {
   const context = setup();
   enterCombat(context.service);
   winCombat(context.service);
@@ -199,9 +199,14 @@ test('après la victoire, Brumepont s’ouvre avant le retour à la conversation
   assert.equal(cage.storyId, 'la-cage-du-treuil');
   context.service.chooseStoryOption('ancrage-treuil');
   context.service.chooseStoryOption('sauver-mira');
+  const thirdLevel = context.service.continueAfterSuccess();
+  assert.equal(thirdLevel.storyId, 'le-troisieme-palier');
+  context.service.chooseStoryOption('ancrage-acces');
+  context.service.chooseStoryOption('suivre-air-froid');
+  context.service.chooseStoryOption('condamner-passage');
   context.service.continueAfterSuccess();
   const response = await context.service.send('Que raconte la suite ?');
   assert.equal(response.text, 'Le narrateur écoute.');
   assert.equal(context.modelCalls(), 2);
-  assert.equal(context.store.read().character.relationshipEvents.length, 3);
+  assert.equal(context.store.read().character.relationshipEvents.length, 4);
 });

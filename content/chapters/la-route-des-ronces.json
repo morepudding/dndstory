@@ -205,17 +205,15 @@
           ],
           "deck": [
             "braise-occulte",
-            "voile-azur",
+            "baton-de-voyage",
             "entrave-de-givre",
             "eclat-arcanique",
             "baton-de-voyage",
             "voile-azur",
             "braise-occulte",
-            "baton-de-voyage",
-            "entrave-de-givre",
             "braise-occulte",
-            "baton-de-voyage",
-            "eclat-arcanique"
+            "eclat-arcanique",
+            "braise-occulte"
           ]
         },
         "enemy": {

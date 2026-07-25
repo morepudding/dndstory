@@ -37,7 +37,10 @@ class BookSessionService {
     const session = engine.start({ runId: randomUUID(), at, sourceEndingId });
     this.store.transaction((draft) => {
       const previousRun = draft.story.activeRun;
-      removeRunOutcome(draft, previousRun, { clearCageOutcome: previousRun?.storyId === session.storyId });
+      removeRunOutcome(draft, previousRun, {
+        clearCageOutcome: previousRun?.storyId === session.storyId,
+        clearThirdLevelOutcome: previousRun?.storyId === session.storyId,
+      });
       draft.story.activeRun = session;
       draft.conversation.threadId = null;
       draft.conversation.messages = engine.messages(session);
@@ -246,12 +249,25 @@ function persistOutcome(draft, session) {
   if (session.storyId === 'la-cage-du-treuil' && ['captive-sauvee', 'ordres-recuperes'].includes(session.ending.endingId)) {
     draft.story.cageOutcome = session.ending.endingId;
   }
+  if (
+    session.storyId === 'le-troisieme-palier'
+    && ['passage-condamne', 'passage-maintenu'].includes(session.ending.endingId)
+  ) {
+    draft.story.thirdLevelOutcome = session.ending.endingId;
+  }
 }
 
-function removeRunOutcome(draft, session, { clearCageOutcome = false } = {}) {
+function removeRunOutcome(
+  draft,
+  session,
+  { clearCageOutcome = false, clearThirdLevelOutcome = false } = {},
+) {
   const eventId = session?.ending?.relationshipEventId;
   if (eventId) draft.character.relationshipEvents = draft.character.relationshipEvents.filter((event) => event.id !== eventId);
   if (clearCageOutcome && session?.storyId === 'la-cage-du-treuil') draft.story.cageOutcome = null;
+  if (clearThirdLevelOutcome && session?.storyId === 'le-troisieme-palier') {
+    draft.story.thirdLevelOutcome = null;
+  }
 }
 
 function codedError(code, message) {

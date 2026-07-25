@@ -3,11 +3,12 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { CombatEngine } = require('../src/server/combat-engine');
+const { normalizeStory } = require('../src/server/story-format');
 
-const story = JSON.parse(fs.readFileSync(
+const story = normalizeStory(JSON.parse(fs.readFileSync(
   path.join(__dirname, '..', 'content', 'chapters', 'la-cage-du-treuil.json'),
   'utf8',
-));
+)));
 const node = story.nodes.find((candidate) => candidate.id === 'combat-varek');
 
 function engineWithEnemyDeck(deck, drawCount = 1) {
@@ -41,7 +42,7 @@ test('Élan arcanique rend la prochaine carte Action gratuite puis disparaît', 
   assert.equal(combat.phase, 'player');
   assert.deepEqual(combat.player.statuses.map((status) => status.id), ['advantage']);
   const action = engine.cardsFor(combat).find(
-    (card) => card.type === 'action' && card.id !== 'orbe-suspendu',
+    (card) => card.timing === 'action' && card.id !== 'orbe-suspendu',
   );
   assert.equal(action.actionCost, 0);
 
@@ -67,7 +68,7 @@ test('Coup de hampe impose deux Actions même si ses dégâts sont bloqués', ()
   assert.equal(combat.phase, 'player');
   assert.deepEqual(combat.player.statuses.map((status) => status.id), ['disadvantage']);
   const action = engine.cardsFor(combat).find(
-    (card) => card.type === 'action' && card.id !== 'orbe-suspendu',
+    (card) => card.timing === 'action' && card.id !== 'orbe-suspendu',
   );
   assert.equal(action.actionCost, 2);
 

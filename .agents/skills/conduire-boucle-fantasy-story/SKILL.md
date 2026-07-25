@@ -1,6 +1,6 @@
 ---
 name: conduire-boucle-fantasy-story
-description: Cadrer, implémenter ou auditer une boucle verticale de Fantasy Story depuis l’existant jusqu’au verdict du joueur. Utiliser ce skill lorsqu’une demande parle de boucle, de passe ou combine plusieurs disciplines.
+description: Cadrer, implémenter ou auditer une boucle verticale de création Fantasy Story depuis l’existant jusqu’au verdict du joueur. Utiliser ce skill pour porter une seule nouveauté centrale à travers plusieurs disciplines. Pour harmoniser les transitions et conséquences d’une aventure déjà construite sans ajouter de contenu, utiliser relier-aventure-fantasy-story.
 ---
 
 # Conduire une boucle Fantasy Story
@@ -58,7 +58,7 @@ Ne pas charger un spécialiste pour une discipline hors contrat.
 2. Implémenter d’abord règle, état, refus et persistance.
 3. Relier ensuite contenu et interface.
 4. Produire les textes et visuels nécessaires, sans système adjacent.
-5. Ouvrir l’application ou la PWA pour le joueur.
+5. Ouvrir la PWA pour le joueur.
 6. Recueillir son verdict.
 7. Exécuter `npm run context:loop:refresh` après intégration validée ou verdict.
 
@@ -72,7 +72,7 @@ Le parcours manuel du joueur est la preuve d’expérience principale.
 - Réserver `npm test` aux migrations risquées, publications importantes ou demandes explicites.
 - Lancer `npm run verify:story` seulement si le livre ou son schéma change.
 - Lancer `npm run simulate:combat` seulement si règles, cartes, adversaires ou statistiques changent.
-- Ne lancer `npm run qa:visual` ou `npm run qa:pwa` que sur demande ; sinon laisser le joueur tester le parcours réel.
+- Quand l’interface change, construire la PWA puis laisser le joueur tester le parcours réel sur une fenêtre bureau et une fenêtre étroite.
 - Ne jamais répéter une commande réussie sans changement dans son périmètre.
 - Pour une publication PWA, limiter la preuve à `npm run build:pwa`, `git diff --check` et un smoke test de l’URL publique, sauf risque particulier.
 

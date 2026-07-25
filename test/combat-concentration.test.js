@@ -6,13 +6,14 @@ const { CombatEngine } = require('../src/server/combat-engine');
 const { CharacterStore } = require('../src/server/character-store');
 const { ConversationService } = require('../src/server/conversation-service');
 const { StoryRepository } = require('../src/server/story-repository');
+const { normalizeStory } = require('../src/server/story-format');
 const { DevelopmentDiagnostics } = require('../src/server/diagnostics');
 const { tempStore } = require('./helpers');
 
-const story = JSON.parse(fs.readFileSync(
+const story = normalizeStory(JSON.parse(fs.readFileSync(
   path.join(__dirname, '..', 'content', 'chapters', 'la-cage-du-treuil.json'),
   'utf8',
-));
+)));
 const node = story.nodes.find((candidate) => candidate.id === 'combat-varek');
 
 function engineFor({

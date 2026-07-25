@@ -1,0 +1,4 @@
+interface:
+  display_name: "Relier l’aventure Fantasy Story"
+  short_description: "Harmoniser les coutures d’une aventure jouable"
+  default_prompt: "Utilise $relier-aventure-fantasy-story pour auditer l’aventure complète et corriger une famille de coutures sans créer de nouveau contenu."

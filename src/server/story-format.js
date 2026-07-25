@@ -1,10 +1,12 @@
+const { hydrateStoryCardSets } = require('./card-catalog');
+
 function normalizeStory(source) {
-  if (source?.format === 'branching-book') return structuredClone(source);
+  if (source?.format === 'branching-book') return hydrateStoryCardSets(source);
   if (!Array.isArray(source?.nodes) || !Array.isArray(source?.acts) || !Array.isArray(source?.endings)) {
     throw new Error('Format de scénario inconnu.');
   }
   const endingById = new Map(source.endings.map((ending) => [ending.id, ending]));
-  return {
+  return hydrateStoryCardSets({
     schemaVersion: 4,
     format: 'branching-book',
     status: 'approved',
@@ -60,7 +62,7 @@ function normalizeStory(source) {
         })),
       };
     }),
-  };
+  });
 }
 
 module.exports = { normalizeStory };

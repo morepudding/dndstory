@@ -47,7 +47,7 @@ function winCombat(service) {
       else service.passCombatReaction();
       continue;
     }
-    const spell = combat.cards.find((card) => card.available && card.kind === 'spell');
+    const spell = combat.cards.find((card) => card.available && card.family === 'spell');
     const action = spell || combat.cards.find((card) => card.available);
     if (action) service.playCombatCard(action.instanceId);
     else service.endCombatTurn();
@@ -63,7 +63,7 @@ function fightWithoutMagic(service) {
       service.passCombatReaction();
       continue;
     }
-    const mundane = combat.cards.find((card) => card.available && card.kind !== 'spell');
+    const mundane = combat.cards.find((card) => card.available && card.family !== 'spell');
     if (mundane) service.playCombatCard(mundane.instanceId);
     else service.endCombatTurn();
   }

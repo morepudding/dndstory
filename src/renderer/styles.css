@@ -408,26 +408,27 @@ body.narrative-mode .moment-card { display: none; }
 .combat-hand-heading span { color: #e9d7b1; font: 650 14px/1 "Newsreader", Georgia, serif; }
 .combat-hand-heading small { color: #9eafaa; font-size: 8px; font-weight: 750; text-transform: uppercase; letter-spacing: .5px; }
 .combat-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
-.combat-card { position: relative; min-height: 137px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; overflow: hidden; padding: 10px; border: 1px solid #7f91c0; border-radius: 8px; background: radial-gradient(circle at 92% 8%, rgba(153,176,236,.23), transparent 34%), linear-gradient(150deg, #36436c, #1d2440 78%); color: #fff; text-align: left; cursor: pointer; box-shadow: 0 5px 12px rgba(0,0,0,.27), inset 0 0 0 2px rgba(255,255,255,.04); transition: .18s ease; }
+.combat-card { --card-accent: #7f91c0; --card-accent-soft: rgba(153,176,236,.23); position: relative; min-height: 137px; display: flex; flex-direction: column; align-items: flex-start; gap: 7px; overflow: hidden; padding: 10px; border: 1px solid var(--card-accent); border-radius: 8px; background: radial-gradient(circle at 92% 8%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #36436c, #1d2440 78%); color: #fff; text-align: left; cursor: pointer; box-shadow: 0 5px 12px rgba(0,0,0,.27), inset 0 0 0 2px rgba(255,255,255,.04); transition: .18s ease; }
 .combat-card::after { content: ""; position: absolute; inset: 4px; pointer-events: none; border: 1px solid rgba(255,255,255,.07); border-radius: 5px; }
 .combat-card:hover:not(:disabled) { z-index: 2; transform: translateY(-5px) rotate(-.4deg); border-color: #dbe4ff; box-shadow: 0 13px 25px rgba(0,0,0,.42), 0 0 18px rgba(129,154,230,.18); }
 .combat-card:disabled { opacity: .4; filter: saturate(.55); cursor: not-allowed; }
-.card-topline { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.combat-card .card-kind { color: #cbd8ff; font-size: 7px; font-weight: 850; letter-spacing: .55px; text-transform: uppercase; }
+.card-topline { width: 100%; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 5px; }
+.combat-card .card-family { color: #dce5ff; font-size: 7px; font-weight: 850; letter-spacing: .55px; text-transform: uppercase; }
+.card-role { width: fit-content; padding: 2px 5px; border: 1px solid var(--card-accent); border-radius: 999px; color: var(--card-accent); background: rgba(255,255,255,.055); font-size: 6px; font-weight: 850; letter-spacing: .42px; text-transform: uppercase; }
 .card-action-cost { flex: 0 0 auto; padding: 3px 5px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: #f9edca; background: rgba(5,9,20,.3); font: normal 800 7px/1 system-ui, sans-serif; }
 .card-action-cost[hidden] { display: none; }
 .combat-card.action-cost-0 .card-action-cost { border-color: rgba(245,210,109,.58); color: #ffe8a1; background: rgba(138,97,18,.3); box-shadow: 0 0 12px rgba(239,195,75,.18); }
 .combat-card.action-cost-2 .card-action-cost { border-color: rgba(237,105,112,.55); color: #ffd0d0; background: rgba(127,35,43,.34); }
 .combat-card strong { position: relative; z-index: 1; font: 650 16px/1.08 "Newsreader", Georgia, serif; }
-.combat-card small { position: relative; z-index: 1; color: #cad1e5; font-size: 9px; line-height: 1.32; }
-.combat-card b { position: relative; z-index: 1; margin-top: auto; color: #fff2cf; font-size: 9px; }
-.combat-card.cantrip, .combat-card.weapon { border-color: #908b7c; background: radial-gradient(circle at 92% 8%, rgba(221,211,180,.15), transparent 34%), linear-gradient(150deg, #45433e, #252624 78%); }
-.combat-card.status-slowed { border-color: rgba(128,224,255,.55); background: radial-gradient(circle at 92% 8%, rgba(138,230,255,.24), transparent 35%), linear-gradient(145deg, rgba(42,112,151,.72), rgba(22,42,69,.94)); }
-.combat-card.status-slowed .card-kind { color: #c9f5ff; }
-.combat-card.status-advantage { border-color: rgba(239,202,101,.72); background: radial-gradient(circle at 90% 9%, rgba(245,209,108,.28), transparent 36%), linear-gradient(145deg, #5a4a27, #292719 92%); box-shadow: 0 5px 12px rgba(0,0,0,.27), 0 0 18px rgba(231,186,70,.12); }
-.combat-card.status-advantage .card-kind { color: #ffe9a9; }
-.combat-card.concentration-card { border-color: rgba(148,169,255,.72); background: radial-gradient(circle at 88% 12%, rgba(151,174,255,.38), transparent 30%), linear-gradient(145deg, #3f4f91, #202747 88%); box-shadow: 0 5px 12px rgba(0,0,0,.27), 0 0 20px rgba(112,138,239,.18); }
-.combat-card.concentration-card .card-kind { color: #dce4ff; }
+.combat-card .card-effect { position: relative; z-index: 1; margin-top: 2px; color: #fff3d4; font-size: 10px; line-height: 1.3; }
+.card-footer { position: relative; z-index: 1; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: auto; padding-top: 7px; border-top: 1px solid rgba(255,255,255,.1); }
+.card-footer small, .card-charge-cost { color: #d6dbea; font-size: 7px; font-weight: 780; line-height: 1.2; }
+.card-charge-cost { flex: 0 0 auto; color: #f1d98f; }
+.combat-card.family-weapon { --card-accent: #b88d58; --card-accent-soft: rgba(196,146,82,.22); background: radial-gradient(circle at 92% 8%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #493d31, #252522 78%); }
+.combat-card.family-cantrip { --card-accent: #d06d4f; --card-accent-soft: rgba(223,100,67,.24); background: radial-gradient(circle at 92% 8%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #593329, #292321 82%); }
+.combat-card.role-protection { --card-accent: #78a7ed; --card-accent-soft: rgba(102,159,237,.3); background: radial-gradient(circle at 92% 8%, var(--card-accent-soft), transparent 35%), linear-gradient(145deg, #304d7a, #1b2844 92%); }
+.combat-card.role-control { --card-accent: #70cde1; --card-accent-soft: rgba(102,211,231,.27); background: radial-gradient(circle at 92% 8%, var(--card-accent-soft), transparent 35%), linear-gradient(145deg, #276274, #172d46 94%); }
+.combat-card.role-preparation { --card-accent: #c7a4f1; --card-accent-soft: rgba(181,139,239,.3); background: radial-gradient(circle at 90% 9%, var(--card-accent-soft), transparent 36%), linear-gradient(145deg, #51427a, #24223f 92%); box-shadow: 0 5px 12px rgba(0,0,0,.27), 0 0 18px rgba(162,120,226,.13); }
 .combat-pass, .combat-end-turn { justify-self: end; border: 1px solid rgba(239,217,168,.32); border-radius: 999px; padding: 8px 13px; background: rgba(12,25,23,.54); color: #eee3cc; cursor: pointer; font-size: 9px; font-weight: 750; }
 .combat-end-turn { border-color: rgba(226,190,102,.52); color: #2d230f; background: linear-gradient(180deg, #e5c979, #b98d36); box-shadow: 0 5px 12px rgba(0,0,0,.2); }
 .combat-controls { position: relative; z-index: 1; display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
@@ -436,7 +437,11 @@ body.narrative-mode .moment-card { display: none; }
 .combat-item:hover:not(:disabled) { border-color: #ffd2d8; box-shadow: 0 8px 24px rgba(65,11,27,.38); }
 .combat-item:disabled { opacity: .4; cursor: not-allowed; }
 .combat-item img { width: 30px; height: 30px; padding: 4px; border-radius: 8px; background: rgba(255,255,255,.12); }
-.combat-item span { display: grid; gap: 2px; }
+.combat-item > span { display: grid; gap: 2px; }
+.combat-item-identity { display: flex; align-items: center; gap: 5px; }
+.combat-item-identity em, .combat-item-identity i { font-size: 6px; font-weight: 850; letter-spacing: .5px; text-transform: uppercase; }
+.combat-item-identity em { color: #ffd5dc; font-style: normal; }
+.combat-item-identity i { padding: 2px 5px; border: 1px solid rgba(255,158,172,.36); border-radius: 999px; color: #ffc0ca; background: rgba(154,49,69,.24); font-style: normal; }
 .combat-item strong { font: 650 14px/1 "Newsreader", Georgia, serif; }
 .combat-item small { color: #f0cbd1; font-size: 9px; }
 .combat-item > b { color: #ffd8dd; font-size: 11px; }
@@ -538,7 +543,6 @@ menu .cancel-button { background: #f0eee9; color: #625f59; }
   label.wide { grid-column: auto; }
 }
 .narrative-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 22px;border-bottom:1px solid rgba(0,0,0,.07);background:#fffefa}.conversation.narrative-active .narrative-bar{min-height:56px;padding:8px 19px;background:#f3f0ea}.narrative-bar .narrative-heading{display:grid;gap:2px}.narrative-bar .narrative-heading span{order:-1;color:#9b594e;font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.8px}.narrative-bar .narrative-heading strong{font-size:15px;letter-spacing:-.2px}.narrative-bar .narrative-heading small{font-size:11px;color:#837e77}.narrative-bar button,.narrative-bar summary{border:0;border-radius:999px;padding:8px 13px;background:#242220;color:#fff;cursor:pointer;font-size:11px}.narrative-bar[data-active="true"] #chapter-pause{background:#f1ede7;color:#4a4641}.narrative-bar .narrative-controls{display:flex;align-items:center;justify-content:flex-end;gap:7px}.narrative-controls details{position:relative}.narrative-controls summary{list-style:none;background:#e8e3dc;color:#4a4641}.narrative-controls summary::-webkit-details-marker{display:none}.narrative-controls details>div{position:absolute;z-index:20;right:0;top:42px;width:185px;display:grid;gap:4px;padding:7px;border:1px solid var(--hairline);border-radius:15px;background:#fff;box-shadow:0 15px 45px #2d251b22}.narrative-controls details button{width:100%;text-align:left;background:transparent;color:#4a4641}.narrative-controls details button:hover{background:#f5f1ec}.story-options{display:flex;gap:8px;overflow-x:auto;padding:1px 3px 3px}.story-options:empty{display:none}.story-options button{min-height:39px;display:flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid #ebcfc8;background:#f8e9e5;color:#6f3f38;border-radius:13px;padding:8px 13px 8px 9px;cursor:pointer;font-size:12px;font-weight:650;transition:.18s ease}.story-options button:hover{border-color:var(--coral);background:var(--coral);color:#fff;transform:translateY(-1px)}.story-options kbd{display:grid;place-items:center;min-width:20px;height:20px;border:1px solid currentColor;border-radius:6px;font:9px/1 inherit;opacity:.6}
-#development-diagnostics{position:fixed;right:10px;bottom:10px;z-index:9999;max-width:min(520px,70vw);max-height:72vh;overflow:auto;color:#77716b;background:rgba(248,246,242,.92);border:1px solid var(--hairline);border-radius:10px;padding:5px 8px;font:10px/1.45 ui-monospace,monospace;box-shadow:0 8px 30px #0001}#development-diagnostics[open]{color:#eee;background:#242220;padding:10px 13px}#development-diagnostics summary{cursor:pointer;opacity:.7}
 .story-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.story-options button{min-height:54px;white-space:normal;border-color:#e7e1da;background:#fff;color:#493e3b;text-align:left}.story-options button:hover{border-color:#c7bdb3;background:#f6f2ed;color:#332d2a}.story-options button:disabled{opacity:.5;transform:none}.story-options button span{line-height:1.35}.scene-visual .choices{max-width:none;margin:0;padding:13px 14px 14px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(18,16,14,.58);backdrop-filter:blur(14px) saturate(.85);text-shadow:none}.scene-visual .choices-title{margin:0 2px 9px}.scene-visual .choices-title span{color:#fff}.scene-visual .choices-title small{color:rgba(255,255,255,.58)}.scene-visual .story-options button{min-height:52px;border-color:rgba(255,255,255,.22);background:rgba(18,16,14,.56);color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.12)}.scene-visual .story-options button:hover{border-color:rgba(255,255,255,.52);background:rgba(255,255,255,.16);color:#fff}.scene-visual .story-options kbd{color:#fff}.composer-wrap.narrative-active{display:none}.adult-warnings{margin:14px 0;padding:12px;border-radius:12px;background:#f8e9e5;color:#74483f;font-size:12px}.adult-check{display:flex;align-items:center;gap:9px;margin-top:16px;color:var(--ink);font-size:12px}.adult-check input{width:auto;margin:0}#adult-gate p{line-height:1.55;color:var(--secondary)}
 .story-options .choice-copy { display: grid; gap: 4px; }
 .story-options .choice-copy strong { font-size: 12px; }
@@ -564,17 +568,24 @@ html.pwa .combat-grimoire[open] { z-index: 1000; }
 .grimoire-zone strong { font: 650 18px/1 "Newsreader", Georgia, serif; }
 .grimoire-zone small { color: #adb5b0; font-size: 8px; font-weight: 800; letter-spacing: .65px; text-transform: uppercase; }
 .combat-grimoire-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
-.grimoire-card { position: relative; min-height: 190px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; padding: 12px; border: 1px solid #7489c4; border-radius: 10px; background: radial-gradient(circle at 92% 7%, rgba(143,164,231,.22), transparent 34%), linear-gradient(150deg, #354269, #1c243e 80%); box-shadow: 0 8px 18px rgba(0,0,0,.28), inset 0 0 0 2px rgba(255,255,255,.035); }
+.grimoire-card { --card-accent: #7489c4; --card-accent-soft: rgba(143,164,231,.22); position: relative; min-height: 190px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; padding: 12px; border: 1px solid var(--card-accent); border-radius: 10px; background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #354269, #1c243e 80%); box-shadow: 0 8px 18px rgba(0,0,0,.28), inset 0 0 0 2px rgba(255,255,255,.035); }
 .grimoire-card::after { content: ""; position: absolute; inset: 4px; pointer-events: none; border: 1px solid rgba(255,255,255,.07); border-radius: 6px; }
 .grimoire-card > * { position: relative; z-index: 1; }
-.grimoire-card > div { display: flex; justify-content: space-between; gap: 6px; }
+.grimoire-card-topline { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 5px; }
 .grimoire-card span, .grimoire-card em { font-size: 7px; font-weight: 850; letter-spacing: .5px; text-transform: uppercase; }
-.grimoire-card span { color: #cad7ff; }
+.grimoire-card .card-family { color: #dce5ff; }
+.grimoire-card .card-role { font-size: 6px; }
 .grimoire-card em { color: #d8c48f; font-style: normal; }
 .grimoire-card > strong { font: 650 17px/1.08 "Newsreader", Georgia, serif; }
-.grimoire-card p { margin: 0; color: #c6cede; font-size: 9px; line-height: 1.35; }
-.grimoire-card b { margin-top: auto; color: #f5e7bf; font-size: 8px; }
-.grimoire-card.weapon, .grimoire-card.cantrip { border-color: #898274; background: radial-gradient(circle at 92% 7%, rgba(215,202,169,.15), transparent 34%), linear-gradient(150deg, #44423d, #252725 80%); }
+.grimoire-card p { margin: 4px 0 0; color: #f2e7cb; font-size: 9px; font-weight: 750; line-height: 1.35; }
+.grimoire-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; padding-top: 7px; border-top: 1px solid rgba(255,255,255,.1); }
+.grimoire-card-footer b, .grimoire-card-footer small { color: #f5e7bf; font-size: 8px; }
+.grimoire-card-footer small { color: #d9dcea; }
+.grimoire-card.family-weapon { --card-accent: #b88d58; --card-accent-soft: rgba(196,146,82,.2); background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #493d31, #252522 80%); }
+.grimoire-card.family-cantrip { --card-accent: #d06d4f; --card-accent-soft: rgba(223,100,67,.22); background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(150deg, #593329, #292321 82%); }
+.grimoire-card.role-protection { --card-accent: #78a7ed; --card-accent-soft: rgba(102,159,237,.28); background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(145deg, #304d7a, #1b2844 92%); }
+.grimoire-card.role-control { --card-accent: #70cde1; --card-accent-soft: rgba(102,211,231,.25); background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(145deg, #276274, #172d46 94%); }
+.grimoire-card.role-preparation { --card-accent: #c7a4f1; --card-accent-soft: rgba(181,139,239,.28); background: radial-gradient(circle at 92% 7%, var(--card-accent-soft), transparent 34%), linear-gradient(145deg, #51427a, #24223f 92%); }
 .grimoire-card.zone-hand { border-color: #e4bd59; box-shadow: 0 8px 18px rgba(0,0,0,.28), 0 0 18px rgba(222,183,79,.15); transform: translateY(-3px); }
 .grimoire-card.zone-discard { opacity: .58; filter: saturate(.7); }
 @media (max-width: 780px) {

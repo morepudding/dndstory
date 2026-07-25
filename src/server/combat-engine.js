@@ -62,8 +62,8 @@ class CombatEngine {
     if (handIndex === -1) throw codedError('CARD_UNAVAILABLE', 'Cette carte n’est pas dans votre main.');
     const instance = combat.hand[handIndex];
     const card = this.cards.get(instance.cardId);
-    const expectedType = combat.phase === 'player' ? 'action' : 'reaction';
-    if (card.type !== expectedType) {
+    const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
+    if (card.timing !== expectedTiming) {
       throw codedError(
         'CARD_WRONG_PHASE',
         combat.phase === 'player'
@@ -83,7 +83,7 @@ class CombatEngine {
           : 'La limite d’Agilité est atteinte pour ce round.',
       );
     }
-    if (card.cost > combat.player.spellUses) {
+    if (card.chargeCost > combat.player.spellUses) {
       throw codedError('NOT_ENOUGH_SPELL_USES', 'Il ne reste pas assez de charges de sort.');
     }
     if (
@@ -99,8 +99,8 @@ class CombatEngine {
     const next = structuredClone(combat);
     const [playedInstance] = next.hand.splice(handIndex, 1);
     next.discardPile.push(playedInstance);
-    next.player.spellUses -= card.cost;
-    if (card.type === 'action') return this.resolveActionCard(next, card, actionCost);
+    next.player.spellUses -= card.chargeCost;
+    if (card.timing === 'action') return this.resolveActionCard(next, card, actionCost);
     return this.resolveReactionCard(next, card);
   }
 
@@ -163,7 +163,7 @@ class CombatEngine {
     this.assertCombat(combat);
     return combat.hand.map((instance) => {
       const card = this.cards.get(instance.cardId);
-      const expectedType = combat.phase === 'player' ? 'action' : 'reaction';
+      const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
       const actionCost = this.actionCostFor(combat, card);
       const actionAvailable = combat.phase !== 'player'
         || combat.player.actionsPlayed + actionCost <= combat.player.actionLimit;
@@ -173,13 +173,13 @@ class CombatEngine {
         instanceId: instance.instanceId,
         ...structuredClone(card),
         actionCost,
-        resolvedDamage: card.kind === 'weapon'
+        resolvedDamage: card.family === 'weapon'
           ? card.effect.damage * combat.player.stats.strength
           : card.effect.damage,
-        available: card.type === expectedType
+        available: card.timing === expectedTiming
           && actionAvailable
           && concentrationAvailable
-          && card.cost <= combat.player.spellUses,
+          && card.chargeCost <= combat.player.spellUses,
       };
     });
   }
@@ -199,7 +199,7 @@ class CombatEngine {
   }
 
   resolveActionCard(combat, card, actionCost) {
-    const damage = card.kind === 'weapon'
+    const damage = card.family === 'weapon'
       ? card.effect.damage * combat.player.stats.strength
       : card.effect.damage;
     combat.player.actionsPlayed += actionCost;
@@ -209,7 +209,7 @@ class CombatEngine {
       round: combat.round,
       type: 'card',
       cardId: card.id,
-      text: card.kind === 'weapon'
+      text: card.family === 'weapon'
         ? `${card.name} inflige ${damage} dégâts (${card.effect.damage} × Force ${combat.player.stats.strength}).`
         : `${card.name} inflige ${damage} dégâts à ${combat.enemy.name}.`,
     });
@@ -440,7 +440,7 @@ class CombatEngine {
   }
 
   actionCostFor(combat, card) {
-    if (card.type !== 'action') return 0;
+    if (card.timing !== 'action') return 0;
     if (combat.player.statuses.some((status) => status.id === 'advantage')) return 0;
     if (combat.player.statuses.some((status) => status.id === 'disadvantage')) return 2;
     return 1;

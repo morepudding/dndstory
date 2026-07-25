@@ -20,9 +20,6 @@
           <button class="nav-item" aria-label="Souvenirs" title="Souvenirs">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-8-4.5-8-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 10-8 10Z"/></svg>
           </button>
-          <button class="nav-item" id="studio-shortcut" aria-label="Atelier narratif" title="Atelier narratif" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="12" cy="18" r="2"/><path d="m8 7 8 0M7 8l4 8m6-7-4 7"/></svg>
-          </button>
         </div>
         <button id="edit-character" class="nav-item settings" aria-label="Réglages du personnage" title="Modifier le personnage">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1A8 8 0 0 0 15 6l-.3-2.6h-4L10.4 6A8 8 0 0 0 8.8 7L6.5 6l-2 3.4L6.6 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a8 8 0 0 0 1.6 1l.3 2.6h4l.3-2.6a8 8 0 0 0 1.6-1l2.3 1 2-3.4-2.1-1.5a7 7 0 0 0 .1-1Z"/></svg>
@@ -213,7 +210,14 @@
                   <div class="combat-controls">
                     <button id="combat-potion" class="combat-item" type="button" hidden>
                       <img src="assets/game-icons-healing-potion.svg" alt="" />
-                      <span><strong>Potion de soin</strong><small>+5 PV · 1 Action</small></span>
+                      <span>
+                        <span class="combat-item-identity">
+                          <em id="combat-potion-family">Objet</em>
+                          <i id="combat-potion-role">Soin</i>
+                        </span>
+                        <strong>Potion de soin</strong>
+                        <small id="combat-potion-cost">+5 PV · 1 Action</small>
+                      </span>
                       <b>×1</b>
                     </button>
                     <button id="combat-end-turn" class="combat-end-turn" type="button">Terminer le tour</button>

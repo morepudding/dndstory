@@ -31,7 +31,7 @@ Lire avant de proposer ou modifier une mécanique :
 4. Implémenter l'effet dans le moteur avant son affichage.
 5. Ajouter les contrats de données, la validation, la persistance, les journaux et les tests nécessaires.
 6. Explorer exhaustivement les états accessibles avec `npm run simulate:combat`.
-7. Jouer le chemin réel dans l'application avec `npm run qa:visual`, puis manuellement si la sensation ou le rythme restent ambigus.
+7. Jouer le chemin réel dans la PWA ; la sensation, le rythme et la compréhension restent des preuves manuelles.
 8. Comparer la nouvelle option aux options existantes et décider `garder`, `ajuster` ou `retirer`.
 
 Ne modifier qu'une hypothèse principale par boucle afin de savoir ce qui a produit le résultat.
@@ -63,15 +63,15 @@ Exécuter d'abord les mutations déterministes localement. Une action refusée n
 
 ## Valider avant de conclure
 
-Exécuter au minimum :
+Exécuter les contrôles couverts par le changement :
 
 ```powershell
 npm run check
-npm test
-npm run verify:story
 npm run simulate:combat
-npm run qa:visual
+npm run build:pwa
 ```
+
+Ajouter au plus un test ciblé lorsqu'une régression déterministe pourrait rester invisible. Exécuter `npm run verify:story` seulement si le livre ou son schéma change.
 
 Exiger un test de régression du cycle complet lorsqu'un état traverse plusieurs tours : application, visibilité, consommation, disparition, sauvegarde et reprise si applicable.
 
@@ -84,4 +84,4 @@ Exiger un test de régression du cycle complet lorsqu'un état traverse plusieur
 
 ## Rendre la décision
 
-Présenter l'hypothèse, la décision provoquée, les variantes testées, les résultats du moteur, les chemins observés, le test dans l'application, les risques restants et le verdict `garder`, `ajuster` ou `retirer`.
+Présenter l'hypothèse, la décision provoquée, les variantes testées, les résultats du moteur, les chemins observés, le test dans la PWA, les risques restants et le verdict `garder`, `ajuster` ou `retirer`.

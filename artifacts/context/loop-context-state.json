@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "agent/lightweight-loops-pwa",
-    "head": "e7f4901ec746",
-    "dirtyCount": 98
+    "head": "b0a69d0d6923",
+    "dirtyCount": 107
   },
-  "overallHash": "750fc7a4ec728ca9e659fe6d154a2bac0de46314299024314b97babb242c006e",
+  "overallHash": "c16614ddee929934a2122228119ba7f639b7a85db4c1f4958966db5255671f6e",
   "domains": {
     "workflow": {
-      "hash": "446a9f6a53f627a998da1c2b69691e68b806fbf0d71147169346345cdd137349",
+      "hash": "95caaf8583fc4a726f22c6936fadf7b8f019718841a9b3f71a041e6bfb636559",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -18,16 +18,16 @@
         ".agents/skills/concevoir-branches-fantasy-story/SKILL.md": "6e746011145625a94385e9478149d5b5ec16ee2d009409f0470a519b5a6f0237",
         ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/agents/openai.yaml": "b98a5374d56de770558bfa9f9bef4b65e00c3685324a5a2a6fbc29f2203ea7ba",
         ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/references/principes-de-fun.md": "9c47b45f06678abde59b1d3148ea72547148b3afed13c6d251208057c1ffe50c",
-        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/references/protocole-de-test.md": "8622ee94b1c5409f1b6553aaa0d64677cd3e56c81e723271892de7a329dc2236",
-        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/SKILL.md": "570f6278f8291901b55bf27eb9c613fb862ecdb2c3eee2e0e568693e471cf279",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/references/protocole-de-test.md": "8c89f7459b3a9ff78ece30fa822e432257253f97626cc4d694f116fce3e7641e",
+        ".agents/skills/concevoir-equilibrer-cartes-fantasy-story/SKILL.md": "e63b743abbd3bb21e64af50bed724fe253bec65b91badc001179c6efee926970",
         ".agents/skills/concevoir-progression-fantasy-story/agents/openai.yaml": "a9931e491a5c3727a4d7d9cf1b987a57bc79ccaa2da48725704adab4328f7020",
-        ".agents/skills/concevoir-progression-fantasy-story/SKILL.md": "4d462206bf147419fe6013c988b78401312b34182ad0dc7b4f08a536b7e35027",
+        ".agents/skills/concevoir-progression-fantasy-story/SKILL.md": "ac61522b0949c62cf0217654db605e1c9fe9627534d48049834d3d924b8fef9e",
         ".agents/skills/concevoir-visuels-fantasy-story/agents/openai.yaml": "e5883a33852256201b67d2651d28d096afd699880477695dde985dfdbe2cb691",
         ".agents/skills/concevoir-visuels-fantasy-story/references/direction-combat-premium.md": "a116e8233884b3ab6bdae3433c8acf9a74228996b6c3d3a26e47c6306047d356",
-        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "f1e0091b44f5ed3b0f2c80a970e307dfa4c69d0b47bd232052762c36c075bda6",
+        ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "db9e8996edd2682c172002f167ad28cee29c7564693a33da3b7b65a15e623fe7",
         ".agents/skills/conduire-boucle-fantasy-story/agents/openai.yaml": "f5abdebaa3f41aef4e1a5aa6f11bab7a26f7bbb3c2582f4c0cb9152dbbb0d115",
         ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "3f6b65799d8c901e36e76f9661d74acc6f163b8d6499b306de054ffbac4bd8b0",
-        ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "acb9f93db94b5cfd22b8d33f6065120a54e008a2f36f91cbb58cfe77ca5ecaf3",
+        ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "eda153aa65a8902f85e373703a73079ad7531ba70dd90e3f3c4e43697a0926fd",
         ".agents/skills/ecrire-dialogues-fantasy-story/agents/openai.yaml": "43cab97b3a8816dcdcd5269fa62e997355bcb50a76d41a13da642a0b492b7ab0",
         ".agents/skills/ecrire-dialogues-fantasy-story/references/defauts-ia.md": "69557b9aae94e9f27620c68e85d298cff2d2d165d77185f3004b59e07062c931",
         ".agents/skills/ecrire-dialogues-fantasy-story/references/enjeu-et-progression.md": "4c4fcb4d1835878c2746c83853b4a47652aea3af2c451df234697c2c7e59ecb5",
@@ -35,31 +35,36 @@
         ".agents/skills/ecrire-dialogues-fantasy-story/references/formulations-ia.md": "6387714375c41192cf173ff86ed695d9138878de69709f3f4e2f9c5152b2ff28",
         ".agents/skills/ecrire-dialogues-fantasy-story/references/prose-et-dialogue.md": "affb90936fc5da39eec6f63634b629ac9299897e4bdb6e28819603784c301e3b",
         ".agents/skills/ecrire-dialogues-fantasy-story/SKILL.md": "a87b20b39244bd5a989d7e1f127321dcc498a14bee5250e9f5323f3f671b0a33",
-        "AGENTS.md": "031630484326642f58a04b36c84079f18a94bc466261c286ee2abe32ea060280",
+        ".agents/skills/relier-aventure-fantasy-story/agents/openai.yaml": "a71cca43b343921b6c5f5822ca2e7f67d9c05c4e91f1b46fc5c3701734878dee",
+        ".agents/skills/relier-aventure-fantasy-story/scripts/resumer-journal.js": "6970faeb4543dd11f77747ae8a4f938408e8cd36a9f35b2e64df87317ddc3594",
+        ".agents/skills/relier-aventure-fantasy-story/SKILL.md": "df2fa1ed055e969370f6789b6e23c25f6e3ac697770202f0619cdcdbd5239b43",
+        "AGENTS.md": "7df9216ceee49933e8d12ea2fc47b24f96c99877df7c19938599374a8269780e",
         "artifacts/loops/001-passage-niveau-2.md": "d1d35bc9a9d034c31a5f75069819715701f3d51ec6b26237abf847f92cec5417",
         "artifacts/loops/002-la-nuit-a-brumepont.md": "6cdc73ddf4f064e9f75de737c3dccc8399ed846be0de21c220def8af9416feaf",
         "artifacts/loops/003-la-cage-du-treuil-structure.md": "1c2cae52a550668cf077e2c1e8623fc161d4ab4b1080fd0b4389bd7e94312c8b",
         "artifacts/loops/003-la-cage-du-treuil.md": "547946638fed1a2b3cd149111c3def8a189cbe3f0f545f9f216f664de05e87c8",
         "artifacts/loops/004-prendre-l-ascendant.md": "770c88fe24a2d57a734d7f7f58cc6826d76c0329ff236a37645fa733e7e0184f",
         "artifacts/loops/005-tenir-le-sort-journal.md": "b8d01ea5a5b30ea44ced6d746afc34fc75eac6c44b9e49b29e33ce5cb9ab745e",
-        "artifacts/loops/005-tenir-le-sort.md": "faf0eb5b00a33bbfd9e9c5cf7c3ba98f212372657e77cd54b3d3ad8d13b12b67",
+        "artifacts/loops/005-tenir-le-sort.md": "34bb0fbfc4e81a2cd4cf90a535f7fccdafdd30873143ab7ba88f3c27178a37d7",
         "artifacts/loops/006-jouer-sur-mobile.md": "a0f1b4ddeacd25f28b4cf463c352b266e1cf40023ba013312f566f14e8c08c5d",
         "artifacts/loops/007-le-troisieme-palier.md": "1c14d26ed7f21b9801f7be5ae1e03ee361ccacd02ab0f5d8b2e04d7d31d776d0",
         "artifacts/loops/008-la-couche-de-menus.md": "cf55f7c74cf1e1a7c29929f4082eeb2736e36aa4bdda422d2061f5b2092336ff",
-        "artifacts/loops/009-le-grimoire-de-combat.md": "05b29949b65b4adc4c1b8d903016a30c2f8e1d2df34ea2a2eba9f1cda6c5a025",
-        "tools/build-loop-context.js": "fb3c053686ed2d43b529177a0482cdd33faa83d3e1ddc855792287b986b2e9e2"
+        "artifacts/loops/009-le-grimoire-de-combat.md": "49f190b35bec3d8b3a6357bdc6d3e14755481c852669a7cbefab261890cd59b0",
+        "artifacts/loops/010-la-grammaire-du-grimoire.md": "7cbd9e382488f984282697152caacaac250e37b26290beab8ebedd677d54639b",
+        "artifacts/loops/011-faire-exister-les-conclusions.md": "85c7e5fe7955da3e7d1214686e2306ba9935a613a1a11bc9062ccec80da490fb",
+        "tools/build-loop-context.js": "d400dcb073cbda04d5c9a1dfd862ea5aeddcf28bd5a47260bed184f354133d11"
       }
     },
     "story": {
-      "hash": "e14975892ce04dc8f06c3c8482bbc59b29b4dd8a17bccca1537769a77327a53a",
+      "hash": "df73a5154300b609d3e9d939e65cc7b0c948cd72e84d3eb34a8eb422a160a19a",
       "files": {
-        "content/chapters/la-cage-du-treuil.json": "f6aa03f0d952f827d95cafa328d59ad6cb87d6becc209b67db9731b452c90e7b",
-        "content/chapters/la-nuit-a-brumepont.json": "6f204f7f45e96765611e3cd0077ddd89387d99ffc9ba28fefa609c092f84b13f",
-        "content/chapters/la-route-des-ronces.json": "74a8d6c93278b4164066a4b7ac5c1d4fc0514dda33890ac4289c0e2dc3d5cad8",
-        "content/chapters/le-troisieme-palier.json": "5b708681c6b3bd488bd3a66d9cd542b73e1012f1242855ead8a439cd73871d64",
-        "src/server/narrative-tree.js": "557b1137f5b67ac908683c089c7f5583763e4d17cc9b035f7353fc2ddbf3b7a0",
-        "src/server/story-format.js": "4223e06fe9fce7e7cd226f8652b135b0ac52273079633431ed8734cc5cd54a8d",
-        "tools/build-story.js": "caed08b9b6ebf676bd4d20009685195a614c02f104a0b3bd3406fb6f03bde302",
+        "content/chapters/la-cage-du-treuil.json": "bc4a18add026719ad59693b251113635f30453ab5f94221ac82b9e3d09ed1aa3",
+        "content/chapters/la-nuit-a-brumepont.json": "4cb0ad8795b421fdf106dab73ba55790b116f38a8515e1bca87f0b028a90c68d",
+        "content/chapters/la-route-des-ronces.json": "cb04f6d3f6f3d2f16819dcaec9a74e920ac54cdec9dbb5c1e8473ee58cd0bcf5",
+        "content/chapters/le-troisieme-palier.json": "9b498aa6632bb05732b2a6297e35c45ce58ef77ce9b8f4591254fca0f7fb3bbf",
+        "src/server/narrative-tree.js": "e0b95b4b0646295d85606bcd6612598c854d6124297cc2864ce093c09f09aab2",
+        "src/server/story-format.js": "abd854dcf836aa962f3ff4bc4337648a664dfc176a940a9ac8519877251bafdd",
+        "tools/build-story.js": "acc2de1f10f0ffcff544060520ed3208bc81b375781f70d3ff66c10b0b136351",
         "tools/verify-story.js": "dd1267397cc014cb3f82f2d5ab1bab8172c73b73f78707a7f186906a1792fda2"
       }
     },
@@ -73,40 +78,41 @@
       }
     },
     "engine": {
-      "hash": "46c80bfc128d2c90f53650aac3f1f7475fc9be0bb97355a684d3a6374c53b5a7",
+      "hash": "de63550b1b7b43c0eac1316865e4d92297b755a8fae419fa50aa12a8f4c0314e",
       "files": {
         "src/server/branching-book-runtime.js": "f69f07aa286725254ce7c9205074314076e41615c7c2ea71d86e4a402cb831ee",
-        "src/server/codex-client.js": "6cde2ffe51957a504df377099b03050912f6d3d1244355ce71090229e816aec9",
-        "src/server/combat-engine.js": "5a8949b40ef6983db5eec5e6508b7e933cf7d0f9d216ef9062ceee6b2e31c526",
+        "src/server/card-catalog.js": "1f968b99c0f55687c46d482952bcf4dc94cb282293ae4a021192cb93e147df2d",
+        "src/server/codex-client.js": "f3a43eaed84bfb55f8c324d6e1f8b31447205675fc03540b0cce13ddfca9162f",
+        "src/server/combat-engine.js": "f522fa38577c3380d98045c4e60da7ea658e25fe367f3f90c008becdea4ea95d",
         "src/server/context-composer.js": "90570923397c198fc8c06cccabca86e932bdb896eaf8a84766aaa29d0084c056",
         "src/server/conversation-service.js": "f4ba2b7e4d8ac79c1cb13d10bfd1bce72d87a981e06926277381c80436d8343e",
         "src/server/diagnostics.js": "7376b9e1ba24f45d8ef429649b55cf7b0a2a4721a1247a3a8aa7d7afc3a8b10f",
-        "src/server/narrative-studio.js": "09ee06f9d91cdb6533124535c4baa4db039c47d7a0c4b77170b28b277c5eeebd",
         "src/server/progression-service.js": "39bc2d1064d358a8fcef046843e5be3e83e784ce541134d86b44cbdde3f897d8",
         "src/server/random-id.js": "903e5a888c920c24f7a61b497dd4e3d5880528168386a88abf33c0bde9a228a1",
         "src/server/story-catalog.js": "6f10e4e721d6f386e8b9cb68aae7af7d584f3b6cb0eb467d4cb22067cba9e2d8",
-        "src/server/story-game-service.js": "4cf4df078031ca43f52371bd884f83b15c16d8181dcd85ebea3fa65a26437149",
+        "src/server/story-game-service.js": "9565b14000e2b287b47ba90f5d636a19e13ba6c0e0c108f2566e29280395a86e",
         "tools/play-branching-book.js": "182d47cc81479d81e4b2ca5fe300ec0359b56f6e9d05756529b1d2d6ecfbcc2b",
-        "tools/simulate-combat.js": "0c14fef686f31d901fafc33d96537fb59b747a8ea07db6e81d7985f7f48a1784",
-        "tools/smoke-studio-assistant.js": "fbc9eafc672aed749c55160a1d268eac253de753394946a7d62419b0958e4156"
+        "tools/simulate-combat.js": "828dae4cbc2c443fb47e1a8a09f62f90fc738516a569f170f9eb806961a70f6d"
       }
     },
     "ui": {
-      "hash": "da59a929159fec7e126c29e4185534f22e005f4253139eb9cf0e87fd79648dbe",
+      "hash": "6a405c46384269d79cc9f8851c32d6e20b13a3555e9b2bb452789af7858f077c",
       "files": {
-        "src/main.js": "6e2654cb217b8f26642d020a4703e8ea54d51b0c57134b8a92f115599a5d6444",
-        "src/preload-api.js": "11a06f0cbe0611a0337cf21530c0b89b0bcee3a5fd07aa74f3af7eeec14cbab8",
-        "src/preload.js": "9fd93654eb494ec141f26fd5b92bacde05b3ba0560b316488b8f1a517faa6944",
-        "src/renderer/app.js": "aebe66a1bce225186b67e6dcaad08abf14d470288b87a4ae6e85a15e702e21e8",
-        "src/renderer/index.html": "16e43cdb06c5d705d6dab35c63614f8e7361c3a3377cedf69118b0a5e605265e",
-        "src/renderer/studio.css": "35f07fc3e5e1bdbdd0dfd2da063cdebe93bfa07154c3f2117bdcd7fa68265ca3",
-        "src/renderer/studio.html": "442750eec7929c0ed228ce1e1898319aea44bbb45e6a1828fd316f752f4cd2b1",
-        "src/renderer/studio.js": "f83e62cecc01b5795ea6ca5ccedce6116ae251754bf12059d2f5f6e375cf4cdb",
-        "src/renderer/styles.css": "6ab73c5f7d724c14e4c46bbda88e2d3046de4a5b1a4a467ec951a1a72fd4138c"
+        "src/pwa/browser-api.js": "04c8b3367f24edffc9a53a42a11d1d654cf4fdf9658266d6140b6cadc46bdf43",
+        "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
+        "src/pwa/entry.js": "fbe264511c882682e4f2ce50e2bc7821a55a5005d419faa3afe39c9697444799",
+        "src/pwa/icons/sorcerer-sigil-180.png": "694bfb79a31246dc23134a60ebefd8c1504276de19a987adf39198d04a76e4b3",
+        "src/pwa/icons/sorcerer-sigil-192.png": "85403382a14b6847734878e61bf15e447c2fa10c72e3249700f17dfbf897bd13",
+        "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
+        "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
+        "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
+        "src/renderer/app.js": "3323251069ad6b87b1fa3707bd03e178457860a6ba4b2e5a1c9822ad63438c41",
+        "src/renderer/index.html": "c6d1c3e95bd356371ad30e708d226b7855a226fcea8178cd1c212b6449d85874",
+        "src/renderer/styles.css": "2cde262d99e7935eb9066bd3d59d0ff8e3140ea1a7c50b379e32820f3f23806f"
       }
     },
     "assets": {
-      "hash": "14535cc4d8a31e67de0938bff1e93b220c3e1661614fdd99add545ea1679c8b5",
+      "hash": "e2c948adae225662e6a0a79fc8a73d1abb94f5018feaee2ecd774a690c81a3f4",
       "files": {
         "src/renderer/assets/fonts/Newsreader-Variable.ttf": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1",
         "src/renderer/assets/fonts/OFL-Newsreader.txt": "865f0949b59fab5925506f80102dff3d12e8666412daf52d212db969d40adc25",
@@ -125,50 +131,38 @@
         "src/renderer/assets/visuals/troisieme-palier/cage-de-service.png": "55648c2b0719dfc9df8207ca41ef25ed527359b07906a6705ec31f037d911ba2",
         "src/renderer/assets/visuals/troisieme-palier/conduit-du-ravin.png": "2552f565ca65a874de98dbafcee6770c9422f31189b8f3d54b96fb18ce9a1d86",
         "src/renderer/assets/visuals/troisieme-palier/passage-condamne.png": "c86f60d904919bd4fcbe164665f79fd5ab99346c70b22fb31d3470c1ff306911",
-        "src/renderer/assets/visuals/troisieme-palier/passage-maintenu.png": "ea63f52d0d218bcdb782a3ac4b9c1fefd4fea4fa4d7329321e3c78e85d0e2688",
-        "tools/capture-visual-qa.js": "64a789d8cfb84c283bf004c96e5f40cef3031cb2bab292a18eb15237be63ceed"
+        "src/renderer/assets/visuals/troisieme-palier/passage-maintenu.png": "ea63f52d0d218bcdb782a3ac4b9c1fefd4fea4fa4d7329321e3c78e85d0e2688"
       }
     },
     "tests": {
-      "hash": "ceb1f0735ee32234679ca0c720fc9c961553fdbca3f67668e7ad487f2e049125",
+      "hash": "e767de7a6c726bab779ee73095da7f5268287411ccb891897b41e152fdb2520e",
       "files": {
-        "test/branching-book-runtime.test.js": "e817dc9a77c6c8b549b3cab145350c7dfe307558f66ef4f2336a4ea61ca9bdc7",
+        "test/branching-book-runtime.test.js": "d9a98ae4b2f45692a16bf379c37bada04454fed07b7d2c082345496eb047e0de",
         "test/brumepont-economy.test.js": "e68d9807253f9335b000e905731623649b2eda751265149a8d9e026c387f3014",
         "test/cage-du-treuil.test.js": "d001b9d7c4737797db05b7f5e0fec98d20772968f9a331c085220ecbb9f211e6",
         "test/combat-balance.test.js": "fa87b1f3013ba46917a3cc425f8912c999e0cd220ca111eb6400b927d8868512",
-        "test/combat-concentration.test.js": "c8e556fcd53df61fc86689ab5d61cf30b5f1028d0a5d1109884273716fa18641",
-        "test/combat-deck-cycle.test.js": "3ae651661cfdb6b1438c572e14f73eb6d63f85754229451a2b08cf8bbcade5e3",
-        "test/combat-tempo.test.js": "cf98a347c627d666404ef555a10c0a7a429220161073006dcabf9b13baff10e0",
+        "test/combat-concentration.test.js": "ef2ec00d555b94de85f5e96379044daedfa27d51808382cc89bd8fddb590adec",
+        "test/combat-deck-cycle.test.js": "cbcae3f61a2002a0aa224983e0d03b2087de0e1d8d6755dc04ebbca71da44a71",
+        "test/combat-tempo.test.js": "8da39480cb3dd43b4c7b6e6d62c254c2fe6a4784dc9cbc34dcdc349d164bc52e",
         "test/free-chat.test.js": "982d736920d86647c12e3fae85a6794d2b013b66d38f084bef924e5fba6981e3",
         "test/helpers.js": "1af82ee90452a779943a6fadfd0d9f3ad888ec6f0db57e4e1be74a0c76260e8e",
-        "test/narrative-tree.test.js": "a2d543fac8b7e7035e022ac8855e2bb404b6643dd0041a015c9cc482eaeead71",
-        "test/progression.test.js": "8002fd514395a027fadf07b517d096396b995f163d3c0a064b3b27a89e2d0aa8",
+        "test/narrative-tree.test.js": "287db1574c958bc1f322aba7d79f1094cc811946e56d0e1240700ca40695374b",
+        "test/progression.test.js": "f84d5a56a8f92efe476588b189884eac530f30d7b0fe468512a72e6526d3cda7",
         "test/state-and-consent.test.js": "742fc412427bf2892af034b0ba5c982c225f6cb04b43e19fbe16c296ccd5ae23",
-        "test/story-runtime.test.js": "42486357ac7a719e24ec288a952972a22afa02a9dfa513b5baed105e8d862724",
-        "test/studio-and-api.test.js": "80ee77ce0536194c4704447615a67d8e552ddb3b88de00051dfbd4772215e436",
+        "test/story-runtime.test.js": "c8ddb78587c768def52041c542ce67b2df904a218e8ac05170fb4e644f6d1e2c",
         "test/troisieme-palier.test.js": "dac59538b639388300d17ce08d99a492618cd9936d12f8c44b9d385a5f171adc"
       }
     },
     "project": {
-      "hash": "a4e413235d8f9291b820a616a0ee5ed34a6d6f5c30136f8904768a8e7ccd87cf",
+      "hash": "471c891367c64d8ce2ff2d9f6973ecc720c7ae2a096083ec32a6a2e0065dc7b5",
       "files": {
         ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
-        "package-lock.json": "bcaea3d4bdaf7d08b6c6a484e227ee3a758dd1fc99ce2ec8e3fb25ba26265918",
-        "package.json": "299881d224f7e2d1f43c1612eadd333266595c4fc75a45e8b71cd15221057c30",
-        "README.md": "c647aa94a7fd8a624f2be545d8c7384c1111353345b7a5380e9b1713a2482ec4",
-        "src/pwa/browser-api.js": "04c8b3367f24edffc9a53a42a11d1d654cf4fdf9658266d6140b6cadc46bdf43",
-        "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
-        "src/pwa/entry.js": "fbe264511c882682e4f2ce50e2bc7821a55a5005d419faa3afe39c9697444799",
-        "src/pwa/icons/sorcerer-sigil-180.png": "694bfb79a31246dc23134a60ebefd8c1504276de19a987adf39198d04a76e4b3",
-        "src/pwa/icons/sorcerer-sigil-192.png": "85403382a14b6847734878e61bf15e447c2fa10c72e3249700f17dfbf897bd13",
-        "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
-        "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
-        "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
+        "content/cards/sorcier.json": "26457e0ff4d5e60d2e0c6ad123c77bbcde540cbb61635e7cc8d7c40c503ac215",
+        "package-lock.json": "27d94aa016fa5c5e2b79f5e84aab7518cbe3a8ad6c84c7743ad0d47fefdcbcf1",
+        "package.json": "a749d4ea7783bc5cde8b5c671766c2df7c8ec6e6ac969392633c2d19b1d37014",
+        "README.md": "8e7eda75d168d52667bf6a3dd0db829202a7234169b35d767e7cc5fe539e72a4",
         "tools/build-pwa.js": "4d4329d6e51676a2bd0a44cf29faa9accbc1d8c58e1a494b2a4f4d4fed874362",
-        "tools/capture-pwa-qa.js": "4d96eca0e64a8e54fc129139cd8068869b8d813a2b154cc037844d4d650e7211",
-        "tools/generate-pwa-icons.js": "7e378a1755a3b74de0995d0517a3f1e202c7f59997ca577d03ba05d747c75fa3",
-        "tools/run-loop-003.ps1": "1ce9fd4ce2d7367bb4c1f93fd61b6d070ea961be32700df193b876024221b339",
         "tools/serve-pwa.js": "856c1ccc305cd9a0906ac3fe4084600ea90954d61ae4a02585dc855167e6013c",
         "vercel.json": "0b3c926f5b286497311266e44ed76b7bf2aba96cfa362d289942603763673d1a"
       }
@@ -208,7 +202,7 @@
     {
       "path": "artifacts/loops/005-tenir-le-sort.md",
       "title": "Boucle 005 — Tenir le sort",
-      "status": "à jouer"
+      "status": "garder"
     },
     {
       "path": "artifacts/loops/006-jouer-sur-mobile.md",
@@ -228,8 +222,18 @@
     {
       "path": "artifacts/loops/009-le-grimoire-de-combat.md",
       "title": "Boucle 009 — Le grimoire de combat",
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/010-la-grammaire-du-grimoire.md",
+      "title": "Boucle 010 — La grammaire du grimoire",
+      "status": "à jouer"
+    },
+    {
+      "path": "artifacts/loops/011-faire-exister-les-conclusions.md",
+      "title": "Boucle 011 — Faire exister les conclusions",
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-25T12:31:59.552Z"
+  "generatedAt": "2026-07-25T13:18:05.953Z"
 }

@@ -3,33 +3,25 @@
   "productName": "Fantasy Story",
   "version": "0.1.0",
   "private": true,
-  "description": "Une application privée de récits interactifs à embranchements.",
-  "main": "src/main.js",
+  "description": "Une PWA privée de récits interactifs à embranchements.",
   "scripts": {
-    "start": "electron .",
-    "dev": "electron .",
-    "check": "node --check src/main.js && node --check src/preload.js && node --check src/server/codex-client.js && node --check src/server/story-format.js && node --check src/server/narrative-tree.js && node --check src/server/combat-engine.js && node --check src/server/branching-book-runtime.js && node --check src/server/book-session-service.js && node --check src/server/progression-service.js && node --check src/server/story-catalog.js && node --check src/server/story-repository.js && node --check src/server/story-game-service.js && node --check src/server/narrative-studio.js && node --check src/server/conversation-service.js && node --check src/pwa/browser-store.js && node --check src/pwa/browser-api.js && node --check src/pwa/entry.js && node --check src/renderer/app.js && node --check src/renderer/studio.js && node --check tools/build-pwa.js && node --check tools/serve-pwa.js && node --check tools/capture-pwa-qa.js && node --check tools/generate-pwa-icons.js && node --check tools/simulate-combat.js",
+    "start": "npm run start:pwa",
+    "dev": "npm run start:pwa",
+    "check": "node --check src/server/codex-client.js && node --check src/server/card-catalog.js && node --check src/server/story-format.js && node --check src/server/narrative-tree.js && node --check src/server/combat-engine.js && node --check src/server/branching-book-runtime.js && node --check src/server/book-session-service.js && node --check src/server/progression-service.js && node --check src/server/story-catalog.js && node --check src/server/story-repository.js && node --check src/server/story-game-service.js && node --check src/server/conversation-service.js && node --check src/pwa/browser-store.js && node --check src/pwa/browser-api.js && node --check src/pwa/entry.js && node --check src/renderer/app.js && node --check tools/build-pwa.js && node --check tools/serve-pwa.js && node --check tools/simulate-combat.js",
     "test": "node --test --test-reporter=dot --test-concurrency=1 test/*.test.js",
     "build:story": "node tools/build-story.js",
     "verify:story": "node tools/verify-story.js",
     "simulate:combat": "node tools/simulate-combat.js",
-    "smoke:studio-ai": "node tools/smoke-studio-assistant.js",
-    "qa:visual": "electron tools/capture-visual-qa.js",
-    "icons:pwa": "electron tools/generate-pwa-icons.js",
     "build:pwa": "node tools/build-pwa.js",
     "start:pwa": "npm run build:pwa && node tools/serve-pwa.js",
-    "qa:pwa": "npm run build:pwa && electron tools/capture-pwa-qa.js",
     "play:cli": "node tools/play-branching-book.js",
     "context:loop": "node tools/build-loop-context.js --check",
-    "context:loop:refresh": "node tools/build-loop-context.js --refresh",
-    "loop:003": "pwsh -NoProfile -File tools/run-loop-003.ps1"
+    "context:loop:refresh": "node tools/build-loop-context.js --refresh"
   },
   "devDependencies": {
-    "electron": "^40.2.0",
     "esbuild": "^0.25.12"
   },
   "dependencies": {
-    "ajv": "^8.20.0",
-    "cytoscape": "^3.34.0"
+    "ajv": "^8.20.0"
   }
 }

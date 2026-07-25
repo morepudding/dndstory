@@ -69,7 +69,6 @@ const DOMAINS = [
       [
         "tools/play-branching-book.js",
         "tools/simulate-combat.js",
-        "tools/smoke-studio-assistant.js",
       ].includes(file),
     anchors: [
       "src/server/branching-book-runtime.js",
@@ -80,36 +79,30 @@ const DOMAINS = [
   },
   {
     id: "ui",
-    label: "Application et interface",
+    label: "PWA et interface",
     matches: (file) =>
-      [
-        "src/main.js",
-        "src/preload.js",
-        "src/preload-api.js",
-      ].includes(file) ||
+      file.startsWith("src/pwa/") ||
       (file.startsWith("src/renderer/") &&
         !file.startsWith("src/renderer/assets/")),
     anchors: [
-      "src/main.js",
-      "src/preload.js",
+      "src/pwa/entry.js",
+      "src/pwa/browser-api.js",
       "src/renderer/app.js",
       "src/renderer/styles.css",
     ],
-    validation: "`npm run qa:visual` si le rendu ou l'interaction change",
+    validation: "`npm run build:pwa`, puis parcours manuel dans la PWA si le rendu ou l'interaction change",
   },
   {
     id: "assets",
     label: "Ressources visuelles",
     matches: (file) =>
       file.startsWith("content/visuals/") ||
-      file.startsWith("src/renderer/assets/") ||
-      file === "tools/capture-visual-qa.js",
+      file.startsWith("src/renderer/assets/"),
     anchors: [
       "src/renderer/assets/",
       "content/visuals/",
-      "tools/capture-visual-qa.js",
     ],
-    validation: "licences, puis `npm run qa:visual` si l'affichage change",
+    validation: "licences, puis parcours manuel dans la PWA si l'affichage change",
   },
   {
     id: "tests",
@@ -366,7 +359,7 @@ function buildMarkdown(state) {
   const lines = [
     "# Carte de reprise de Fantasy Story",
     "",
-    "> Générée localement par `npm run context:loop:refresh`. Elle route l'audit ; elle ne remplace ni la vérification ciblée ni le parcours réel dans Electron.",
+    "> Générée localement par `npm run context:loop:refresh`. Elle route l'audit ; elle ne remplace ni la vérification ciblée ni le parcours réel dans la PWA.",
     "",
     "## Référence",
     "",

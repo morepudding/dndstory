@@ -1,6 +1,6 @@
 ---
 name: concevoir-visuels-fantasy-story
-description: Concevoir, produire, intégrer ou auditer les visuels de Fantasy Story, notamment l'interface en jeu, les cartes, les personnages, les icônes, les états et les illustrations. Utiliser ce skill pour transformer une intention narrative ou mécanique déjà fixée en présentation lisible, cohérente et vérifiée dans l'application réelle. Ne pas modifier silencieusement les règles, l'équilibrage, les branches ou les dialogues.
+description: Concevoir, produire, intégrer ou auditer les visuels de Fantasy Story, notamment l'interface en jeu, les cartes, les personnages, les icônes, les états et les illustrations. Utiliser ce skill pour transformer une intention narrative ou mécanique déjà fixée en présentation lisible, cohérente et vérifiée dans la PWA réelle. Ne pas modifier silencieusement les règles, l'équilibrage, les branches ou les dialogues.
 ---
 
 # Concevoir les visuels de Fantasy Story
@@ -27,7 +27,7 @@ Transformer une intention de jeu déjà définie en un traitement visuel clair, 
 ## Travailler par boucle
 
 1. Définir ce que le joueur doit comprendre, ressentir ou décider grâce au visuel.
-2. Inspecter l'état actuel dans l'application, les ressources existantes, les données sources et les dimensions cibles.
+2. Inspecter l'état actuel dans la PWA, les ressources existantes, les données sources et les dimensions cibles.
 3. Capturer ou décrire une référence de départ vérifiable.
 4. Proposer une seule direction ciblée, avec un critère de réussite observable.
 5. Intégrer la plus petite tranche verticale utile dans le produit réel.
@@ -38,12 +38,12 @@ Ne pas multiplier les variantes avant d'avoir appris quelque chose de la premiè
 
 ## Faire converger le combat vers la direction premium
 
-- Pour chaque passe concernant le combat, ouvrir d'abord `artifacts/concepts/combat-premium-imagegen-v2.png` avec `view_image`, puis la dernière capture Electron du combat.
+- Pour chaque passe concernant le combat, ouvrir d'abord `artifacts/concepts/combat-premium-imagegen-v2.png` avec `view_image`, puis la dernière capture PWA du combat.
 - Lire `references/direction-combat-premium.md` avant de choisir l'élément visuel à intégrer.
 - Traiter la référence comme une direction artistique, jamais comme une spécification de règle ni comme une image à poser derrière l'interface.
 - Intégrer une seule famille d'éléments par passe et conserver le reste fonctionnel : composition, cadres de combattants, intention et Tempo, cartes, piles et ressources, puis effets.
 - Construire la structure et les interactions en code ; réserver `imagegen` aux portraits, illustrations de cartes, matières ou décors propres à l'univers.
-- Ne passer à la famille suivante qu'après comparaison dans Electron et verdict `garder` ou `ajuster`.
+- Ne passer à la famille suivante qu'après comparaison dans la PWA et verdict `garder` ou `ajuster`.
 
 ## Concevoir selon le type de visuel
 
@@ -79,15 +79,14 @@ Ne pas multiplier les variantes avant d'avoir appris quelque chose de la premiè
 
 ## Valider dans le produit
 
-Exécuter au minimum :
+Exécuter les contrôles proportionnés aux fichiers modifiés :
 
 ```powershell
 npm run check
-npm test
-npm run qa:visual
+npm run build:pwa
 ```
 
-Parcourir aussi l'interaction concernée dans l'application Electron réelle. Ne pas conclure à partir du code source ou d'une maquette seule.
+Parcourir aussi l'interaction concernée dans la PWA réelle sur une fenêtre bureau et une fenêtre étroite. Ne pas conclure à partir du code source ou d'une maquette seule.
 
 Pour chaque résultat, conserver :
 

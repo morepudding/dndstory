@@ -272,7 +272,6 @@ async function boot() {
   } catch {
     setConnection('online', 'Moteur de jeu local prêt');
   }
-  installDevelopmentDiagnostics();
   booting = false;
   if (sessionStorage.getItem('fantasy-story-entered') !== '1') showGameMenu('home');
   else syncGameMenuWithStory(story);
@@ -335,7 +334,11 @@ function syncGameMenuWithStory(story) {
   const signature = `${story.storyId}:${story.status}:${story.node?.id || ''}`;
   if (terminalMenuSignature === signature) return;
   terminalMenuSignature = signature;
-  showGameMenu('end');
+  requestAnimationFrame(() => {
+    const conclusion = $('#scene-dialogue-text');
+    conclusion.scrollTop = 0;
+    conclusion.closest('.scene-dialogue')?.scrollIntoView({ block: 'nearest' });
+  });
 }
 
 function showGameMenu(view) {
@@ -629,6 +632,42 @@ function formatRequirement(requirement) {
   return `${labels[requirement.stat] || requirement.stat} ${requirement.min}${met ? ' ✓' : ' requis'}`;
 }
 
+const CARD_FAMILY_LABELS = {
+  weapon: 'Arme',
+  cantrip: 'Sort mineur',
+  spell: 'Sort niveau 1',
+  item: 'Objet',
+};
+const CARD_ROLE_LABELS = {
+  attack: 'Attaque',
+  protection: 'Protection',
+  control: 'Contrôle',
+  preparation: 'Préparation',
+  recovery: 'Soin',
+};
+
+function cardEffectLabel(card, resolvedDamage = card.effect?.damage) {
+  const effects = [];
+  if (card.effect?.concentration) {
+    effects.push(`${resolvedDamage} dégâts`);
+    effects.push(`puis ${card.effect.concentration.damage} si protégé`);
+  } else if (resolvedDamage) {
+    effects.push(`${resolvedDamage} dégâts`);
+  }
+  if (card.effect?.block) effects.push(`Bloque ${card.effect.block}`);
+  if (card.effect?.status?.id === 'slowed') {
+    effects.push(`Pioche ennemie −${card.effect.status.stacks}`);
+  }
+  if (card.effect?.status?.id === 'advantage') effects.push('Prochaine Action gratuite');
+  return effects.join(' · ');
+}
+
+function chargeCostLabel(card) {
+  return card.chargeCost > 0
+    ? `✦ ${card.chargeCost} charge${card.chargeCost > 1 ? 's' : ''}`
+    : 'Sans charge';
+}
+
 function renderCombat(combat, combatItems = []) {
   const panel = $('#combat-panel');
   panel.hidden = !combat;
@@ -781,27 +820,23 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-cards').replaceChildren(...combat.cards.map((card) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `combat-card ${card.kind}${card.effect.status ? ` status-${card.effect.status.id}` : ''}${card.effect.concentration ? ' concentration-card' : ''}${card.type === 'action' ? ` action-cost-${card.actionCost}` : ''}`;
+    button.className = `combat-card family-${card.family} role-${card.role} timing-${card.timing}${card.timing === 'action' ? ` action-cost-${card.actionCost}` : ''}`;
     button.disabled = !card.available;
-    const effects = [];
-    if (card.effect.damage) effects.push(`${card.resolvedDamage} dégâts`);
-    if (card.effect.block) effects.push(`Bloque ${card.effect.block}`);
-    if (card.effect.status?.id === 'slowed') effects.push(`Ralentissement ${card.effect.status.stacks}`);
-    if (card.effect.status?.id === 'advantage') effects.push('Avantage');
-    if (card.effect.concentration) effects.push(`Concentration ${card.effect.concentration.damage}`);
-    button.innerHTML = '<div class="card-topline"><span class="card-kind"></span><em class="card-action-cost"></em></div><strong></strong><small></small><b></b>';
-    button.querySelector('.card-kind').textContent = card.kind === 'weapon'
-      ? `Arme · Force × ${combat.player.stats.strength}`
-      : card.kind === 'cantrip'
-        ? 'Sort mineur · gratuit'
-        : `${card.type === 'reaction' ? 'Réaction' : 'Sort'} · ${card.cost} charge`;
+    button.innerHTML = '<div class="card-topline"><span class="card-family"></span><span class="card-role"></span><em class="card-action-cost"></em></div><strong></strong><b class="card-effect"></b><div class="card-footer"><small class="card-timing"></small><span class="card-charge-cost"></span></div>';
+    button.querySelector('.card-family').textContent = CARD_FAMILY_LABELS[card.family];
+    button.querySelector('.card-role').textContent = CARD_ROLE_LABELS[card.role];
     const actionCostBadge = button.querySelector('.card-action-cost');
-    actionCostBadge.hidden = card.type !== 'action';
+    actionCostBadge.hidden = card.timing !== 'action';
     actionCostBadge.textContent = `${card.actionCost} Action${card.actionCost > 1 ? 's' : ''}`;
     button.querySelector('strong').textContent = card.name;
-    button.querySelector('small').textContent = card.description;
-    button.querySelector('b').textContent = effects.join(' · ');
-    if (!card.available && card.type === 'action' && card.actionCost > actionsRemaining) {
+    button.querySelector('.card-effect').textContent = cardEffectLabel(card, card.resolvedDamage);
+    button.querySelector('.card-timing').textContent = card.timing === 'reaction'
+      ? 'Réaction à une attaque'
+      : card.family === 'weapon'
+        ? `Action · Force × ${combat.player.stats.strength}`
+        : 'Action';
+    button.querySelector('.card-charge-cost').textContent = chargeCostLabel(card);
+    if (!card.available && card.timing === 'action' && card.actionCost > actionsRemaining) {
       button.title = `Cette carte exige ${card.actionCost} Actions ; ${actionsRemaining} seulement disponible${actionsRemaining > 1 ? 's' : ''}.`;
     } else if (!card.available && card.effect.concentration && concentration) {
       button.title = 'Un Orbe est déjà suspendu.';
@@ -812,6 +847,10 @@ function renderCombat(combat, combatItems = []) {
   const potion = combatItems.find((item) => item.id === 'healing-potion');
   $('#combat-potion').hidden = !potion || potion.count < 1;
   $('#combat-potion').disabled = !potion?.available;
+  $('#combat-potion').className = `combat-item family-${potion?.family || 'item'} role-${potion?.role || 'recovery'} timing-${potion?.timing || 'action'}`;
+  setText('#combat-potion-family', CARD_FAMILY_LABELS[potion?.family] || 'Objet');
+  setText('#combat-potion-role', CARD_ROLE_LABELS[potion?.role] || 'Soin');
+  setText('#combat-potion-cost', `+${potion?.heal || 5} PV · ${potion?.actionCost || 1} Action`);
   $('#combat-potion').title = !potion
     ? ''
     : potion.available
@@ -845,11 +884,6 @@ function renderCombatGrimoire(combat) {
     hand: { label: 'Main', order: 1 },
     discard: { label: 'Défausse', order: 2 },
   };
-  const kinds = {
-    weapon: 'Arme',
-    cantrip: 'Sort mineur',
-    spell: 'Sort niveau 1',
-  };
   $('#combat-grimoire-zones').replaceChildren(...Object.entries(zones).map(
     ([zone, presentation]) => {
       const marker = document.createElement('span');
@@ -868,17 +902,15 @@ function renderCombatGrimoire(combat) {
   ));
   $('#combat-grimoire-cards').replaceChildren(...orderedCards.map((card) => {
     const item = document.createElement('article');
-    item.className = `grimoire-card ${card.kind} zone-${card.zone}`;
-    item.innerHTML = '<div><span></span><em></em></div><strong></strong><p></p><b></b>';
-    item.querySelector('span').textContent = kinds[card.kind];
+    item.className = `grimoire-card family-${card.family} role-${card.role} timing-${card.timing} zone-${card.zone}`;
+    item.innerHTML = '<div class="grimoire-card-topline"><span class="card-family"></span><span class="card-role"></span><em></em></div><strong></strong><p></p><div class="grimoire-card-footer"><b></b><small></small></div>';
+    item.querySelector('.card-family').textContent = CARD_FAMILY_LABELS[card.family];
+    item.querySelector('.card-role').textContent = CARD_ROLE_LABELS[card.role];
     item.querySelector('em').textContent = zones[card.zone].label;
     item.querySelector('strong').textContent = card.name;
-    item.querySelector('p').textContent = card.description;
-    item.querySelector('b').textContent = card.kind === 'spell'
-      ? `${card.type === 'reaction' ? 'Réaction' : 'Action'} · ${card.cost} charge`
-      : card.kind === 'weapon'
-        ? 'Action · Force'
-        : 'Action · gratuit';
+    item.querySelector('p').textContent = cardEffectLabel(card);
+    item.querySelector('b').textContent = card.timing === 'reaction' ? 'Réaction' : 'Action';
+    item.querySelector('small').textContent = chargeCostLabel(card);
     return item;
   }));
 }
@@ -893,7 +925,7 @@ $('#game-menu-primary').addEventListener('click', async () => {
   const action = $('#game-menu-primary').dataset.action;
   if (action === 'start') await beginStory();
   else if (action === 'resume') closeGameMenu();
-  else if (action === 'end') showGameMenu('end');
+  else if (action === 'end') closeGameMenu();
   else if (action === 'retry') {
     const story = await window.candy.retryStoryAct();
     await reloadConversation();
@@ -942,7 +974,7 @@ $('#game-menu-confirm-form').addEventListener('submit', async (event) => {
 
 async function playStoryChoice(choiceId) {
   const buttons=[...document.querySelectorAll('#story-options button')];buttons.forEach((button)=>button.disabled=true);
-  try { const result=await window.candy.chooseStoryOption(choiceId);appendMessage('user',result.playerText);appendMessage('assistant',result.text);renderStory(result.story);state=await window.candy.readCharacter();renderProfile();await refreshDevelopmentDiagnostics(); }
+  try { const result=await window.candy.chooseStoryOption(choiceId);appendMessage('user',result.playerText);appendMessage('assistant',result.text);renderStory(result.story);state=await window.candy.readCharacter();renderProfile(); }
   catch(error){setConnection('error',error.message);buttons.forEach((button)=>button.disabled=false);}
 }
 async function playCombatCard(cardId) {
@@ -953,7 +985,6 @@ async function playCombatCard(cardId) {
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
-    await refreshDevelopmentDiagnostics();
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -968,7 +999,6 @@ async function passCombatReaction() {
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
-    await refreshDevelopmentDiagnostics();
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -982,7 +1012,6 @@ async function endCombatTurn() {
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
-    await refreshDevelopmentDiagnostics();
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -997,7 +1026,6 @@ async function useCombatItem() {
     state = await window.candy.readCharacter();
     renderProfile();
     setConnection('online', `Potion bue · +${result.healed} PV`);
-    await refreshDevelopmentDiagnostics();
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -1052,7 +1080,7 @@ $('#composer').addEventListener('submit', async (event) => {
   appendMessage('user', text); input.value = ''; input.disabled = true; $('#send').disabled = true;
   const typing = document.createElement('p'); typing.className = 'typing'; typing.textContent = `${state.character.identity.name} écrit…`; $('#messages').append(typing);
   window.liveReply = appendMessage('assistant', '');
-  try { const result = await window.candy.send(text); window.liveReply.dataset.raw = result.text; if ((window.liveReply.dataset.typewriterTarget||'') !== result.text) queueTypewriter(window.liveReply,result.text,{replace:true}); state = await window.candy.readCharacter(); renderStory(result.story); await refreshDevelopmentDiagnostics(); }
+  try { const result = await window.candy.send(text); window.liveReply.dataset.raw = result.text; if ((window.liveReply.dataset.typewriterTarget||'') !== result.text) queueTypewriter(window.liveReply,result.text,{replace:true}); state = await window.candy.readCharacter(); renderStory(result.story); }
   catch (error) { const message = `Connexion impossible : ${error.message}`; window.liveReply.dataset.raw = message; renderMessageContent(window.liveReply, message); setConnection('error', 'Narrateur indisponible'); }
   finally { typing.remove(); window.liveReply = null; input.disabled = false; $('#send').disabled = false; input.focus(); }
 });
@@ -1103,21 +1131,5 @@ $('#editor-form').addEventListener('submit', async (event) => {
   renderProfile(); $('#editor').close();
 });
 
-let diagnosticPanel;
-async function installDevelopmentDiagnostics() {
-  if (typeof window.candy.readDiagnostics !== 'function') return;
-  $('#studio-shortcut').hidden=false;
-  $('#studio-shortcut').addEventListener('click',()=>window.candy.openNarrativeStudio());
-  diagnosticPanel = document.createElement('details');
-  diagnosticPanel.id = 'development-diagnostics';
-  diagnosticPanel.innerHTML = '<summary title="Outils de développement">Dev</summary><pre></pre>';
-  document.body.append(diagnosticPanel);
-  diagnosticPanel.addEventListener('toggle', () => { if (diagnosticPanel.open) refreshDevelopmentDiagnostics(); });
-}
-async function refreshDevelopmentDiagnostics() {
-  if (!diagnosticPanel?.open) return;
-  const data = await window.candy.readDiagnostics();
-  diagnosticPanel.querySelector('pre').textContent = JSON.stringify(data, null, 2);
-}
 setInterval(async () => { try { renderStory(await window.candy.readStory()); } catch { /* fenêtre en fermeture */ } }, 1200);
 boot();

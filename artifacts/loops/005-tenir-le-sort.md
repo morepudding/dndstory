@@ -1,6 +1,6 @@
 # Boucle 005 — Tenir le sort
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -22,5 +22,5 @@ Jouer Orbe contre Varek, le protéger jusqu’au déclenchement, puis recommence
 ## État
 
 - **Intégré :** l’Orbe peut se déclencher, se briser, gagner le combat et survivre à une reprise ; des victoires existent avec et sans lui.
-- **Reste incertain :** plaisir du pari et lisibilité sur petit écran.
-- **Verdict :** `à jouer`.
+- **Reste incertain :** aucun pour cette boucle.
+- **Verdict :** `garder` — le pari de Concentration a été joué puis validé par le joueur.

@@ -7,6 +7,7 @@
   "globalPremise": "Au relais de Brumepont, douze pièces peuvent acheter de la sécurité, un passage vers les vieilles carrières ou simplement une nuit plus douce.",
   "chapterSummary": "Dans un lieu vivant, l'or ouvre des routes différentes vers les vieilles carrières.",
   "showChapterSummary": true,
+  "continueLabel": "Passer la nuit à Brumepont",
   "rating": "general",
   "participantsAllAdults": true,
   "contentWarnings": [
@@ -159,68 +160,7 @@
       "combat": {
         "player": {
           "name": "Sorcier",
-          "cards": [
-            {
-              "id": "baton-de-voyage",
-              "name": "Bâton de voyage",
-              "type": "action",
-              "kind": "weapon",
-              "cost": 0,
-              "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
-              "effect": {
-                "damage": 2
-              }
-            },
-            {
-              "id": "braise-occulte",
-              "name": "Braise occulte",
-              "type": "action",
-              "kind": "cantrip",
-              "cost": 0,
-              "description": "Une attaque gratuite et fiable.",
-              "effect": {
-                "damage": 3
-              }
-            },
-            {
-              "id": "eclat-arcanique",
-              "name": "Éclat arcanique",
-              "type": "action",
-              "kind": "spell",
-              "cost": 1,
-              "description": "Une décharge puissante qui consomme 1 charge.",
-              "effect": {
-                "damage": 5
-              }
-            },
-            {
-              "id": "voile-azur",
-              "name": "Voile d’azur",
-              "type": "reaction",
-              "kind": "spell",
-              "cost": 1,
-              "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
-              "effect": {
-                "block": 3
-              }
-            },
-            {
-              "id": "entrave-de-givre",
-              "name": "Entrave de givre",
-              "type": "reaction",
-              "kind": "spell",
-              "cost": 1,
-              "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
-              "effect": {
-                "block": 1,
-                "status": {
-                  "id": "slowed",
-                  "target": "enemy",
-                  "stacks": 1
-                }
-              }
-            }
-          ],
+          "cardSet": "sorcier-core",
           "deck": [
             "braise-occulte",
             "baton-de-voyage",

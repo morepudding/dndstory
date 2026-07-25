@@ -56,11 +56,7 @@ Vérifier :
 
 Exécuter :
 
-```powershell
-npm run qa:visual
-```
-
-Puis parcourir le combat concerné dans l'application Electron lorsque le rythme, la compréhension ou le plaisir ne peuvent pas être prouvés automatiquement.
+Construire la PWA avec `npm run build:pwa`, puis parcourir le combat concerné dans la PWA lorsque le rythme, la compréhension ou le plaisir ne peuvent pas être prouvés automatiquement.
 
 Vérifier visuellement :
 

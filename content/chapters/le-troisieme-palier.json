@@ -28,7 +28,7 @@
     }
   },
   "entryNodeId": "seuil-du-palier",
-  "continueLabel": "Revenir à l’accueil",
+  "continueLabel": "Descendre vers le troisième palier",
   "acts": [
     {
       "id": "acte-1",

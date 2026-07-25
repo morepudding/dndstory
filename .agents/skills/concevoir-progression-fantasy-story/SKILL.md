@@ -88,8 +88,8 @@ Ajouter validation, migration, refus d'actions illégales et journal observable.
 3. Implémenter le contrat, la migration et l'attribution idempotente.
 4. Répercuter les valeurs sur les choix et le combat.
 5. Transmettre au skill visuel les états verrouillé, disponible, sélectionné, confirmé et le détail des gains.
-6. Exécuter les tests ciblés, la simulation de combat et la QA visuelle.
-7. Jouer le parcours complet dans Electron, sauvegarde et reprise comprises.
+6. Exécuter les tests ciblés, la simulation de combat et le contrôle visuel proportionné.
+7. Jouer le parcours complet dans la PWA, sauvegarde et reprise comprises.
 8. Décider `garder`, `ajuster` ou `retirer`.
 
 ## Valider avant de conclure
@@ -104,15 +104,15 @@ Tester au minimum :
 - absence de duplication après reprise, redémarrage ou double action ;
 - lisibilité de l'écran sur une fenêtre bureau et une fenêtre étroite.
 
-Exécuter :
+Exécuter les contrôles couverts par le changement :
 
 ```powershell
 npm run check
-npm test
-npm run verify:story
 npm run simulate:combat
-npm run qa:visual
+npm run build:pwa
 ```
+
+Ajouter au plus un test ciblé si une régression déterministe pourrait rester invisible. Exécuter `npm run verify:story` seulement si le livre ou son schéma change.
 
 ## Transmettre aux autres disciplines
 
@@ -123,4 +123,4 @@ npm run qa:visual
 
 ## Rendre la décision
 
-Présenter l'hypothèse, le gain ressenti, la décision offerte, les effets sur chaque système existant, les invariants de sauvegarde et d'économie, les parcours testés, les preuves dans l'application et le verdict `garder`, `ajuster` ou `retirer`.
+Présenter l'hypothèse, le gain ressenti, la décision offerte, les effets sur chaque système existant, les invariants de sauvegarde et d'économie, les parcours testés, les preuves dans la PWA et le verdict `garder`, `ajuster` ou `retirer`.

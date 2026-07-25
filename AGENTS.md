@@ -18,13 +18,14 @@
 ## Skills et portée
 
 - Utiliser `conduire-boucle-fantasy-story` pour une tranche verticale multidisciplinaire.
+- Utiliser `relier-aventure-fantasy-story` pour auditer ou corriger les coutures d’une aventure existante ; ne pas charger `conduire-boucle-fantasy-story` en parallèle par défaut.
 - Charger uniquement les skills spécialisés nécessaires au contrat de la boucle.
 - Ne pas utiliser de sous-agents par défaut ; les réserver à une demande explicite ou à un audit réellement indépendant.
 
 ## Démarrage d'une boucle
 
 - Exécuter `npm run context:loop` avant l'audit.
-- En contexte `CHAUD`, lire `artifacts/context/current-project-map.md`, la fiche active et contrôler l'application ou une capture récente.
+- En contexte `CHAUD`, lire `artifacts/context/current-project-map.md`, la fiche active et contrôler la PWA ou une capture récente.
 - En contexte `CHAUD CIBLÉ`, inspecter uniquement les domaines et fichiers signalés, sauf incohérence ou portée ambiguë.
 - En contexte `FROID`, effectuer l'audit complet du livre, du moteur, de la sauvegarde et de l'interface.
 - Actualiser la référence avec `npm run context:loop:refresh` après une intégration validée ou un verdict.
@@ -38,7 +39,7 @@
 - Pour le livre ou son schéma, lancer `npm run verify:story` seulement si sa structure change.
 - Pour le moteur, l'état ou la progression, lancer le contrôle ciblé le plus court. Réserver `npm test` aux migrations risquées, aux publications importantes ou à une demande explicite.
 - Lancer `npm run simulate:combat` uniquement si les règles, cartes, adversaires ou statistiques de combat changent.
-- Ne lancer `npm run qa:visual` ou `npm run qa:pwa` que sur demande ; sinon ouvrir l'application et laisser le joueur parcourir lui-même la boucle.
+- Quand l’interface change, ouvrir la PWA et laisser le joueur parcourir lui-même la boucle sur une fenêtre bureau et une fenêtre étroite.
 - Ne pas répéter une commande réussie si aucun fichier qu'elle couvre n'a changé depuis.
 - Avant une publication PWA, exécuter `npm run build:pwa`, `git diff --check` et un smoke test de l'URL publique.
 - Une boucle complète exige un verdict utilisateur `garder`, `ajuster` ou `retirer`.

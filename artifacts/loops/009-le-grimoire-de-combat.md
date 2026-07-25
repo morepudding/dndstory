@@ -1,6 +1,6 @@
 # Boucle 009 — Le grimoire de combat
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -22,5 +22,5 @@ Ouvrir le grimoire, jouer plusieurs rounds, suivre les changements de zone, cons
 ## État
 
 - **Intégré :** 4 Braises, 2 Bâtons, 2 Éclats, 1 Voile et 1 Entrave ; le grimoire avancé conserve Orbe et Élan.
-- **Reste incertain :** plaisir d’anticiper le cycle et ordre initial préféré.
-- **Verdict :** `à jouer`.
+- **Reste incertain :** aucun pour cette boucle ; l’identité détaillée des familles de cartes relève de la suivante.
+- **Verdict :** `garder` — le grimoire et son cycle ont été joués puis validés par le joueur.

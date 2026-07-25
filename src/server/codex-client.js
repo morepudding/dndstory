@@ -192,12 +192,6 @@ class CodexClient {
     return this.runTurn({ threadId, input, outputSchema, onDelta: () => {}, effort: 'low', timeoutMs: 60000, model });
   }
 
-  async runStudioTurn({ input, outputSchema }) {
-    await this.connect();
-    const threadId = await this.startThread();
-    return this.runTurn({ threadId, input, outputSchema, onDelta: () => {}, effort: 'medium', timeoutMs: 120000 });
-  }
-
   async runTurn({ threadId, input, outputSchema, onDelta, effort, timeoutMs, model }) {
     if (this.activeTurns.has(threadId)) throw new Error('Un tour est déjà actif sur ce thread.');
     let setTurnId;

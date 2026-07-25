@@ -72,7 +72,9 @@ class StoryGameService {
         && progression.unspentStatPoints === 0
         && !nextStory
       ),
-      continueLabel: nextStory?.continueLabel || 'Revenir à l’accueil',
+      continueLabel: nextStory
+        ? nextStory.continueLabel || `Poursuivre vers ${nextStory.title}`
+        : 'Revenir à l’accueil',
       canResolveLevelUp: progression.unspentStatPoints > 0,
       pathLength: view.historyLength,
       requiresAdultConfirmation: false,
@@ -204,6 +206,9 @@ function combatItemsFor(view, progression) {
   return [{
     id: 'healing-potion',
     name: 'Potion de soin',
+    timing: 'action',
+    family: 'item',
+    role: 'recovery',
     count,
     heal: 5,
     actionCost: 1,

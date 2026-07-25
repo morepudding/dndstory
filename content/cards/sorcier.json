@@ -1,0 +1,103 @@
+{
+  "id": "sorcier-core",
+  "className": "Sorcier",
+  "identity": "Magie gratuite pour tenir, charges limitées pour décider, Réactions pour protéger ou contrôler.",
+  "cards": [
+    {
+      "id": "baton-de-voyage",
+      "name": "Bâton de voyage",
+      "timing": "action",
+      "family": "weapon",
+      "role": "attack",
+      "chargeCost": 0,
+      "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
+      "effect": {
+        "damage": 2
+      }
+    },
+    {
+      "id": "braise-occulte",
+      "name": "Braise occulte",
+      "timing": "action",
+      "family": "cantrip",
+      "role": "attack",
+      "chargeCost": 0,
+      "description": "Une attaque gratuite et fiable.",
+      "effect": {
+        "damage": 3
+      }
+    },
+    {
+      "id": "eclat-arcanique",
+      "name": "Éclat arcanique",
+      "timing": "action",
+      "family": "spell",
+      "role": "attack",
+      "chargeCost": 1,
+      "description": "Une décharge puissante qui consomme 1 charge.",
+      "effect": {
+        "damage": 5
+      }
+    },
+    {
+      "id": "orbe-suspendu",
+      "name": "Orbe suspendu",
+      "timing": "action",
+      "family": "spell",
+      "role": "preparation",
+      "chargeCost": 0,
+      "description": "Inflige 2 dégâts, puis 5 au prochain tour si vos Réactions empêchent tout dégât.",
+      "effect": {
+        "damage": 2,
+        "concentration": {
+          "damage": 5
+        }
+      }
+    },
+    {
+      "id": "voile-azur",
+      "name": "Voile d’azur",
+      "timing": "reaction",
+      "family": "spell",
+      "role": "protection",
+      "chargeCost": 1,
+      "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
+      "effect": {
+        "block": 3
+      }
+    },
+    {
+      "id": "entrave-de-givre",
+      "name": "Entrave de givre",
+      "timing": "reaction",
+      "family": "spell",
+      "role": "control",
+      "chargeCost": 1,
+      "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
+      "effect": {
+        "block": 1,
+        "status": {
+          "id": "slowed",
+          "target": "enemy",
+          "stacks": 1
+        }
+      }
+    },
+    {
+      "id": "elan-arcanique",
+      "name": "Élan arcanique",
+      "timing": "reaction",
+      "family": "spell",
+      "role": "preparation",
+      "chargeCost": 1,
+      "description": "Accepte l’impact pour préparer une Action gratuite au prochain tour.",
+      "effect": {
+        "status": {
+          "id": "advantage",
+          "target": "player",
+          "stacks": 1
+        }
+      }
+    }
+  ]
+}

@@ -3,11 +3,12 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 const { validateNarrativeTree } = require('../src/server/narrative-tree');
+const { normalizeStory } = require('../src/server/story-format');
 
-const tree = JSON.parse(fs.readFileSync(
+const tree = normalizeStory(JSON.parse(fs.readFileSync(
   path.join(__dirname, '..', 'content', 'chapters', 'la-route-des-ronces.json'),
   'utf8',
-));
+)));
 const clone = () => structuredClone(tree);
 
 test('La Route des Ronces possède un acte, un combat et ses deux types de mort', () => {
@@ -56,7 +57,7 @@ test('le deck refuse une carte inconnue et conserve au moins un sort mineur grat
 
   const paidCantrip = clone();
   paidCantrip.nodes.find((node) => node.kind === 'combat').combat.player.cards
-    .find((card) => card.kind === 'cantrip').cost = 1;
+    .find((card) => card.family === 'cantrip').chargeCost = 1;
   const errors = validateNarrativeTree(paidCantrip).errors.map((error) => error.code);
   assert.ok(errors.includes('cantrip_cost'));
   assert.ok(errors.includes('free_action'));

@@ -28,7 +28,9 @@ const COMBAT_FIELDS = new Set(['player', 'enemy']);
 const PLAYER_FIELDS = new Set(['name', 'portrait', 'cards', 'deck']);
 const ENEMY_FIELDS = new Set(['name', 'portrait', 'maxHp', 'drawCount', 'cards', 'deck']);
 const ENEMY_CARD_FIELDS = new Set(['id', 'name', 'damage', 'description', 'effect']);
-const CARD_FIELDS = new Set(['id', 'name', 'type', 'kind', 'cost', 'description', 'effect']);
+const CARD_FIELDS = new Set([
+  'id', 'name', 'timing', 'family', 'role', 'chargeCost', 'description', 'effect',
+]);
 const EFFECT_FIELDS = new Set(['damage', 'block', 'status', 'concentration']);
 const STATUS_EFFECT_FIELDS = new Set(['id', 'target', 'stacks']);
 const CONCENTRATION_EFFECT_FIELDS = new Set(['damage']);
@@ -378,12 +380,17 @@ function validateCombatNode(node, fail, location) {
     if (
       !nonEmpty(card?.id)
       || !nonEmpty(card?.name)
-      || !['action', 'reaction'].includes(card?.type)
-      || !['weapon', 'cantrip', 'spell'].includes(card?.kind)
-      || !nonNegativeInteger(card?.cost)
+      || !['action', 'reaction'].includes(card?.timing)
+      || !['weapon', 'cantrip', 'spell'].includes(card?.family)
+      || !['attack', 'protection', 'control', 'preparation'].includes(card?.role)
+      || !nonNegativeInteger(card?.chargeCost)
       || !nonEmpty(card?.description)
     ) {
-      fail('combat_card', 'Chaque carte exige id, nom, type, famille, coût et description.', cardLocation);
+      fail(
+        'combat_card',
+        'Chaque carte exige id, nom, moment, famille, rôle, coût en charges et description.',
+        cardLocation,
+      );
     }
     if (cardIds.has(card?.id)) fail('duplicate_card', `Carte dupliquée : ${card?.id}`, cardLocation);
     cardIds.add(card?.id);
@@ -395,7 +402,7 @@ function validateCombatNode(node, fail, location) {
       fail('card_effect', 'Une carte doit infliger des dégâts, bloquer des dégâts ou appliquer un état.', `${cardLocation}.effect`);
     }
     if (
-      card?.type === 'action'
+      card?.timing === 'action'
       && (
         !positiveInteger(damage)
         || status
@@ -407,14 +414,14 @@ function validateCombatNode(node, fail, location) {
     ) {
       fail('action_effect', 'Une carte Action doit infliger des dégâts.', `${cardLocation}.effect`);
     }
-    if (concentration != null && (card?.type !== 'action' || card?.kind !== 'spell')) {
+    if (concentration != null && (card?.timing !== 'action' || card?.family !== 'spell')) {
       fail(
         'concentration_effect',
         'La Concentration exige une carte Action de type sort.',
         `${cardLocation}.effect.concentration`,
       );
     }
-    if (card?.type === 'reaction' && (!positiveInteger(block) && !status)) {
+    if (card?.timing === 'reaction' && (!positiveInteger(block) && !status)) {
       fail('reaction_effect', 'Une carte Réaction doit bloquer des dégâts ou appliquer un état.', `${cardLocation}.effect`);
     }
     const validPlayerStatus = status
@@ -430,14 +437,35 @@ function validateCombatNode(node, fail, location) {
         `${cardLocation}.effect.status`,
       );
     }
-    if (card?.kind === 'cantrip' && card?.cost !== 0) {
+    const validRole = (
+      (card?.role === 'attack' && positiveInteger(damage) && concentration == null)
+      || (card?.role === 'protection' && card?.timing === 'reaction' && positiveInteger(block) && !status)
+      || (card?.role === 'control' && status?.target === 'enemy')
+      || (
+        card?.role === 'preparation'
+        && (concentration != null || (status?.id === 'advantage' && status?.target === 'player'))
+      )
+    );
+    if (!validRole) {
+      fail('card_role', 'Le rôle doit correspondre à l’effet réel de la carte.', cardLocation);
+    }
+    if (card?.family === 'cantrip' && card?.chargeCost !== 0) {
       fail('cantrip_cost', 'Un sort mineur doit être gratuit.', cardLocation);
     }
-    if (card?.kind === 'weapon' && (card?.cost !== 0 || card?.type !== 'action')) {
+    if (
+      card?.family === 'weapon'
+      && (card?.chargeCost !== 0 || card?.timing !== 'action')
+    ) {
       fail('weapon_card', 'Une carte Arme doit être une Action gratuite.', cardLocation);
     }
   }
-  if (!cards.some((card) => card.type === 'action' && card.kind === 'cantrip' && card.cost === 0)) {
+  if (!cards.some(
+    (card) => (
+      card.timing === 'action'
+      && card.family === 'cantrip'
+      && card.chargeCost === 0
+    ),
+  )) {
     fail('free_action', 'Le deck exige au moins une Action gratuite.', `${location}.combat.player.cards`);
   }
   const deck = Array.isArray(combat.player?.deck) ? combat.player.deck : [];

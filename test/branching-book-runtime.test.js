@@ -4,10 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const { CombatEngine } = require('../src/server/combat-engine');
 const { BranchingBookEngine, BranchingBookRuntime } = require('../src/server/branching-book-runtime');
+const { normalizeStory } = require('../src/server/story-format');
 const { loadBook } = require('../tools/play-branching-book');
 
 const file = path.join(__dirname, '..', 'content', 'chapters', 'la-route-des-ronces.json');
-const tree = JSON.parse(fs.readFileSync(file, 'utf8'));
+const tree = normalizeStory(JSON.parse(fs.readFileSync(file, 'utf8')));
 
 function enterCombat(runtime) {
   runtime.choose('ancrage-etincelle');
@@ -129,7 +130,7 @@ test('une route prudente et l’usage d’un sort permettent de gagner', () => {
       else runtime.passReaction();
       continue;
     }
-    const spell = view.combat.cards.find((card) => card.available && card.kind === 'spell');
+    const spell = view.combat.cards.find((card) => card.available && card.family === 'spell');
     const action = spell || view.combat.cards.find((card) => card.available);
     if (action) runtime.playCard(action.instanceId);
     else runtime.endCombatTurn();

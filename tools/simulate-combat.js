@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { CombatEngine } = require('../src/server/combat-engine');
+const { normalizeStory } = require('../src/server/story-format');
 
 const DEFAULT_STORY_PATH = path.join(
   __dirname,
@@ -19,7 +20,7 @@ function simulateCombat({
   enemyMaxHp = null,
   playerDeck = null,
 } = {}) {
-  const tree = JSON.parse(fs.readFileSync(storyPath, 'utf8'));
+  const tree = normalizeStory(JSON.parse(fs.readFileSync(storyPath, 'utf8')));
   if (heroStats) tree.hero.stats = { ...tree.hero.stats, ...heroStats };
   const node = tree.nodes.find((candidate) => candidate.kind === 'combat');
   if (!node) throw new Error('Aucun combat à simuler.');

@@ -3,9 +3,9 @@ name: conduire-boucle-fantasy-story
 description: Cadrer, implémenter ou auditer une boucle verticale de création Fantasy Story depuis l’existant jusqu’au verdict du joueur. Utiliser ce skill pour porter une seule nouveauté centrale à travers plusieurs disciplines. Pour harmoniser les transitions et conséquences d’une aventure déjà construite sans ajouter de contenu, utiliser relier-aventure-fantasy-story.
 ---
 
-# Conduire une boucle Fantasy Story
+# Conduire les boucles Fantasy Story
 
-Faire traverser une seule nouveauté centrale aux disciplines strictement nécessaires, puis laisser le joueur l’essayer avant de décider `garder`, `ajuster` ou `retirer`.
+Transformer une demande ordinaire du joueur en la boucle la plus légère utile, sans lui demander de nommer le processus. Faire traverser une seule nouveauté centrale aux disciplines strictement nécessaires, puis laisser le joueur l’essayer avant de décider `garder`, `ajuster` ou `retirer`.
 
 ## Principes
 
@@ -16,6 +16,14 @@ Faire traverser une seule nouveauté centrale aux disciplines strictement néces
 - Exécuter les mutations déterministes avant tout texte produit par un modèle.
 - Traiter l’or dans le monde : objet, service, information, jeu ou accès, pas amélioration abstraite de carte par défaut.
 - Préserver tous les changements locaux hors périmètre.
+
+## Distinguer les trois niveaux
+
+- **Boucle technique :** inspecter, modifier, contrôler et corriger. Elle reste interne à Codex, ne reçoit aucun numéro et ne produit aucun rapport permanent.
+- **Boucle d’expérience :** éprouver une sensation, une décision ou une possibilité dans la PWA. Elle seule reçoit un numéro et le verdict du joueur.
+- **Boucle de direction :** toutes les trois boucles clôturées, ou quand plusieurs axes se disputent la priorité, rejouer mentalement ou réellement l’ensemble et choisir le manque principal.
+
+Classer automatiquement la demande. Une correction compatible avec l’hypothèse active reste une nouvelle passe de cette boucle. Une proposition qui change l’expérience recherchée devient une nouvelle boucle seulement si l’active est clôturée ou explicitement suspendue.
 
 ## Reprendre le contexte sans le dilater
 
@@ -33,13 +41,13 @@ Lire [references/fiche-de-boucle.md](references/fiche-de-boucle.md), puis créer
 
 Le contrat fixe :
 
-- la nouveauté centrale et l’effet recherché ;
-- le strict nécessaire et le hors-périmètre ;
-- le parcours que le joueur essaiera ;
-- ce qui resterait invisible sans une preuve automatique ;
-- le critère du verdict.
+- l’hypothèse d’expérience ;
+- le parcours très court que le joueur essaiera ;
+- le signal observable qui permet de décider sans explication technique ;
+- les limites refusées ;
+- la passe courante, sur deux au maximum.
 
-La fiche sert de reprise de contexte. Elle ne contient ni routage de modèles, ni liste de fichiers, ni journal de commandes.
+La fiche sert de reprise de contexte et de mémoire produit. Elle ne contient ni budget Codex, ni routage de modèles, ni liste de fichiers, ni journal de commandes. Les preuves techniques sont choisies depuis ce skill et les règles du projet, pas consignées pour le joueur.
 
 ## Mobiliser seulement les spécialistes utiles
 
@@ -54,13 +62,33 @@ Ne pas charger un spécialiste pour une discipline hors contrat.
 
 ## Exécuter
 
-1. Auditer seulement le domaine concerné.
-2. Implémenter d’abord règle, état, refus et persistance.
-3. Relier ensuite contenu et interface.
-4. Produire les textes et visuels nécessaires, sans système adjacent.
-5. Ouvrir la PWA pour le joueur.
-6. Recueillir son verdict.
-7. Exécuter `npm run context:loop:refresh` après intégration validée ou verdict.
+1. Passer la fiche de `cadrée` à `en construction`.
+2. Auditer seulement le domaine concerné.
+3. Implémenter d’abord règle, état, refus et persistance.
+4. Relier ensuite contenu et interface.
+5. Produire les textes et visuels nécessaires, sans système adjacent.
+6. Après au plus deux passes techniques, passer la fiche à `à jouer` et ouvrir la PWA.
+7. Présenter seulement l’expérience et le signal à observer au joueur.
+8. Recueillir `garder`, `ajuster` ou `retirer` et son commentaire libre.
+9. En cas d’`ajuster`, inscrire le constat, passer à la passe 2 et corriger la même hypothèse. Après un second `ajuster`, reformuler ou retirer au lieu d’empiler une troisième passe.
+10. Inscrire l’apprentissage et la décision suivante, puis exécuter `npm run context:loop:refresh`.
+
+Ne jamais créer une nouvelle fiche pour une correction qui poursuit le même signal recherché.
+
+## Revoir la direction
+
+Après trois verdicts depuis la dernière revue, lire [references/revue-de-direction.md](references/revue-de-direction.md) et créer une revue courte dans `artifacts/direction/` avant la boucle suivante.
+
+La revue sépare :
+
+- ce qui s’est réellement amélioré ;
+- le manque désormais le plus visible ;
+- deux ou trois axes possibles ;
+- la direction retenue et ce que l’on cesse provisoirement de polir.
+
+Une demande explicite du joueur peut trancher directement la direction. La revue l’enregistre sans lui imposer un atelier supplémentaire.
+
+Faire remonter uniquement les apprentissages durables dans `AGENTS.md` ou le skill pertinent. Les constats propres à une seule expérience restent dans sa fiche.
 
 ## Budget Codex et preuves
 
@@ -84,4 +112,4 @@ Le parcours manuel du joueur est la preuve d’expérience principale.
 
 ## Rendu
 
-Répondre brièvement avec ce qui est jouable, ce que le joueur doit essayer, l’incertitude restante et le verdict attendu.
+Répondre brièvement avec ce qui est jouable, le parcours à essayer et le verdict attendu. Ne pas demander au joueur de préciser le type de boucle ni de rédiger le rapport.

@@ -1,6 +1,6 @@
 # Boucle 011 — Faire exister les conclusions
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -23,5 +23,4 @@ Vaincre le Pillard, attribuer le point de statistique, puis lire la conclusion a
 ## État
 
 - **Intégré :** le menu ne masque plus automatiquement les conclusions ; chaque destination porte un libellé cohérent.
-- **Reste incertain :** confort de lecture des conclusions longues sur téléphone.
-- **Verdict :** `à jouer`.
+- **Verdict joueur :** `garder`.

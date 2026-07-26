@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "eb1b02115c2d",
-    "dirtyCount": 6
+    "head": "5524a56d5afd",
+    "dirtyCount": 17
   },
-  "overallHash": "cd4fae5531f1b8f80544d55089f43aa95b8890e465582c9cf0c4104754a156cd",
+  "overallHash": "b8a02c783370a16f5d6dcc1e86b5ea3ebd27b82268754e2bb4847bb8e690e465",
   "domains": {
     "workflow": {
-      "hash": "3bf23aab2a026307fc036fac6df73b88f88a83a044ddff0f0e7cdbdbbc2541a7",
+      "hash": "ab7437c619cd116c18a1429dbed43c5f98791f5867a53553af84593b46582c64",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -26,8 +26,9 @@
         ".agents/skills/concevoir-visuels-fantasy-story/references/direction-combat-premium.md": "a116e8233884b3ab6bdae3433c8acf9a74228996b6c3d3a26e47c6306047d356",
         ".agents/skills/concevoir-visuels-fantasy-story/SKILL.md": "2694560153ebdc906c0518adc8bc5734c8b3707067043664dff1cdfaff1f8056",
         ".agents/skills/conduire-boucle-fantasy-story/agents/openai.yaml": "f5abdebaa3f41aef4e1a5aa6f11bab7a26f7bbb3c2582f4c0cb9152dbbb0d115",
-        ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "c54d3778d9a2188f981a63fcee01a463f9e2efb388376bab5e38fd20afcf9384",
-        ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "9922370087e737382d608ffc71db81681409e24e0a7f841734533d5d7a62ed9d",
+        ".agents/skills/conduire-boucle-fantasy-story/references/fiche-de-boucle.md": "168a22f4b4223ddc234edb83e78b0a7b4cbc4c2ebf4ffa04184a04788a47b836",
+        ".agents/skills/conduire-boucle-fantasy-story/references/revue-de-direction.md": "abf103d3336ca7bd0071329929479ea23296bb4a8acd2dfceabdb63b25b7c8f7",
+        ".agents/skills/conduire-boucle-fantasy-story/SKILL.md": "c5952d0307b7caa734d96788477b43904025fd1b63e30ed4d30428da16cf4187",
         ".agents/skills/ecrire-dialogues-fantasy-story/agents/openai.yaml": "43cab97b3a8816dcdcd5269fa62e997355bcb50a76d41a13da642a0b492b7ab0",
         ".agents/skills/ecrire-dialogues-fantasy-story/references/defauts-ia.md": "69557b9aae94e9f27620c68e85d298cff2d2d165d77185f3004b59e07062c931",
         ".agents/skills/ecrire-dialogues-fantasy-story/references/enjeu-et-progression.md": "4c4fcb4d1835878c2746c83853b4a47652aea3af2c451df234697c2c7e59ecb5",
@@ -38,22 +39,25 @@
         ".agents/skills/relier-aventure-fantasy-story/agents/openai.yaml": "a375aa2c2b7c2327ad1187bcbb640e50e4d0a93e2bc7620aa24bacc944d7e2b0",
         ".agents/skills/relier-aventure-fantasy-story/scripts/resumer-journal.js": "b9bd31dd61ccf96838cb4a2f38e58213b48e65c439b1a39095e76a57e5df0837",
         ".agents/skills/relier-aventure-fantasy-story/SKILL.md": "9ec1a0204cc3623f68ec88bcd9ebac41f6d455213f5fc65c1267b4f9f4d081cf",
-        "AGENTS.md": "70e46f363ef391156e218e0a41e70b55f0a68f591c28df6cf3ed755102c7ea14",
+        "AGENTS.md": "ac97f80161e003338bf721698db3b9b4811cce053bde38317470aeb3b74c2166",
+        "artifacts/direction/010-013-de-lisibilite-a-l-aventure.md": "10b618802eaaf8412d50e9e1ae4eed0c88ad67cbbaeef1f6668a0f99e1799757",
         "artifacts/loops/001-passage-niveau-2.md": "d4328d5ede71e2f2f15cd6f30227d865e0719fe259d057fc72b3e6d322f9f195",
         "artifacts/loops/002-la-nuit-a-brumepont.md": "6e8097ff1c448689c1c3a836bd49a9119b466b857e2bb07c02f02ef807196308",
         "artifacts/loops/003-la-cage-du-treuil-structure.md": "2c30e12f38b8c6933fa41572899d85b7d2a4f50f1ba22b683631f0c9001d8199",
         "artifacts/loops/003-la-cage-du-treuil.md": "63e7ba8a6921e946ab0ee93594b305f82fe11cc51fd024117534a4f297d0f4df",
-        "artifacts/loops/004-prendre-l-ascendant.md": "16f90fb1d93e619381dbe30b7cddd2550ca56364aa9b3bef62abd2db6f3b583b",
+        "artifacts/loops/004-prendre-l-ascendant.md": "819e009fad9e9d4357406817fe623a56dc311b8597990708872ca62b05ae86d1",
         "artifacts/loops/005-tenir-le-sort-journal.md": "39266a5dd06aaa8d20075addc70c918c73d18fd5e6fa4d582a3cc04b1b999d37",
         "artifacts/loops/005-tenir-le-sort.md": "b6bbdd9fb5d4c31be4a675d2cce54f45f346e97b36f5f4f6d0e90c5a5401c475",
         "artifacts/loops/006-jouer-sur-mobile.md": "92d76ab97e8aff62cb5ab192e0f3985472602973371b9d4c33163e15471f651f",
         "artifacts/loops/007-le-troisieme-palier.md": "2cb21dadd7befd0236664b8cfe0de46f534f4c5a488bdb7ba9cdab2eb6b865b6",
         "artifacts/loops/008-la-couche-de-menus.md": "6153b7c152b06787cae4648ab751dd834eb42a753290f37dac97f9a4d30c476c",
         "artifacts/loops/009-le-grimoire-de-combat.md": "bbd1175842dcd40f5ce5322266be6bc21b3a7bc213c768d62c3d4fa2056f4619",
-        "artifacts/loops/010-la-grammaire-du-grimoire.md": "50ed27314f2a81f86e54b1f57853e946874af4636a4b5d43fe79114839a3f8da",
-        "artifacts/loops/011-faire-exister-les-conclusions.md": "a13f67ff758e19a295d4aa0d767540315bf1f3976d0836f86715f88019b1c256",
-        "artifacts/loops/012-la-magie-spontanee.md": "b4a8d4738839667392d819df956e677251c156f04acb9be9177acef4a63514a1",
-        "tools/build-loop-context.js": "0e7ca11df1badc67c824673729d17cce20114de54d7256ee0dbc9e463a171cc3"
+        "artifacts/loops/010-la-grammaire-du-grimoire.md": "a117be15f29f0dc9107e4fde922dea44b136e4e43cadfc60833b4bad8aa08578",
+        "artifacts/loops/011-faire-exister-les-conclusions.md": "42dcfb888eaa5e3c80085e12bf5effe24e0bd347edcdc5465a7c8561f03a5898",
+        "artifacts/loops/012-la-magie-spontanee.md": "8d577e904006cfa245b5d0762978909220584075516aa11a601b075c3fb3d72a",
+        "artifacts/loops/013-le-pouls-du-combat.md": "fc4924739eeb20a241d8943b1c60ac0e9642aa79f1276e7be0bd7f4b8e08e7d6",
+        "artifacts/loops/014-ce-qui-demeure.md": "325dcdd04504f457adc5cc8469ee78101eebeb00b8ba895eebaa40a58e5826d7",
+        "tools/build-loop-context.js": "a648bda2af50e4fe7f0205a6bd84fcd22e9adfb5f585eb17be80f1063e42518e"
       }
     },
     "story": {
@@ -97,7 +101,7 @@
       }
     },
     "ui": {
-      "hash": "c292b694bafc0078e7140def339efb033a75fb7b19c4a260de1864a8a181df70",
+      "hash": "e91f163e38625b5994d0c82c2fedfd0ce81d4eda553a78321b2909195157327e",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -107,9 +111,9 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "f6b2a732c72f8d4b0b396c3abbc82ceb9a85cfe23a1efa580a7a235ff40fd7cd",
-        "src/renderer/index.html": "16251d59a2daec023ae4935f1bd6b8c69a1db2f268f3c4fa7044c40854d9aebf",
-        "src/renderer/styles.css": "fa5516631f836ad4b72f24aebe42f63affe7178c28b08c7592753ccb426a3663"
+        "src/renderer/app.js": "7fd394126ec941b5eaecff41f19a548aec8df499266fac936d7f27976df3b0c9",
+        "src/renderer/index.html": "2634bc8ce15f218bf83253cfab8a3d9cc3a2dd5a52d753343aedfc3d900ca2ae",
+        "src/renderer/styles.css": "e6073198f6ac9bf4de9bc890c0e5084d7e28223c4ecfac927351bb4194b2d92e"
       }
     },
     "assets": {
@@ -194,11 +198,6 @@
       "status": "garder"
     },
     {
-      "path": "artifacts/loops/003-la-cage-du-treuil-structure.md",
-      "title": "Archive de structure — Boucle 003",
-      "status": "inconnu"
-    },
-    {
       "path": "artifacts/loops/003-la-cage-du-treuil.md",
       "title": "Boucle 003 — La cage du treuil",
       "status": "garder"
@@ -206,12 +205,7 @@
     {
       "path": "artifacts/loops/004-prendre-l-ascendant.md",
       "title": "Boucle 004 — Prendre l’ascendant",
-      "status": "à jouer"
-    },
-    {
-      "path": "artifacts/loops/005-tenir-le-sort-journal.md",
-      "title": "Archive technique — Boucle 005",
-      "status": "inconnu"
+      "status": "garder"
     },
     {
       "path": "artifacts/loops/005-tenir-le-sort.md",
@@ -241,18 +235,28 @@
     {
       "path": "artifacts/loops/010-la-grammaire-du-grimoire.md",
       "title": "Boucle 010 — La grammaire du grimoire",
-      "status": "à jouer"
+      "status": "garder"
     },
     {
       "path": "artifacts/loops/011-faire-exister-les-conclusions.md",
       "title": "Boucle 011 — Faire exister les conclusions",
-      "status": "à jouer"
+      "status": "garder"
     },
     {
       "path": "artifacts/loops/012-la-magie-spontanee.md",
       "title": "Boucle 012 — La magie spontanée",
-      "status": "ajuster — nouvelle passe paysage à valider"
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/013-le-pouls-du-combat.md",
+      "title": "Boucle 013 — Le pouls du combat",
+      "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/014-ce-qui-demeure.md",
+      "title": "Boucle 014 — Ce qui demeure",
+      "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-26T07:46:01.334Z"
+  "generatedAt": "2026-07-26T12:42:44.684Z"
 }

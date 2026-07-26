@@ -8,6 +8,9 @@ let terminalMenuSignature = null;
 let spontaneousMagicMode = false;
 let spontaneousMagicSourceId = null;
 let hoveredSpontaneousTargetId = null;
+let selectedSpontaneousTargetId = null;
+let selectedCombatCardId = null;
+let combatPulseTimer = null;
 let booting = true;
 const $ = (selector) => document.querySelector(selector);
 const STAT_PRESENTATION = {
@@ -123,8 +126,8 @@ const CAGE_SCENES = {
   },
 };
 const THIRD_LEVEL_PROVENANCE = {
-  'captive-sauvee': { label: 'Mira sauvée', className: 'third-from-mira' },
-  'ordres-recuperes': { label: 'Ordres récupérés', className: 'third-from-orders' },
+  'captive-sauvee': { label: 'Mira libre · ordres perdus', className: 'third-from-mira' },
+  'ordres-recuperes': { label: 'Ordres en main · Mira captive', className: 'third-from-orders' },
 };
 const THIRD_LEVEL_OUTCOMES = {
   'passage-condamne': { label: 'Passage condamné', className: 'third-outcome-closed' },
@@ -525,7 +528,7 @@ function renderStoryMarkers(story) {
   markers.hidden = !provenance && !outcome && !thirdProvenance && !thirdOutcome;
   if (provenance) markers.append(makeSceneMarker('Origine', provenance.label, 'source'));
   if (outcome) markers.append(makeSceneMarker('Issue', outcome.label, 'outcome'));
-  if (thirdProvenance) markers.append(makeSceneMarker('Héritage', thirdProvenance.label, 'source'));
+  if (thirdProvenance) markers.append(makeSceneMarker('Choix précédent', thirdProvenance.label, 'source'));
   if (thirdOutcome) markers.append(makeSceneMarker('Issue', thirdOutcome.label, 'outcome'));
 }
 
@@ -670,7 +673,51 @@ function cardEffectLabel(card, resolvedDamage = card.effect?.damage) {
 }
 
 function chargeCostLabel(card) {
-  return `✦ ${card.chargeCost}`;
+  return card.chargeCost > 0
+    ? `✦ ${card.chargeCost} charge${card.chargeCost > 1 ? 's' : ''}`
+    : 'Sans charge';
+}
+
+function showCombatPulse(label, tone = 'player') {
+  const pulse = $('#combat-pulse');
+  if (!pulse) return;
+  clearTimeout(combatPulseTimer);
+  pulse.hidden = false;
+  pulse.className = `combat-pulse ${tone}`;
+  setText('#combat-pulse-label', label);
+  requestAnimationFrame(() => pulse.classList.add('visible'));
+  combatPulseTimer = setTimeout(() => {
+    pulse.classList.remove('visible');
+    setTimeout(() => { pulse.hidden = true; }, 220);
+  }, 820);
+}
+
+function pulseElement(selector, className, delta = null) {
+  const element = $(selector);
+  if (!element) return;
+  if (delta != null) element.dataset.delta = delta;
+  element.classList.remove(className);
+  requestAnimationFrame(() => {
+    element.classList.add(className);
+    setTimeout(() => element.classList.remove(className), 720);
+  });
+}
+
+function animateCombatChange(before, after) {
+  if (!before || !after) return;
+  const chargeDelta = before.player.spellUses - after.player.spellUses;
+  const actionDelta = after.player.actionsPlayed - before.player.actionsPlayed;
+  const enemyDamage = before.enemy.hp - after.enemy.hp;
+  const playerDamage = before.player.hp - after.player.hp;
+  if (chargeDelta > 0) pulseElement('#combat-charges', 'spent-now', `−${chargeDelta}`);
+  if (actionDelta > 0) pulseElement('.combat-action-track', 'spent-now', `−${actionDelta}`);
+  if (enemyDamage > 0) pulseElement('.board-enemy .fighter', 'took-hit', `−${enemyDamage}`);
+  if (playerDamage > 0) pulseElement('.board-player .fighter', 'took-hit', `−${playerDamage}`);
+  if (before.phase === 'player' && after.phase === 'reaction') {
+    showCombatPulse('L’ennemi attaque', 'enemy');
+  } else if (before.phase === 'reaction' && after.phase === 'player') {
+    showCombatPulse(`Round ${after.round} · À vous`, 'player');
+  }
 }
 
 function renderCombat(combat, combatItems = []) {
@@ -682,6 +729,8 @@ function renderCombat(combat, combatItems = []) {
     spontaneousMagicMode = false;
     spontaneousMagicSourceId = null;
     hoveredSpontaneousTargetId = null;
+    selectedSpontaneousTargetId = null;
+    selectedCombatCardId = null;
     if ($('#combat-grimoire').open) $('#combat-grimoire').close();
     $('#combat-cards').replaceChildren();
     $('#combat-log').replaceChildren();
@@ -691,6 +740,10 @@ function renderCombat(combat, combatItems = []) {
     return;
   }
   const spontaneousOptions = combat.spontaneousMagicOptions || [];
+  const selectedCombatCard = combat.cards.find(
+    (card) => card.instanceId === selectedCombatCardId && card.available,
+  ) || null;
+  if (!selectedCombatCard) selectedCombatCardId = null;
   const spontaneousMagicAvailable = Boolean(
     combat.player.spontaneousMagicAvailable
     && spontaneousOptions.some((option) => option.available),
@@ -749,11 +802,34 @@ function renderCombat(combat, combatItems = []) {
     { length: combat.player.actionLimit },
     (_, index) => {
       const pip = document.createElement('i');
-      pip.className = index < combat.player.actionsPlayed ? 'spent' : 'ready';
+      pip.className = index < combat.player.actionsPlayed
+        ? 'spent'
+        : selectedCombatCard?.timing === 'action'
+          && index < combat.player.actionsPlayed + selectedCombatCard.actionCost
+          ? 'pending'
+          : 'ready';
       return pip;
     },
   ));
-  setText('#combat-charges', `✦ ${combat.player.spellUses} / ${combat.player.maxSpellUses} charges`);
+  const chargeTrack = $('#combat-charges');
+  const chargeLabel = document.createElement('span');
+  chargeLabel.textContent = 'Charges';
+  const chargePips = document.createElement('span');
+  chargePips.className = 'combat-charge-pips';
+  const pendingChargeCost = selectedCombatCard?.chargeCost || 0;
+  chargePips.replaceChildren(...Array.from(
+    { length: combat.player.maxSpellUses },
+    (_, index) => {
+      const pip = document.createElement('i');
+      const isReady = index < combat.player.spellUses;
+      const isPending = isReady && index >= combat.player.spellUses - pendingChargeCost;
+      pip.className = isPending ? 'pending' : isReady ? 'ready' : 'spent';
+      return pip;
+    },
+  ));
+  const chargeCount = document.createElement('b');
+  chargeCount.textContent = `${combat.player.spellUses}/${combat.player.maxSpellUses}`;
+  chargeTrack.replaceChildren(chargeLabel, chargePips, chargeCount);
   setText('#combat-player-name', combat.player.name);
   setText('#combat-player-hp', `${combat.player.hp} / ${combat.player.maxHp} PV`);
   setText('#combat-enemy-name', combat.enemy.name);
@@ -809,6 +885,8 @@ function renderCombat(combat, combatItems = []) {
   panel.classList.toggle('has-pending-attack', Boolean(combat.pendingAttack));
   panel.classList.toggle('has-concentration', Boolean(concentration));
   panel.classList.toggle('is-reaction', combat.phase === 'reaction');
+  panel.classList.toggle('is-player-turn', combat.phase === 'player');
+  panel.classList.toggle('has-card-preview', Boolean(selectedCombatCard));
   panel.classList.toggle('metamagic-armed', spontaneousMagicMode);
   panel.classList.toggle(
     'metamagic-resolved',
@@ -885,9 +963,11 @@ function renderCombat(combat, combatItems = []) {
     const sourceable = spontaneousMagicMode
       && combat.player.spontaneousMagicAvailable
       && shapeTargets.length > 0;
-    button.className = `combat-card family-${card.family} role-${card.role} timing-${card.timing}${card.timing === 'action' ? ` action-cost-${card.actionCost}` : ''}${sourceable ? ' metamagic-sourceable' : ''}${card.instanceId === spontaneousMagicSourceId ? ' metamagic-selected' : ''}`;
+    const isSelected = card.instanceId === selectedCombatCardId;
+    button.className = `combat-card family-${card.family} role-${card.role} timing-${card.timing}${card.timing === 'action' ? ` action-cost-${card.actionCost}` : ''}${sourceable ? ' metamagic-sourceable' : ''}${card.instanceId === spontaneousMagicSourceId ? ' metamagic-selected' : ''}${isSelected ? ' combat-selected' : ''}`;
     button.disabled = spontaneousMagicMode ? !sourceable : !card.available;
-    button.innerHTML = '<div class="card-topline"><span class="card-family"></span><span class="card-role"></span><em class="card-action-cost"></em></div><div class="card-art" aria-hidden="true"><img alt=""></div><strong></strong><b class="card-effect"></b><div class="card-footer"><small class="card-timing"></small><span class="card-charge-cost"></span></div>';
+    button.setAttribute('aria-pressed', String(isSelected));
+    button.innerHTML = '<div class="card-topline"><span class="card-family"></span><span class="card-role"></span><em class="card-action-cost"></em></div><div class="card-art" aria-hidden="true"><img alt=""></div><strong></strong><b class="card-effect"></b><div class="card-footer"><small class="card-timing"></small><span class="card-charge-cost"></span></div><span class="card-commit"></span>';
     button.querySelector('.card-family').textContent = CARD_FAMILY_LABELS[card.family];
     button.querySelector('.card-role').textContent = CARD_ROLE_LABELS[card.role];
     const cardArt = button.querySelector('.card-art');
@@ -904,6 +984,9 @@ function renderCombat(combat, combatItems = []) {
         ? `Action · Force × ${combat.player.stats.strength}`
         : 'Action';
     button.querySelector('.card-charge-cost').textContent = chargeCostLabel(card);
+    button.querySelector('.card-commit').textContent = card.timing === 'reaction'
+      ? `Réagir · ${chargeCostLabel(card)}`
+      : `Lancer · ${card.actionCost} Action${card.actionCost > 1 ? 's' : ''} · ${chargeCostLabel(card)}`;
     if (spontaneousMagicMode && sourceable) {
       button.title = `Façonner ${card.name} en un autre sort`;
     } else if (!card.available && card.timing === 'action' && card.actionCost > actionsRemaining) {
@@ -913,8 +996,10 @@ function renderCombat(combat, combatItems = []) {
     }
     button.addEventListener('click', () => {
       if (spontaneousMagicMode) {
+        selectedCombatCardId = null;
         spontaneousMagicSourceId = card.instanceId;
         hoveredSpontaneousTargetId = null;
+        selectedSpontaneousTargetId = null;
         renderCombat(currentStory.combat, currentStory.combatItems || []);
         requestAnimationFrame(() => {
           $('.combat-card.metamagic-selected')?.scrollIntoView({
@@ -925,6 +1010,12 @@ function renderCombat(combat, combatItems = []) {
         });
         return;
       }
+      if (selectedCombatCardId !== card.instanceId) {
+        selectedCombatCardId = card.instanceId;
+        renderCombat(currentStory.combat, currentStory.combatItems || []);
+        return;
+      }
+      selectedCombatCardId = null;
       playCombatCard(card.instanceId);
     });
     return button;
@@ -943,8 +1034,10 @@ function renderCombat(combat, combatItems = []) {
         .map((option) => {
           const button = document.createElement('button');
           button.type = 'button';
-          button.className = `metamagic-target role-${option.role}`;
+          const isSelected = option.id === selectedSpontaneousTargetId;
+          button.className = `metamagic-target role-${option.role}${isSelected ? ' selected' : ''}`;
           button.disabled = !option.available;
+          button.setAttribute('aria-pressed', String(isSelected));
           button.dataset.cardId = option.id;
           button.dataset.cardRole = option.role;
           button.dataset.cardTiming = option.timing;
@@ -972,10 +1065,16 @@ function renderCombat(combat, combatItems = []) {
           button.addEventListener('focus', previewTarget);
           button.addEventListener('mouseleave', clearPreviewTarget);
           button.addEventListener('blur', clearPreviewTarget);
-          button.addEventListener('click', () => shapeCombatSpell(
-            activeSource.instanceId,
-            option.id,
-          ));
+          button.addEventListener('click', () => {
+            if (selectedSpontaneousTargetId !== option.id) {
+              selectedSpontaneousTargetId = option.id;
+              hoveredSpontaneousTargetId = option.id;
+              renderCombat(currentStory.combat, currentStory.combatItems || []);
+              return;
+            }
+            selectedSpontaneousTargetId = null;
+            shapeCombatSpell(activeSource.instanceId, option.id);
+          });
           return button;
         })
       : []
@@ -1184,6 +1283,7 @@ async function playStoryChoice(choiceId) {
   catch(error){setConnection('error',error.message);buttons.forEach((button)=>button.disabled=false);}
 }
 async function playCombatCard(cardId) {
+  const beforeCombat = currentStory?.combat;
   setCombatBusy(true);
   try {
     const result = await window.candy.playCombatCard(cardId);
@@ -1191,6 +1291,7 @@ async function playCombatCard(cardId) {
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
+    requestAnimationFrame(() => animateCombatChange(beforeCombat, result.story.combat));
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -1198,16 +1299,19 @@ async function playCombatCard(cardId) {
   }
 }
 async function shapeCombatSpell(instanceId, targetCardId) {
+  const beforeCombat = currentStory?.combat;
   setCombatBusy(true);
   try {
     const result = await window.candy.shapeCombatSpell(instanceId, targetCardId);
     spontaneousMagicMode = false;
     spontaneousMagicSourceId = null;
     hoveredSpontaneousTargetId = null;
+    selectedSpontaneousTargetId = null;
     if (result.outcome) await reloadConversation();
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
+    requestAnimationFrame(() => animateCombatChange(beforeCombat, result.story.combat));
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -1215,6 +1319,7 @@ async function shapeCombatSpell(instanceId, targetCardId) {
   }
 }
 async function passCombatReaction() {
+  const beforeCombat = currentStory?.combat;
   setCombatBusy(true);
   try {
     const result = await window.candy.passCombatReaction();
@@ -1222,6 +1327,7 @@ async function passCombatReaction() {
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
+    requestAnimationFrame(() => animateCombatChange(beforeCombat, result.story.combat));
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -1229,12 +1335,15 @@ async function passCombatReaction() {
   }
 }
 async function endCombatTurn() {
+  selectedCombatCardId = null;
+  const beforeCombat = currentStory?.combat;
   setCombatBusy(true);
   try {
     const result = await window.candy.endCombatTurn();
     renderStory(result.story);
     state = await window.candy.readCharacter();
     renderProfile();
+    requestAnimationFrame(() => animateCombatChange(beforeCombat, result.story.combat));
   } catch (error) {
     setConnection('error', error.message);
   } finally {
@@ -1267,14 +1376,17 @@ $('#combat-end-turn').addEventListener('click', endCombatTurn);
 $('#combat-potion').addEventListener('click', useCombatItem);
 $('#combat-metamagic').addEventListener('click', () => {
   spontaneousMagicMode = !spontaneousMagicMode;
+  selectedCombatCardId = null;
   spontaneousMagicSourceId = null;
   hoveredSpontaneousTargetId = null;
+  selectedSpontaneousTargetId = null;
   renderCombat(currentStory?.combat || null, currentStory?.combatItems || []);
 });
 $('#combat-metamagic-cancel').addEventListener('click', () => {
   spontaneousMagicMode = false;
   spontaneousMagicSourceId = null;
   hoveredSpontaneousTargetId = null;
+  selectedSpontaneousTargetId = null;
   renderCombat(currentStory?.combat || null, currentStory?.combatItems || []);
 });
 window.addEventListener('resize', () => {

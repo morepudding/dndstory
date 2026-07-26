@@ -1,35 +1,40 @@
 # Fiche de boucle
 
-Limiter chaque fiche à 150–250 mots. Retirer toute ligne inutile et ne jamais en faire un journal technique.
+Limiter chaque fiche à 120–220 mots. Numéroter seulement une expérience soumise au joueur. Retirer toute ligne inutile et ne jamais en faire un journal technique.
 
 ```markdown
 # Boucle <numéro> — <nom>
 
-**Statut :** `cadrée` | `intégrée` | `à jouer` | `garder` | `ajuster` | `retirer`
+**Statut :** `cadrée` | `en construction` | `à jouer` | `ajuster` | `garder` | `retirer` | `suspendue`
+**Passe :** 1/2 | 2/2
 
-## Cap
+## Hypothèse
 
-- **Nouveauté centrale :** <une seule nouveauté>
-- **Effet recherché :** <décision ou sensation visible>
-- **Dans la boucle :** <strict nécessaire>
-- **Hors boucle :** <extensions explicitement refusées>
+<Si cette nouveauté existe, quelle décision, compréhension ou sensation devrait changer ?>
 
-## À tester par le joueur
+## Expérience
 
-<suite courte d'actions allant du point de départ au verdict>
+<Parcours de trois à cinq minutes allant du point de départ au verdict.>
 
-## Budget Codex
+## Signal recherché
 
-- **Contexte :** carte du projet, fiche active et fichiers du domaine modifié seulement.
-- **Automatique :** <aucune ou une commande ciblée>.
-- **Manuel :** <parcours laissé au joueur>.
-- **Suite complète :** seulement pour <risque exceptionnel>, sur publication importante ou sur demande.
+<Fait observable que le joueur peut constater sans explication technique.>
 
-## État
+## Limites
 
-- **Intégré :** <faits vérifiables>
-- **Reste incertain :** <questions que seul le jeu tranche>
-- **Verdict :** <garder, ajuster ou retirer, avec une phrase de raison>
+<Ce que cette expérience refuse explicitement d’ajouter ou de modifier.>
+
+## Résultat joueur
+
+<À remplir après l’essai : garder, ajuster ou retirer, et pourquoi en une phrase.>
+
+## Apprentissage
+
+<Ce que cette expérience apprend sur le jeu, pas sur les commandes exécutées.>
+
+## Décision suivante
+
+<Clore, effectuer la passe 2, reformuler l’hypothèse ou changer d’axe.>
 ```
 
-Ne pas recopier la conversation, les fichiers touchés, les sorties de commandes, les captures ni l'historique des tentatives.
+Ne pas recopier la conversation, le budget Codex, les fichiers touchés, les sorties de commandes, les captures ni l'historique des tentatives. Une correction du même signal met à jour la passe ; elle ne crée pas un nouveau numéro.

@@ -1,6 +1,6 @@
 # Boucle 004 — Prendre l’ascendant
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -22,5 +22,4 @@ Poursuivre Varek, produire puis annuler les deux états, jouer une carte à coû
 ## État
 
 - **Intégré :** les états s’annulent, persistent et sont consommés sans mutation partielle ; le plateau affiche le coût dynamique.
-- **Reste incertain :** plaisir du sacrifice défensif.
-- **Verdict :** `à jouer`.
+- **Verdict joueur :** `garder`.

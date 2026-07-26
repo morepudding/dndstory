@@ -1,6 +1,6 @@
 # Boucle 010 — La grammaire du grimoire
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -23,5 +23,4 @@ Distinguer Bâton, Braise, Éclat, Voile, Entrave et Orbe sans lire leur descrip
 ## État
 
 - **Intégré :** catalogue Sorcier partagé ; Moment, Famille, Rôle et Coût validés ; main et grimoire hiérarchisés par rôle ; potion typée comme Objet de soin hors deck.
-- **Reste incertain :** lisibilité immédiate des rôles sur écran étroit.
-- **Verdict :** `garder` si le deck exprime clairement « magie gratuite pour tenir, charges limitées pour décider, Réactions pour protéger ou contrôler ».
+- **Verdict joueur :** `garder`.

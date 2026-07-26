@@ -1,6 +1,6 @@
 # Boucle 012 — La magie spontanée
 
-**Statut :** `ajuster — nouvelle passe paysage à valider`
+**Statut :** `garder`
 
 ## Cap
 
@@ -30,5 +30,4 @@ Contre Varek, façonner une carte en Éclat arcanique ou Orbe suspendu pendant l
 - **Format réel :** Fantasy Story se joue exclusivement sur mobile en paysage ; la validation portrait est retirée.
 - **Vérification corrective :** 844 × 390 et 932 × 430, hauteur de page égale au viewport, plateau sans débordement et états sans chevauchement.
 - **Équilibre simulé :** les quatre combats gardent des victoires avec et sans la capacité ; le meilleur tour et les PV restants sont identiques dans les deux cas.
-- **Reste incertain :** sensation du choix entre improviser dès l’Action et conserver la rune pour une Réaction.
-- **Verdict demandé :** `garder`, `ajuster` ou `retirer` après essai de cette seconde passe paysage.
+- **Verdict joueur :** `garder` après essai de la seconde passe paysage.

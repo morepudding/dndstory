@@ -18,7 +18,8 @@ const DOMAINS = [
       file === "AGENTS.md" ||
       file === "tools/build-loop-context.js" ||
       file.startsWith(".agents/skills/") ||
-      file.startsWith("artifacts/loops/"),
+      file.startsWith("artifacts/loops/") ||
+      file.startsWith("artifacts/direction/"),
     anchors: [
       "AGENTS.md",
       ".agents/skills/conduire-boucle-fantasy-story/SKILL.md",
@@ -261,26 +262,41 @@ function readLoops() {
       const relativePath = toPosix(path.join("artifacts", "loops", entry.name));
       const content = fs.readFileSync(path.join(ROOT, relativePath), "utf8");
       const title = content.match(/^#\s+(.+)$/mu)?.[1] || entry.name;
-      const status =
-        content.match(/\*\*Statut\s*:\*\*\s*`([^`]+)`/u)?.[1] || "inconnu";
+      const status = content.match(/\*\*Statut\s*:\*\*\s*`([^`]+)`/u)?.[1];
+      if (!status) {
+        return null;
+      }
       return { path: relativePath, title, status };
     })
+    .filter(Boolean)
     .sort((left, right) => left.path.localeCompare(right.path, "en"));
 }
 
 function selectLoopContext(loops) {
-  const terminalStatuses = new Set(["garder", "retirer"]);
-  const active =
-    [...loops]
-      .reverse()
-      .find((loop) => !terminalStatuses.has(loop.status.toLowerCase())) ||
-    loops.at(-1) ||
-    null;
+  const inactiveStatuses = new Set(["garder", "retirer", "suspendue"]);
+  const verdictStatuses = new Set(["garder", "retirer"]);
+  const activeLoops = loops.filter(
+    (loop) => !inactiveStatuses.has(loop.status.toLowerCase()),
+  );
+  const active = activeLoops.at(-1) || null;
   const lastVerdict =
     [...loops]
       .reverse()
-      .find((loop) => terminalStatuses.has(loop.status.toLowerCase())) || null;
-  return { active, lastVerdict };
+      .find((loop) => verdictStatuses.has(loop.status.toLowerCase())) || null;
+  return { active, activeLoops, lastVerdict };
+}
+
+function assertSingleActiveLoop(state) {
+  const { activeLoops } = selectLoopContext(state.loops);
+  if (activeLoops.length <= 1) {
+    return;
+  }
+  const details = activeLoops
+    .map((loop) => `${loop.path} (${loop.status})`)
+    .join(", ");
+  throw new Error(
+    `Plusieurs boucles d’expérience sont actives : ${details}. Clore ou suspendre les précédentes.`,
+  );
 }
 
 function buildState() {
@@ -491,6 +507,7 @@ function main() {
   const mode = process.argv.includes("--refresh") ? "refresh" : "check";
   const previous = readPreviousState();
   const current = buildState();
+  assertSingleActiveLoop(current);
 
   if (mode === "refresh") {
     refreshContext(current, previous);

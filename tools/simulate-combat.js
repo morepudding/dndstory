@@ -14,7 +14,7 @@ const DEFAULT_STORY_PATH = path.join(
 function simulateCombat({
   storyPath = DEFAULT_STORY_PATH,
   maxRound = 10,
-  maxStates = 50000,
+  maxStates = 200000,
   initialPotions = 0,
   heroStats = null,
   enemyMaxHp = null,
@@ -33,6 +33,7 @@ function simulateCombat({
     usedFrost: false,
     usedElan: false,
     usedConcentration: false,
+    usedSpontaneousMagic: false,
     usedPotion: false,
     potions: initialPotions,
   }];
@@ -54,6 +55,7 @@ function simulateCombat({
       current.usedFrost,
       current.usedElan,
       current.usedConcentration,
+      current.usedSpontaneousMagic,
       current.usedPotion,
       current.potions,
     );
@@ -67,6 +69,8 @@ function simulateCombat({
       const usedElan = current.usedElan || action.cardId === 'elan-arcanique';
       const usedConcentration = current.usedConcentration
         || action.cardId === 'orbe-suspendu';
+      const usedSpontaneousMagic = current.usedSpontaneousMagic
+        || action.kind === 'spontaneous';
       const usedPotion = current.usedPotion || action.kind === 'item';
       const steps = [...current.steps, action.label];
       if (resolution.outcome) {
@@ -82,6 +86,7 @@ function simulateCombat({
           usedFrost,
           usedElan,
           usedConcentration,
+          usedSpontaneousMagic,
           triggeredConcentration,
           usedPotion,
           steps,
@@ -96,6 +101,7 @@ function simulateCombat({
         usedFrost,
         usedElan,
         usedConcentration,
+        usedSpontaneousMagic,
         usedPotion,
         potions,
       });
@@ -121,6 +127,12 @@ function simulateCombat({
   const bestWithTriggeredConcentration = bestVictory(
     victories.filter((result) => result.triggeredConcentration),
   );
+  const bestWithSpontaneousMagic = bestVictory(
+    victories.filter((result) => result.usedSpontaneousMagic),
+  );
+  const bestWithoutSpontaneousMagic = bestVictory(
+    victories.filter((result) => !result.usedSpontaneousMagic),
+  );
   return {
     exploredStates,
     truncated,
@@ -140,6 +152,12 @@ function simulateCombat({
       withoutTriggeredConcentration: victories.filter(
         (result) => !result.triggeredConcentration,
       ).length,
+      withSpontaneousMagic: victories.filter(
+        (result) => result.usedSpontaneousMagic,
+      ).length,
+      withoutSpontaneousMagic: victories.filter(
+        (result) => !result.usedSpontaneousMagic,
+      ).length,
       withPotion: victories.filter((result) => result.usedPotion).length,
       withoutPotion: victories.filter((result) => !result.usedPotion).length,
       shortest: shortestVictory,
@@ -151,6 +169,8 @@ function simulateCombat({
       bestWithConcentration,
       bestWithoutConcentration,
       bestWithTriggeredConcentration,
+      bestWithSpontaneousMagic,
+      bestWithoutSpontaneousMagic,
     },
     defeats: {
       total: defeats.length,
@@ -166,6 +186,12 @@ function simulateCombat({
       withoutTriggeredConcentration: defeats.filter(
         (result) => !result.triggeredConcentration,
       ).length,
+      withSpontaneousMagic: defeats.filter(
+        (result) => result.usedSpontaneousMagic,
+      ).length,
+      withoutSpontaneousMagic: defeats.filter(
+        (result) => !result.usedSpontaneousMagic,
+      ).length,
     },
   };
 }
@@ -178,8 +204,30 @@ function bestVictory(results) {
 
 function legalActions(engine, combat, potions = 0) {
   const cards = engine.cardsFor(combat).filter((card) => card.available);
+  const spontaneousActions = [];
+  if (combat.player.spontaneousMagicAvailable) {
+    const sourceByCardId = new Map();
+    for (const instance of combat.hand) {
+      if (!sourceByCardId.has(instance.cardId)) {
+        sourceByCardId.set(instance.cardId, instance);
+      }
+    }
+    for (const source of sourceByCardId.values()) {
+      for (const target of engine.spontaneousMagicOptionsFor(combat)) {
+        if (!target.available || target.id === source.cardId) continue;
+        spontaneousActions.push({
+          kind: 'spontaneous',
+          instanceId: source.instanceId,
+          sourceCardId: source.cardId,
+          cardId: target.id,
+          label: `métamagie:${source.cardId}->${target.id}`,
+        });
+      }
+    }
+  }
   if (combat.phase === 'reaction') {
     return [
+      ...spontaneousActions,
       ...cards.map((card) => ({
         kind: 'card',
         instanceId: card.instanceId,
@@ -190,6 +238,7 @@ function legalActions(engine, combat, potions = 0) {
     ];
   }
   return [
+    ...spontaneousActions,
     ...cards.map((card) => ({
       kind: 'card',
       instanceId: card.instanceId,
@@ -207,6 +256,12 @@ function legalActions(engine, combat, potions = 0) {
 
 function resolveAction(engine, combat, action, potions) {
   if (action.kind === 'card') return { resolution: engine.playCard(combat, action.instanceId), potions };
+  if (action.kind === 'spontaneous') {
+    return {
+      resolution: engine.shapeSpell(combat, action.instanceId, action.cardId),
+      potions,
+    };
+  }
   if (action.kind === 'pass') return { resolution: engine.passReaction(combat), potions };
   if (action.kind === 'item') return { resolution: engine.useItem(combat, 'healing-potion'), potions: potions - 1 };
   return { resolution: engine.endTurn(combat), potions };
@@ -217,6 +272,7 @@ function stateSignature(
   usedFrost,
   usedElan,
   usedConcentration,
+  usedSpontaneousMagic,
   usedPotion,
   potions,
 ) {
@@ -226,6 +282,7 @@ function stateSignature(
     usedFrost,
     usedElan,
     usedConcentration,
+    usedSpontaneousMagic,
     usedPotion,
     potions,
     state,

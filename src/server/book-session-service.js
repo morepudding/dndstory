@@ -101,6 +101,31 @@ class BookSessionService {
     return transition;
   }
 
+  shapeSpell(instanceId, targetCardId) {
+    const before = this.store.read().story.activeRun;
+    if (!before || before.status !== 'active') {
+      throw codedError('STORY_NOT_ACTIVE', 'Aucun combat n’est en cours.');
+    }
+    const engine = this.engine(before.storyId);
+    const transition = engine.shapeSpell(
+      before,
+      instanceId,
+      targetCardId,
+      this.clock().toISOString(),
+    );
+    this.persistCombatTransition(before, transition);
+    this.record({
+      type: 'combat_spontaneous_magic_used',
+      storyId: before.storyId,
+      nodeId: before.activeNodeId,
+      sourceInstanceId: instanceId,
+      targetCardId,
+      round: before.combat?.round,
+      outcome: transition.outcome,
+    });
+    return transition;
+  }
+
   passReaction() {
     const before = this.store.read().story.activeRun;
     if (!before || before.status !== 'active') {

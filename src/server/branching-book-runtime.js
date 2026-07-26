@@ -55,6 +55,7 @@ class BranchingBookEngine {
         ? {
           ...session.combat,
           cards: combatEngine.cardsFor(session.combat),
+          spontaneousMagicOptions: combatEngine.spontaneousMagicOptionsFor(session.combat),
           deckCards: combatEngine.deckCardsFor(session.combat),
         }
         : null,
@@ -103,6 +104,29 @@ class BranchingBookEngine {
     }
     const combatEngine = new CombatEngine(node.combat, this.tree.hero);
     const resolution = combatEngine.playCard(session.combat, cardId);
+    const next = structuredClone(session);
+    next.combat = resolution.combat;
+    this.syncArcaneCharges(next);
+    if (resolution.outcome) this.completeCombat(next, node, resolution.outcome, at);
+    return {
+      session: next,
+      outcome: resolution.outcome,
+      view: this.read(next),
+    };
+  }
+
+  shapeSpell(session, instanceId, targetCardId, at) {
+    this.assertActiveSession(session);
+    const node = this.nodes.get(session.activeNodeId);
+    if (node.kind !== 'combat' || !session.combat) {
+      throw codedError('COMBAT_NOT_ACTIVE', 'Aucun combat n’est en cours.');
+    }
+    const combatEngine = new CombatEngine(node.combat, this.tree.hero);
+    const resolution = combatEngine.shapeSpell(
+      session.combat,
+      instanceId,
+      targetCardId,
+    );
     const next = structuredClone(session);
     next.combat = resolution.combat;
     this.syncArcaneCharges(next);
@@ -324,6 +348,17 @@ class BranchingBookRuntime {
 
   playCard(cardId) {
     const transition = this.engine.playCard(this.session, cardId, new Date().toISOString());
+    this.session = transition.session;
+    return transition.view;
+  }
+
+  shapeSpell(instanceId, targetCardId) {
+    const transition = this.engine.shapeSpell(
+      this.session,
+      instanceId,
+      targetCardId,
+      new Date().toISOString(),
+    );
     this.session = transition.session;
     return transition.view;
   }

@@ -128,6 +128,11 @@ class StoryGameService {
     return { outcome: transition.outcome, story: this.readStory() };
   }
 
+  shapeCombatSpell(instanceId, targetCardId) {
+    const transition = this.book.shapeSpell(instanceId, targetCardId);
+    return { outcome: transition.outcome, story: this.readStory() };
+  }
+
   passCombatReaction() {
     const transition = this.book.passReaction();
     return { outcome: transition.outcome, story: this.readStory() };

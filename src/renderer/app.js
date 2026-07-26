@@ -5,6 +5,9 @@ let selectedLevelStat = null;
 let menuView = null;
 let pendingMenuConfirmation = null;
 let terminalMenuSignature = null;
+let spontaneousMagicMode = false;
+let spontaneousMagicSourceId = null;
+let hoveredSpontaneousTargetId = null;
 let booting = true;
 const $ = (selector) => document.querySelector(selector);
 const STAT_PRESENTATION = {
@@ -674,12 +677,60 @@ function renderCombat(combat, combatItems = []) {
   document.documentElement.classList.toggle('combat-running', Boolean(combat));
   $('#scene-visual').classList.toggle('combat-active', Boolean(combat));
   if (!combat) {
+    spontaneousMagicMode = false;
+    spontaneousMagicSourceId = null;
+    hoveredSpontaneousTargetId = null;
     if ($('#combat-grimoire').open) $('#combat-grimoire').close();
     $('#combat-cards').replaceChildren();
     $('#combat-log').replaceChildren();
     $('#combat-potion').hidden = true;
+    $('#combat-metamagic-options').hidden = true;
+    $('#combat-magic-links').setAttribute('hidden', '');
     return;
   }
+  const spontaneousOptions = combat.spontaneousMagicOptions || [];
+  const spontaneousMagicAvailable = Boolean(
+    combat.player.spontaneousMagicAvailable
+    && spontaneousOptions.some((option) => option.available),
+  );
+  if (!combat.player.spontaneousMagicAvailable) {
+    spontaneousMagicMode = false;
+    spontaneousMagicSourceId = null;
+    hoveredSpontaneousTargetId = null;
+  }
+  const selectedSource = combat.cards.find(
+    (card) => card.instanceId === spontaneousMagicSourceId,
+  ) || null;
+  if (spontaneousMagicSourceId && !selectedSource) spontaneousMagicSourceId = null;
+  const metamagicButton = $('#combat-metamagic');
+  metamagicButton.disabled = !spontaneousMagicAvailable;
+  metamagicButton.className = `combat-metamagic ${
+    combat.player.spontaneousMagicAvailable
+      ? spontaneousMagicMode
+        ? 'active'
+        : spontaneousMagicAvailable
+          ? 'ready'
+          : 'locked'
+      : 'spent'
+  }`;
+  metamagicButton.setAttribute('aria-pressed', String(spontaneousMagicMode));
+  setText(
+    '#combat-metamagic-state',
+    combat.player.spontaneousMagicAvailable
+      ? spontaneousMagicMode
+        ? spontaneousMagicSourceId
+          ? 'Choisir le sort'
+          : 'Choisir une carte'
+        : spontaneousMagicAvailable
+          ? 'Disponible'
+          : 'Aucun sort possible'
+      : 'Utilisée',
+  );
+  metamagicButton.title = spontaneousMagicAvailable
+    ? 'Façonner une carte de la main en un sort connu'
+    : combat.player.spontaneousMagicAvailable
+      ? 'Aucun sort compatible ne peut être lancé maintenant'
+      : 'La Magie spontanée a déjà été utilisée pendant ce combat';
   renderCombatGrimoire(combat);
   $('#combat-deck-open').disabled = false;
   $('#combat-discard-open').disabled = false;
@@ -755,6 +806,11 @@ function renderCombat(combat, combatItems = []) {
   panel.classList.toggle('has-disadvantage', tempo?.id === 'disadvantage');
   panel.classList.toggle('has-concentration', Boolean(concentration));
   panel.classList.toggle('is-reaction', combat.phase === 'reaction');
+  panel.classList.toggle('metamagic-armed', spontaneousMagicMode);
+  panel.classList.toggle(
+    'metamagic-resolved',
+    combat.log.slice(-3).some((entry) => entry.type === 'spontaneous_magic'),
+  );
   const concentrationEvents = combat.log
     .map((entry, index) => ({ entry, index }))
     .filter(({ entry }) => [
@@ -820,11 +876,20 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-cards').replaceChildren(...combat.cards.map((card) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `combat-card family-${card.family} role-${card.role} timing-${card.timing}${card.timing === 'action' ? ` action-cost-${card.actionCost}` : ''}`;
-    button.disabled = !card.available;
-    button.innerHTML = '<div class="card-topline"><span class="card-family"></span><span class="card-role"></span><em class="card-action-cost"></em></div><strong></strong><b class="card-effect"></b><div class="card-footer"><small class="card-timing"></small><span class="card-charge-cost"></span></div>';
+    const shapeTargets = spontaneousOptions.filter(
+      (option) => option.available && option.id !== card.id,
+    );
+    const sourceable = spontaneousMagicMode
+      && combat.player.spontaneousMagicAvailable
+      && shapeTargets.length > 0;
+    button.className = `combat-card family-${card.family} role-${card.role} timing-${card.timing}${card.timing === 'action' ? ` action-cost-${card.actionCost}` : ''}${sourceable ? ' metamagic-sourceable' : ''}${card.instanceId === spontaneousMagicSourceId ? ' metamagic-selected' : ''}`;
+    button.disabled = spontaneousMagicMode ? !sourceable : !card.available;
+    button.innerHTML = '<div class="card-topline"><span class="card-family"></span><span class="card-role"></span><em class="card-action-cost"></em></div><div class="card-art" aria-hidden="true"><img alt=""></div><strong></strong><b class="card-effect"></b><div class="card-footer"><small class="card-timing"></small><span class="card-charge-cost"></span></div>';
     button.querySelector('.card-family').textContent = CARD_FAMILY_LABELS[card.family];
     button.querySelector('.card-role').textContent = CARD_ROLE_LABELS[card.role];
+    const cardArt = button.querySelector('.card-art');
+    cardArt.hidden = !card.art;
+    cardArt.querySelector('img').src = card.art || '';
     const actionCostBadge = button.querySelector('.card-action-cost');
     actionCostBadge.hidden = card.timing !== 'action';
     actionCostBadge.textContent = `${card.actionCost} Action${card.actionCost > 1 ? 's' : ''}`;
@@ -836,14 +901,81 @@ function renderCombat(combat, combatItems = []) {
         ? `Action · Force × ${combat.player.stats.strength}`
         : 'Action';
     button.querySelector('.card-charge-cost').textContent = chargeCostLabel(card);
-    if (!card.available && card.timing === 'action' && card.actionCost > actionsRemaining) {
+    if (spontaneousMagicMode && sourceable) {
+      button.title = `Façonner ${card.name} en un autre sort`;
+    } else if (!card.available && card.timing === 'action' && card.actionCost > actionsRemaining) {
       button.title = `Cette carte exige ${card.actionCost} Actions ; ${actionsRemaining} seulement disponible${actionsRemaining > 1 ? 's' : ''}.`;
     } else if (!card.available && card.effect.concentration && concentration) {
       button.title = 'Un Orbe est déjà suspendu.';
     }
-    button.addEventListener('click', () => playCombatCard(card.instanceId));
+    button.addEventListener('click', () => {
+      if (spontaneousMagicMode) {
+        spontaneousMagicSourceId = card.instanceId;
+        hoveredSpontaneousTargetId = null;
+        renderCombat(currentStory.combat, currentStory.combatItems || []);
+        requestAnimationFrame(() => {
+          $('.combat-card.metamagic-selected')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center',
+          });
+        });
+        return;
+      }
+      playCombatCard(card.instanceId);
+    });
     return button;
   }));
+  const metamagicOptionsPanel = $('#combat-metamagic-options');
+  const activeSource = combat.cards.find(
+    (card) => card.instanceId === spontaneousMagicSourceId,
+  ) || null;
+  metamagicOptionsPanel.hidden = !spontaneousMagicMode || !activeSource;
+  setText('#combat-metamagic-source', activeSource?.name || '');
+  $('#combat-metamagic-targets').replaceChildren(...(
+    activeSource
+      ? spontaneousOptions
+        .filter((option) => option.id !== activeSource.id)
+        .map((option) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = `metamagic-target role-${option.role}`;
+          button.disabled = !option.available;
+          button.dataset.cardId = option.id;
+          button.dataset.cardRole = option.role;
+          button.dataset.cardTiming = option.timing;
+          button.innerHTML = '<i class="metamagic-target-art" aria-hidden="true"><img alt=""></i><span class="metamagic-target-copy"><em></em><strong></strong><small></small></span>';
+          const optionArt = button.querySelector('.metamagic-target-art');
+          optionArt.hidden = !option.art;
+          optionArt.querySelector('img').src = option.art || '';
+          button.querySelector('em').textContent = CARD_ROLE_LABELS[option.role];
+          button.querySelector('strong').textContent = option.name;
+          button.querySelector('small').textContent = `${cardEffectLabel(option, option.resolvedDamage)} · ${chargeCostLabel(option)}`;
+          button.title = option.available
+            ? `Lancer ${option.name} avec les coûts normaux`
+            : option.unavailableReason || 'Sort indisponible';
+          const previewTarget = () => {
+            hoveredSpontaneousTargetId = option.id;
+            renderMetamagicLinks(currentStory?.combat || combat);
+          };
+          const clearPreviewTarget = () => {
+            if (hoveredSpontaneousTargetId === option.id) {
+              hoveredSpontaneousTargetId = null;
+              renderMetamagicLinks(currentStory?.combat || combat);
+            }
+          };
+          button.addEventListener('mouseenter', previewTarget);
+          button.addEventListener('focus', previewTarget);
+          button.addEventListener('mouseleave', clearPreviewTarget);
+          button.addEventListener('blur', clearPreviewTarget);
+          button.addEventListener('click', () => shapeCombatSpell(
+            activeSource.instanceId,
+            option.id,
+          ));
+          return button;
+        })
+      : []
+  ));
   const potion = combatItems.find((item) => item.id === 'healing-potion');
   $('#combat-potion').hidden = !potion || potion.count < 1;
   $('#combat-potion').disabled = !potion?.available;
@@ -871,6 +1003,73 @@ function renderCombat(combat, combatItems = []) {
     item.textContent = entry.text;
     return item;
   }));
+  requestAnimationFrame(() => renderMetamagicLinks(currentStory?.combat || combat));
+}
+
+function renderMetamagicLinks(combat) {
+  const board = $('.combat-board');
+  const links = $('#combat-magic-links');
+  const source = $('.combat-card.metamagic-selected');
+  const optionsPanel = $('#combat-metamagic-options');
+  const targetButtons = [...document.querySelectorAll('.metamagic-target:not(:disabled)')];
+  const targetButton = targetButtons.find(
+    (button) => button.dataset.cardId === hoveredSpontaneousTargetId,
+  ) || targetButtons[0] || null;
+  if (
+    !combat
+    || !spontaneousMagicMode
+    || !source
+    || optionsPanel.hidden
+    || !targetButton
+  ) {
+    links.setAttribute('hidden', '');
+    board.classList.remove('magic-link-visible');
+    return;
+  }
+  const destination = ['attack', 'control'].includes(targetButton.dataset.cardRole)
+    || targetButton.dataset.cardTiming === 'action'
+    ? $('.board-enemy .fighter-portrait:not([hidden])') || $('.board-enemy .fighter')
+    : $('.board-player .fighter-portrait:not([hidden])') || $('.board-player .fighter');
+  if (!destination) {
+    links.setAttribute('hidden', '');
+    board.classList.remove('magic-link-visible');
+    return;
+  }
+  const boardBox = board.getBoundingClientRect();
+  const sourceBox = source.getBoundingClientRect();
+  const targetBox = targetButton.getBoundingClientRect();
+  const destinationBox = destination.getBoundingClientRect();
+  const point = (box, vertical) => ({
+    x: box.left - boardBox.left + (box.width / 2),
+    y: box.top - boardBox.top + (
+      vertical === 'top' ? 4 : vertical === 'bottom' ? box.height - 4 : box.height / 2
+    ),
+  });
+  const sourcePoint = point(sourceBox, 'top');
+  const spellPoint = point(targetBox, 'top');
+  const destinationPoint = point(destinationBox, 'bottom');
+  const firstLift = Math.max(34, Math.abs(sourcePoint.y - spellPoint.y) * 0.46);
+  const secondLift = Math.max(48, Math.abs(spellPoint.y - destinationPoint.y) * 0.38);
+  links.setAttribute('viewBox', `0 0 ${boardBox.width} ${boardBox.height}`);
+  links.setAttribute('width', boardBox.width);
+  links.setAttribute('height', boardBox.height);
+  links.dataset.targetRole = targetButton.dataset.cardRole;
+  const sourcePath = $('#combat-magic-source-link');
+  sourcePath.setAttribute(
+    'd',
+    `M ${sourcePoint.x} ${sourcePoint.y} C ${sourcePoint.x} ${sourcePoint.y - firstLift}, ${spellPoint.x} ${spellPoint.y + firstLift}, ${spellPoint.x} ${spellPoint.y}`,
+  );
+  sourcePath.setAttribute('pathLength', '1');
+  const targetPath = $('#combat-magic-target-link');
+  targetPath.setAttribute(
+    'd',
+    `M ${spellPoint.x} ${spellPoint.y} C ${spellPoint.x} ${spellPoint.y - secondLift}, ${destinationPoint.x} ${destinationPoint.y + secondLift}, ${destinationPoint.x} ${destinationPoint.y}`,
+  );
+  targetPath.setAttribute('pathLength', '1');
+  $('#combat-magic-node').setAttribute('cx', spellPoint.x);
+  $('#combat-magic-node').setAttribute('cy', spellPoint.y);
+  links.removeAttribute('hidden');
+  board.classList.add('magic-link-visible');
 }
 
 function renderCombatGrimoire(combat) {
@@ -903,10 +1102,13 @@ function renderCombatGrimoire(combat) {
   $('#combat-grimoire-cards').replaceChildren(...orderedCards.map((card) => {
     const item = document.createElement('article');
     item.className = `grimoire-card family-${card.family} role-${card.role} timing-${card.timing} zone-${card.zone}`;
-    item.innerHTML = '<div class="grimoire-card-topline"><span class="card-family"></span><span class="card-role"></span><em></em></div><strong></strong><p></p><div class="grimoire-card-footer"><b></b><small></small></div>';
+    item.innerHTML = '<div class="grimoire-card-topline"><span class="card-family"></span><span class="card-role"></span><em></em></div><div class="grimoire-card-art" aria-hidden="true"><img alt=""></div><strong></strong><p></p><div class="grimoire-card-footer"><b></b><small></small></div>';
     item.querySelector('.card-family').textContent = CARD_FAMILY_LABELS[card.family];
     item.querySelector('.card-role').textContent = CARD_ROLE_LABELS[card.role];
     item.querySelector('em').textContent = zones[card.zone].label;
+    const cardArt = item.querySelector('.grimoire-card-art');
+    cardArt.hidden = !card.art;
+    cardArt.querySelector('img').src = card.art || '';
     item.querySelector('strong').textContent = card.name;
     item.querySelector('p').textContent = cardEffectLabel(card);
     item.querySelector('b').textContent = card.timing === 'reaction' ? 'Réaction' : 'Action';
@@ -991,6 +1193,23 @@ async function playCombatCard(cardId) {
     setCombatBusy(false);
   }
 }
+async function shapeCombatSpell(instanceId, targetCardId) {
+  setCombatBusy(true);
+  try {
+    const result = await window.candy.shapeCombatSpell(instanceId, targetCardId);
+    spontaneousMagicMode = false;
+    spontaneousMagicSourceId = null;
+    hoveredSpontaneousTargetId = null;
+    if (result.outcome) await reloadConversation();
+    renderStory(result.story);
+    state = await window.candy.readCharacter();
+    renderProfile();
+  } catch (error) {
+    setConnection('error', error.message);
+  } finally {
+    setCombatBusy(false);
+  }
+}
 async function passCombatReaction() {
   setCombatBusy(true);
   try {
@@ -1042,6 +1261,28 @@ function setCombatBusy(busy) {
 $('#combat-pass').addEventListener('click', passCombatReaction);
 $('#combat-end-turn').addEventListener('click', endCombatTurn);
 $('#combat-potion').addEventListener('click', useCombatItem);
+$('#combat-metamagic').addEventListener('click', () => {
+  spontaneousMagicMode = !spontaneousMagicMode;
+  spontaneousMagicSourceId = null;
+  hoveredSpontaneousTargetId = null;
+  renderCombat(currentStory?.combat || null, currentStory?.combatItems || []);
+});
+$('#combat-metamagic-cancel').addEventListener('click', () => {
+  spontaneousMagicMode = false;
+  spontaneousMagicSourceId = null;
+  hoveredSpontaneousTargetId = null;
+  renderCombat(currentStory?.combat || null, currentStory?.combatItems || []);
+});
+window.addEventListener('resize', () => {
+  if (spontaneousMagicMode && currentStory?.combat) {
+    requestAnimationFrame(() => renderMetamagicLinks(currentStory.combat));
+  }
+});
+$('#combat-cards').addEventListener('scroll', () => {
+  if (spontaneousMagicMode && currentStory?.combat) {
+    requestAnimationFrame(() => renderMetamagicLinks(currentStory.combat));
+  }
+}, { passive: true });
 for (const selector of ['#combat-deck-open', '#combat-discard-open']) {
   $(selector).addEventListener('click', () => {
     renderCombatGrimoire(currentStory.combat);

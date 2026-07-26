@@ -3,11 +3,23 @@ const { createBrowserApi } = require('./browser-api');
 async function start() {
   document.documentElement.classList.add('pwa');
   window.candy = await createBrowserApi();
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
-  }
+  refreshInstalledPwa();
   require('../renderer/app');
   window.CANDY_PWA_READY = true;
+}
+
+function refreshInstalledPwa() {
+  if (!('serviceWorker' in navigator)) return;
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloading) return;
+    reloading = true;
+    window.location.reload();
+  });
+  navigator.serviceWorker
+    .register('./service-worker.js', { updateViaCache: 'none' })
+    .then((registration) => registration.update())
+    .catch(() => {});
 }
 
 start().catch((error) => {

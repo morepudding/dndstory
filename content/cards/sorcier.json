@@ -11,6 +11,7 @@
       "role": "attack",
       "chargeCost": 0,
       "description": "Une attaque d’arme dont les dégâts sont multipliés par la Force.",
+      "art": "assets/visuals/combat/card-baton-de-voyage.jpg",
       "effect": {
         "damage": 2
       }
@@ -23,6 +24,7 @@
       "role": "attack",
       "chargeCost": 0,
       "description": "Une attaque gratuite et fiable.",
+      "art": "assets/visuals/combat/card-braise-occulte.jpg",
       "effect": {
         "damage": 3
       }
@@ -35,6 +37,7 @@
       "role": "attack",
       "chargeCost": 1,
       "description": "Une décharge puissante qui consomme 1 charge.",
+      "art": "assets/visuals/combat/card-eclat-arcanique.jpg",
       "effect": {
         "damage": 5
       }
@@ -47,6 +50,7 @@
       "role": "preparation",
       "chargeCost": 0,
       "description": "Inflige 2 dégâts, puis 5 au prochain tour si vos Réactions empêchent tout dégât.",
+      "art": "assets/visuals/combat/card-orbe-suspendu.jpg",
       "effect": {
         "damage": 2,
         "concentration": {
@@ -62,6 +66,7 @@
       "role": "protection",
       "chargeCost": 1,
       "description": "Une réaction qui bloque 3 dégâts et consomme 1 charge.",
+      "art": "assets/visuals/combat/card-voile-azur.jpg",
       "effect": {
         "block": 3
       }
@@ -74,6 +79,7 @@
       "role": "control",
       "chargeCost": 1,
       "description": "Bloque peu, mais ralentit la prochaine pioche ennemie.",
+      "art": "assets/visuals/combat/card-entrave-de-givre.jpg",
       "effect": {
         "block": 1,
         "status": {
@@ -91,6 +97,7 @@
       "role": "preparation",
       "chargeCost": 1,
       "description": "Accepte l’impact pour préparer une Action gratuite au prochain tour.",
+      "art": "assets/visuals/combat/card-elan-arcanique.jpg",
       "effect": {
         "status": {
           "id": "advantage",

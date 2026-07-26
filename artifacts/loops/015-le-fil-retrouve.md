@@ -1,6 +1,6 @@
 # Boucle 015 — Le fil retrouvé
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 **Passe :** 1/2
 
 ## Hypothèse
@@ -21,12 +21,12 @@ Pas de slot de sauvegarde, d’archive de campagnes, de Nouvelle Partie+, de cha
 
 ## Résultat joueur
 
-À remplir après l’essai : garder, ajuster ou retirer, et pourquoi en une phrase.
+`garder` — validation du joueur.
 
 ## Apprentissage
 
-À remplir après l’essai.
+Une reprise fiable dépend autant d’un geste explicite que de la persistance : repartir doit effacer la campagne sans toucher au profil personnel.
 
 ## Décision suivante
 
-À remplir après le verdict : clore ou effectuer la passe 2.
+Boucle clôturée. Le prochain besoin d’expérience déterminera la suite.

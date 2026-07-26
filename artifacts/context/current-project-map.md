@@ -4,25 +4,25 @@
 
 ## Référence
 
-- **Empreinte :** `6f754cc4d27587a3`
-- **Générée :** 2026-07-26T14:09:49.605Z
-- **Git informatif :** branche `main`, HEAD `42f345582803`, 5 entrée(s) dans le worktree
+- **Empreinte :** `d109ab61db44abad`
+- **Générée :** 2026-07-26T14:22:42.667Z
+- **Git informatif :** branche `main`, HEAD `33fdb4ae06a5`, 9 entrée(s) dans le worktree
 - **Comparaison fiable :** les changements sont détectés par le contenu des fichiers, même si le worktree n'est pas commité.
-- **Boucle active :** `artifacts/loops/015-le-fil-retrouve.md` — `à jouer`
-- **Dernier verdict :** `artifacts/loops/014-ce-qui-demeure.md` — `garder`
+- **Boucle active :** aucune
+- **Dernier verdict :** `artifacts/loops/015-le-fil-retrouve.md` — `garder`
 
 ## Routage
 
 | Domaine | Empreinte | Fichiers repères | Validation |
 | --- | --- | --- | --- |
-| Règles et boucle | `0e0c8a0f960e` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md`<br>`artifacts/loops/015-le-fil-retrouve.md` | validateur du skill, puis `git diff --check` |
-| Livre et structure | `74d803dcaaf5` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
-| État et sauvegarde | `a7fcb6630b6e` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
-| Moteur | `d2f151f13144` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |
-| PWA et interface | `996d02bdba29` | `src/pwa/entry.js`<br>`src/pwa/browser-api.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run build:pwa`, puis parcours manuel dans la PWA si le rendu ou l'interaction change |
+| Règles et boucle | `ba551cf4f156` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md` | validateur du skill, puis `git diff --check` |
+| Livre et structure | `0da70f889ff4` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
+| État et sauvegarde | `65fb0b08b5d1` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
+| Moteur | `abca106a06e2` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |
+| PWA et interface | `a781dec5b2d8` | `src/pwa/entry.js`<br>`src/pwa/browser-api.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run build:pwa`, puis parcours manuel dans la PWA si le rendu ou l'interaction change |
 | Ressources visuelles | `248367c1d145` | `src/renderer/assets/`<br>`content/visuals/` | licences, puis parcours manuel dans la PWA si l'affichage change |
-| Tests | `7144bd864e1a` | `test/` | test ciblé du contrat modifié |
-| Configuration et reste du projet | `dab565a4c8d7` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
+| Tests | `8245925ff86d` | `test/` | test ciblé du contrat modifié |
+| Configuration et reste du projet | `bd4450b3de51` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |
 
 ## Démarrage d'une boucle
 

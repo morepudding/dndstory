@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "42f345582803",
-    "dirtyCount": 5
+    "head": "33fdb4ae06a5",
+    "dirtyCount": 9
   },
-  "overallHash": "6f754cc4d27587a3e299f11106b5271000a8ab385d02a87af751351e7811136c",
+  "overallHash": "d109ab61db44abadc5bcf71e4c0b17a673eb31e4f212f3b16301566af97ffaea",
   "domains": {
     "workflow": {
-      "hash": "0e0c8a0f960e1e580a2265ea56675fcca23d21e8e0a72548b7bc9986fa44a523",
+      "hash": "ba551cf4f1562211508a233f7b0e6f23b65f9ae46576780d426f6ee784338889",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -57,39 +57,39 @@
         "artifacts/loops/012-la-magie-spontanee.md": "8d577e904006cfa245b5d0762978909220584075516aa11a601b075c3fb3d72a",
         "artifacts/loops/013-le-pouls-du-combat.md": "fc4924739eeb20a241d8943b1c60ac0e9642aa79f1276e7be0bd7f4b8e08e7d6",
         "artifacts/loops/014-ce-qui-demeure.md": "4b0d45ddce263418211fe17ec8ec818fc09e8b987eeeb48bf89d5a8308630e38",
-        "artifacts/loops/015-le-fil-retrouve.md": "81cec985fb7838f51872cbc348d2499e5fa5ebd6a1d67e243f1be7b943d37945",
+        "artifacts/loops/015-le-fil-retrouve.md": "4294defc0375c305078c35ceaa532ca6f45c348abc7cb192e53a377eb5ffef63",
         "tools/build-loop-context.js": "a648bda2af50e4fe7f0205a6bd84fcd22e9adfb5f585eb17be80f1063e42518e"
       }
     },
     "story": {
-      "hash": "74d803dcaaf543c180059be29b3d9214eaf13d2a01645d15d169b3f4b796dca2",
+      "hash": "0da70f889ff4b26a87a1af3d0e064f4ae5881bee0e9a7d08f20e729b8b9ffb55",
       "files": {
         "content/chapters/la-cage-du-treuil.json": "49941af52191632694c5255e6075290b90b492c2dc9061565ea52a202eabd48b",
         "content/chapters/la-nuit-a-brumepont.json": "4d27abc1e930f57e4de967d90b26f863a6062b361d0e2a8c74e1e98a204074b4",
         "content/chapters/la-route-des-ronces.json": "7f777709119e4b07273449f7b94a726b56f0ca63596c4d9e5a482c01a1a924d3",
         "content/chapters/le-troisieme-palier.json": "a43e3032fcab99e60d2b95f1cbd34c2393109f0e02fc701ba8ed52d9f84bda09",
-        "src/server/narrative-tree.js": "c96677668959ebdc48d0b263c8c035259dfa329dbdcd2708427fad9586eb16cc",
+        "src/server/narrative-tree.js": "3b092054e55dc4dcc552daadcca0d7f19932971cd7de7c2f507ebe809a18cb55",
         "src/server/story-format.js": "f45ad0ac03316525bf08c0a70a48c9c0816bb88ff84602084703fc74f94a33ce",
         "tools/build-story.js": "8e8ee91825d4b7861823ea89e7673d288ecc5a09de65b05e9cc40c9ba4b71a46",
         "tools/verify-story.js": "dd1267397cc014cb3f82f2d5ab1bab8172c73b73f78707a7f186906a1792fda2"
       }
     },
     "persistence": {
-      "hash": "a7fcb6630b6e841f1624421c75593c73cb559e20638ab93fff002a27bccbcd57",
+      "hash": "65fb0b08b5d1b78662ac1c9fcf56082857f8e3cf3720127f5672bab889dfbe71",
       "files": {
         "src/server/book-session-service.js": "a4461e624a60817c9cb5a9be79d2c515d70072c40edba0b41826fdde1c7fa96a",
         "src/server/character-store.js": "2992097757e6c5786f35fd3a9f218fe01a67e45b5979867308e6c284682737a4",
-        "src/server/state-schema.js": "4d7bbb3352ce085650862c53e711fb8fa07dbdae1a66e0c7f683ef158a13c788",
+        "src/server/state-schema.js": "95474898519e6069ae188ee3b1d4b7064dc4303b55b2c4865bb4a4932e536ad0",
         "src/server/story-repository.js": "99485703f5053c1f4c8df0781bbbaef7d2647b709edc5e211debffcd1b51b5e2"
       }
     },
     "engine": {
-      "hash": "d2f151f13144ce841dc6176dc8198f0a9e5cdd82c66d5c5ac4fca58b85a42cf7",
+      "hash": "abca106a06e28c568bdf3c3bf8a5589b1f4f0ae0b50348f7a82ee5901446d897",
       "files": {
         "src/server/branching-book-runtime.js": "9ca747630c8e5bb7921127e851a1765f4e18c4d2e20c26ac1c96eed1d5bc5aba",
         "src/server/card-catalog.js": "58c3fc281b5b900887ed106c7d6a7af4b7166a1baf28ff0f775fb419056cf203",
         "src/server/codex-client.js": "39661ab202dfb115419e45fe9496337b93bf8742d6a1a85547fdcbb8b3ace44b",
-        "src/server/combat-engine.js": "00e73ef6e82a4e187d654444f2230d26bbb6488d8250d7a350a9f3619752e2df",
+        "src/server/combat-engine.js": "5fc42332e487ed377a05971cae45dac4e27a8cc31de62bb7d784eed90a9a45e6",
         "src/server/context-composer.js": "90570923397c198fc8c06cccabca86e932bdb896eaf8a84766aaa29d0084c056",
         "src/server/conversation-service.js": "f4ba2b7e4d8ac79c1cb13d10bfd1bce72d87a981e06926277381c80436d8343e",
         "src/server/diagnostics.js": "7376b9e1ba24f45d8ef429649b55cf7b0a2a4721a1247a3a8aa7d7afc3a8b10f",
@@ -102,7 +102,7 @@
       }
     },
     "ui": {
-      "hash": "996d02bdba293ddba1aaa76d13c5f481b55f0cb9a63ea17bfa0dcbc86f427dc1",
+      "hash": "a781dec5b2d8df0f41a2d59f2d9f900f3617b5d48ac347a3783c7c3292f1673d",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -112,9 +112,9 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "27932f6ebc96021d3f6da434644138baf893101950b5e73e45467052bb5f2ce1",
-        "src/renderer/index.html": "f355d56c9bf09536dcb814787383d28a1a1c849da3888e4439e44228c7e126e4",
-        "src/renderer/styles.css": "5feeaa8398e8e235d4d3eae68a6cbc42073d2b7df6c7e9e4d6351a055b82fde9"
+        "src/renderer/app.js": "26e334047f63185f10fe6e5d319e5f9efd329d8d6e0df36c7772055d7c75e65f",
+        "src/renderer/index.html": "0bbd6d50c6baa3d3ed3b47b3fa9ab54778efd1f4807afa2c45d0b5c31e833d35",
+        "src/renderer/styles.css": "c8a9f6f022c52cca51ab8bcbc0fed7ec1d3aed96673e8b970773dfa2ea398a3f"
       }
     },
     "assets": {
@@ -150,13 +150,13 @@
       }
     },
     "tests": {
-      "hash": "7144bd864e1a4ea92871ac85b8b75fcbe04be4bd1558d7230984000a8d0c90e0",
+      "hash": "8245925ff86df212c69576f4a67baf06822329a4cc9be4e4b6f0ad06ceb99549",
       "files": {
         "test/branching-book-runtime.test.js": "78e074a1ec56f950f86bf252f05e56c754e598824a519ac3d0974514afa02431",
         "test/brumepont-economy.test.js": "e68d9807253f9335b000e905731623649b2eda751265149a8d9e026c387f3014",
         "test/cage-du-treuil.test.js": "d001b9d7c4737797db05b7f5e0fec98d20772968f9a331c085220ecbb9f211e6",
         "test/combat-balance.test.js": "fa87b1f3013ba46917a3cc425f8912c999e0cd220ca111eb6400b927d8868512",
-        "test/combat-concentration.test.js": "f0aaeea884668b7602d178cbab478b3568c9f42af0a7265d82ec1fe35a3cab36",
+        "test/combat-concentration.test.js": "008cc0fba8d735380283764eaa269aeddb77fc97dfaa48197f705d47086b756a",
         "test/combat-deck-cycle.test.js": "edc5b1c7dff93f80b190a5ef656ac8725f824804a06718bccb55356ed66b0c5f",
         "test/combat-spontaneous-magic.test.js": "1103b9606c8a49825e9952913672c0923ec9b99aff5623272b599aa7ac6cd7a8",
         "test/combat-tempo.test.js": "23cfc6efa250ff420df96ea89da15955fff08fb0441f55d71af83b7ff663852d",
@@ -170,14 +170,14 @@
       }
     },
     "project": {
-      "hash": "dab565a4c8d7b055d31bc033e66ca6d0bcf962b532bbe45966108ed22106650f",
+      "hash": "bd4450b3de5187821f1a35d7f03817fec23c90c0af89921bb382201d900227ce",
       "files": {
         ".gitignore": "1e34ec5c21e373992e4b557ae2bc6b3dff2b6b852d0ad986ba5825018d14055b",
         "artifacts/concepts/combat-premium-imagegen-v2.png": "0665f7a9c674fc33d847b6482cab7343c8badf0be9f3ebe6a81d85cb3fef5e22",
         "artifacts/concepts/quarry-enemy-portraits-atlas-v1.png": "c5fb199f00447aaf59934fb1b3302b25f931febd309e5f6e954bf6a36d0b4c68",
         "artifacts/concepts/reserve-mecaniques-de-classe.md": "12302faca9fc44e127a83a883a3dc4925c597151877b1530fb5b1bf109fd54e4",
         "artifacts/concepts/sorcier-card-art-atlas-v1.png": "bf2738de30ae71c2858a3553663ef0f48655e9e7ba3f604fa52ec362e0290681",
-        "content/cards/sorcier.json": "dc80cb7a4a52585eb8d7598f9a9aee577c995a3330b747658b3fa428aa5012ed",
+        "content/cards/sorcier.json": "2b47580a4d165cb9cb9c010967a2a73b71b34348756711608b27ed21e530a74c",
         "package-lock.json": "27d94aa016fa5c5e2b79f5e84aab7518cbe3a8ad6c84c7743ad0d47fefdcbcf1",
         "package.json": "5874d834c8798a942922201900ce675483078618c977169293fafb62156404c4",
         "README.md": "d3d184d4d35fe38dabc01ee189ad1d2e2a7f70e29a38f3a50c16cbe4a16b6c49",
@@ -261,8 +261,8 @@
     {
       "path": "artifacts/loops/015-le-fil-retrouve.md",
       "title": "Boucle 015 — Le fil retrouvé",
-      "status": "à jouer"
+      "status": "garder"
     }
   ],
-  "generatedAt": "2026-07-26T14:09:49.605Z"
+  "generatedAt": "2026-07-26T14:22:42.667Z"
 }

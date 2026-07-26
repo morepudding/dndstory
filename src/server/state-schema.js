@@ -1,4 +1,4 @@
-const SCHEMA_VERSION = 15;
+const SCHEMA_VERSION = 16;
 const RELATION_KEYS = ['trust', 'attraction', 'irritation', 'curiosity', 'vulnerability'];
 const PROGRESSION_STAT_KEYS = ['strength', 'constitution', 'agility', 'wisdom', 'intelligence'];
 
@@ -53,18 +53,18 @@ function createDefaultState() {
 function migrateState(input) {
   if (!input || typeof input !== 'object') return createDefaultState();
   if (input.schemaVersion === SCHEMA_VERSION) return input;
-  if ([12, 13, 14].includes(input.schemaVersion)) {
+  if ([12, 13, 14, 15].includes(input.schemaVersion)) {
     const next = structuredClone(input);
     next.schemaVersion = SCHEMA_VERSION;
     next.story = { ...createStoryState(), ...(next.story || {}) };
-    ensureCombatPlayerStatuses(next);
+    ensureCombatPlayerState(next);
     return next;
   }
   if (input.schemaVersion === 11) {
     const next = structuredClone(input);
     next.schemaVersion = SCHEMA_VERSION;
     next.story = { ...createStoryState(), ...(next.story || {}) };
-    ensureCombatPlayerStatuses(next);
+    ensureCombatPlayerState(next);
     return next;
   }
   if (input.schemaVersion === 10) {
@@ -73,7 +73,7 @@ function migrateState(input) {
     next.character.progression.inventory = { 'healing-potion': 0 };
     next.character.progression.transactionHistory = [];
     next.story = { ...createStoryState(), ...(next.story || {}) };
-    ensureCombatPlayerStatuses(next);
+    ensureCombatPlayerState(next);
     return next;
   }
   if (input.schemaVersion === 9) {
@@ -81,7 +81,7 @@ function migrateState(input) {
     next.schemaVersion = SCHEMA_VERSION;
     next.character.progression = createDefaultProgression();
     next.story = { ...createStoryState(), ...(next.story || {}) };
-    ensureCombatPlayerStatuses(next);
+    ensureCombatPlayerState(next);
     return next;
   }
   if ([2, 3, 4, 5, 6, 7, 8].includes(input.schemaVersion)) {
@@ -135,9 +135,13 @@ function validateCanonicalState(state) {
   return state;
 }
 
-function ensureCombatPlayerStatuses(state) {
+function ensureCombatPlayerState(state) {
   const player = state.story?.activeRun?.combat?.player;
-  if (player && !Array.isArray(player.statuses)) player.statuses = [];
+  if (!player) return;
+  if (!Array.isArray(player.statuses)) player.statuses = [];
+  if (typeof player.spontaneousMagicAvailable !== 'boolean') {
+    player.spontaneousMagicAvailable = true;
+  }
 }
 
 function validateProgression(progression, fail) {
@@ -289,6 +293,9 @@ function validateCombat(combat, fail) {
     || combat.player.spellUses > combat.player.maxSpellUses
   ) {
     fail('story.activeRun.combat charges invalides');
+  }
+  if (typeof combat.player?.spontaneousMagicAvailable !== 'boolean') {
+    fail('story.activeRun.combat Magie spontanée invalide');
   }
   for (const stat of ['strength', 'constitution', 'agility', 'wisdom', 'intelligence']) {
     if (!Number.isInteger(combat.player?.stats?.[stat]) || combat.player.stats[stat] < 1 || combat.player.stats[stat] > 3) {

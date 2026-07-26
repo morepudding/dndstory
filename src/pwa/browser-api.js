@@ -31,6 +31,11 @@ async function createBrowserApi() {
     restartStory: () => call('restartStory'),
     chooseStoryOption: (choiceId) => call('chooseStoryOption', choiceId),
     playCombatCard: (cardId) => call('playCombatCard', cardId),
+    shapeCombatSpell: (instanceId, targetCardId) => call(
+      'shapeCombatSpell',
+      instanceId,
+      targetCardId,
+    ),
     passCombatReaction: () => call('passCombatReaction'),
     endCombatTurn: () => call('endCombatTurn'),
     useCombatItem: (itemId) => call('useCombatItem', itemId),

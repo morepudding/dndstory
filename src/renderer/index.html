@@ -126,10 +126,36 @@
                       <small id="combat-actions">2 disponibles</small>
                     </div>
                     <span id="combat-charges" class="combat-charges">✦ 2 charges</span>
+                    <button id="combat-metamagic" class="combat-metamagic" type="button" aria-pressed="false">
+                      <i aria-hidden="true">✧</i>
+                      <span>
+                        <strong>Magie spontanée</strong>
+                        <small id="combat-metamagic-state">Disponible</small>
+                      </span>
+                    </button>
                   </div>
                 </header>
 
                 <div class="combat-board">
+                  <svg id="combat-magic-links" class="combat-magic-links" aria-hidden="true" hidden>
+                    <defs>
+                      <linearGradient id="combat-magic-gradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#d8c6ff"></stop>
+                        <stop offset=".5" stop-color="#8d62ec"></stop>
+                        <stop offset="1" stop-color="#f0d27f"></stop>
+                      </linearGradient>
+                      <filter id="combat-magic-glow" x="-100%" y="-100%" width="300%" height="300%">
+                        <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                        <feMerge>
+                          <feMergeNode in="blur"></feMergeNode>
+                          <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                      </filter>
+                    </defs>
+                    <path id="combat-magic-source-link" class="combat-magic-link source-link"></path>
+                    <path id="combat-magic-target-link" class="combat-magic-link target-link"></path>
+                    <circle id="combat-magic-node" class="combat-magic-node" r="5"></circle>
+                  </svg>
                   <div class="board-side board-enemy">
                     <div class="card-pile enemy-pile">
                       <i aria-hidden="true"></i>
@@ -205,6 +231,13 @@
                   <div class="combat-hand-heading">
                     <span>Votre main</span>
                     <small id="combat-hand-count">3 cartes</small>
+                  </div>
+                  <div id="combat-metamagic-options" class="combat-metamagic-options" hidden aria-live="polite">
+                    <header>
+                      <span>Façonner <strong id="combat-metamagic-source"></strong></span>
+                      <button id="combat-metamagic-cancel" type="button">Annuler</button>
+                    </header>
+                    <div id="combat-metamagic-targets"></div>
                   </div>
                   <div id="combat-cards" class="combat-cards"></div>
                   <div class="combat-controls">

@@ -29,7 +29,7 @@ const PLAYER_FIELDS = new Set(['name', 'portrait', 'cards', 'deck']);
 const ENEMY_FIELDS = new Set(['name', 'portrait', 'maxHp', 'drawCount', 'cards', 'deck']);
 const ENEMY_CARD_FIELDS = new Set(['id', 'name', 'damage', 'description', 'effect']);
 const CARD_FIELDS = new Set([
-  'id', 'name', 'timing', 'family', 'role', 'chargeCost', 'description', 'effect',
+  'id', 'name', 'timing', 'family', 'role', 'chargeCost', 'description', 'art', 'effect',
 ]);
 const EFFECT_FIELDS = new Set(['damage', 'block', 'status', 'concentration']);
 const STATUS_EFFECT_FIELDS = new Set(['id', 'target', 'stacks']);
@@ -391,6 +391,9 @@ function validateCombatNode(node, fail, location) {
         'Chaque carte exige id, nom, moment, famille, rôle, coût en charges et description.',
         cardLocation,
       );
+    }
+    if (card?.art != null && !nonEmpty(card.art)) {
+      fail('combat_card_art', 'L’illustration d’une carte doit être un chemin non vide.', `${cardLocation}.art`);
     }
     if (cardIds.has(card?.id)) fail('duplicate_card', `Carte dupliquée : ${card?.id}`, cardLocation);
     cardIds.add(card?.id);

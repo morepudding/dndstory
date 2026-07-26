@@ -23,6 +23,7 @@ class CombatEngine {
         actionLimit: stats.agility,
         actionsPlayed: 0,
         drawCount: stats.wisdom,
+        spontaneousMagicAvailable: true,
         statuses: [],
       },
       enemy: {
@@ -62,39 +63,7 @@ class CombatEngine {
     if (handIndex === -1) throw codedError('CARD_UNAVAILABLE', 'Cette carte n’est pas dans votre main.');
     const instance = combat.hand[handIndex];
     const card = this.cards.get(instance.cardId);
-    const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
-    if (card.timing !== expectedTiming) {
-      throw codedError(
-        'CARD_WRONG_PHASE',
-        combat.phase === 'player'
-          ? 'C’est au Sorcier de jouer une carte Action.'
-          : 'Seule une carte Réaction peut être jouée maintenant.',
-      );
-    }
-    const actionCost = this.actionCostFor(combat, card);
-    if (
-      combat.phase === 'player'
-      && combat.player.actionsPlayed + actionCost > combat.player.actionLimit
-    ) {
-      throw codedError(
-        'ACTION_LIMIT_REACHED',
-        actionCost === 2
-          ? 'Désavantage exige 2 Actions disponibles pour jouer cette carte.'
-          : 'La limite d’Agilité est atteinte pour ce round.',
-      );
-    }
-    if (card.chargeCost > combat.player.spellUses) {
-      throw codedError('NOT_ENOUGH_SPELL_USES', 'Il ne reste pas assez de charges de sort.');
-    }
-    if (
-      card.effect.concentration
-      && combat.player.statuses.some((status) => status.id === 'concentration')
-    ) {
-      throw codedError(
-        'CONCENTRATION_ALREADY_ACTIVE',
-        'Un Orbe est déjà suspendu : cette Concentration doit d’abord se résoudre.',
-      );
-    }
+    const actionCost = this.assertPlayableCard(combat, card);
 
     const next = structuredClone(combat);
     const [playedInstance] = next.hand.splice(handIndex, 1);
@@ -102,6 +71,53 @@ class CombatEngine {
     next.player.spellUses -= card.chargeCost;
     if (card.timing === 'action') return this.resolveActionCard(next, card, actionCost);
     return this.resolveReactionCard(next, card);
+  }
+
+  shapeSpell(combat, instanceId, targetCardId) {
+    this.assertCombat(combat);
+    if (!combat.player.spontaneousMagicAvailable) {
+      throw codedError(
+        'SPONTANEOUS_MAGIC_SPENT',
+        'La Magie spontanée a déjà été utilisée pendant ce combat.',
+      );
+    }
+    const handIndex = combat.hand.findIndex((instance) => instance.instanceId === instanceId);
+    if (handIndex === -1) {
+      throw codedError('CARD_UNAVAILABLE', 'La carte à façonner n’est pas dans votre main.');
+    }
+    const sourceInstance = combat.hand[handIndex];
+    const sourceCard = this.cards.get(sourceInstance.cardId);
+    const targetCard = this.cards.get(targetCardId);
+    if (!targetCard || targetCard.family !== 'spell') {
+      throw codedError(
+        'SPONTANEOUS_MAGIC_TARGET_INVALID',
+        'La Magie spontanée doit produire un sort connu du Sorcier.',
+      );
+    }
+    if (targetCard.id === sourceCard.id) {
+      throw codedError(
+        'SPONTANEOUS_MAGIC_UNCHANGED',
+        'Choisissez un sort différent de la carte façonnée.',
+      );
+    }
+    const actionCost = this.assertPlayableCard(combat, targetCard);
+
+    const next = structuredClone(combat);
+    const [shapedInstance] = next.hand.splice(handIndex, 1);
+    next.discardPile.push(shapedInstance);
+    next.player.spontaneousMagicAvailable = false;
+    next.player.spellUses -= targetCard.chargeCost;
+    next.log.push({
+      round: next.round,
+      type: 'spontaneous_magic',
+      sourceCardId: sourceCard.id,
+      targetCardId: targetCard.id,
+      text: `Magie spontanée façonne ${sourceCard.name} en ${targetCard.name}.`,
+    });
+    if (targetCard.timing === 'action') {
+      return this.resolveActionCard(next, targetCard, actionCost);
+    }
+    return this.resolveReactionCard(next, targetCard);
   }
 
   endTurn(combat) {
@@ -163,25 +179,39 @@ class CombatEngine {
     this.assertCombat(combat);
     return combat.hand.map((instance) => {
       const card = this.cards.get(instance.cardId);
-      const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
-      const actionCost = this.actionCostFor(combat, card);
-      const actionAvailable = combat.phase !== 'player'
-        || combat.player.actionsPlayed + actionCost <= combat.player.actionLimit;
-      const concentrationAvailable = !card.effect.concentration
-        || !combat.player.statuses.some((status) => status.id === 'concentration');
+      const availability = this.cardAvailabilityFor(combat, card);
       return {
         instanceId: instance.instanceId,
         ...structuredClone(card),
-        actionCost,
+        actionCost: availability.actionCost,
         resolvedDamage: card.family === 'weapon'
           ? card.effect.damage * combat.player.stats.strength
           : card.effect.damage,
-        available: card.timing === expectedTiming
-          && actionAvailable
-          && concentrationAvailable
-          && card.chargeCost <= combat.player.spellUses,
+        available: availability.available,
       };
     });
+  }
+
+  spontaneousMagicOptionsFor(combat) {
+    this.assertCombat(combat);
+    const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
+    return [...this.cards.values()]
+      .filter((card) => card.family === 'spell' && card.timing === expectedTiming)
+      .map((card) => {
+        const availability = this.cardAvailabilityFor(combat, card);
+        const sourceAvailable = combat.hand.some(
+          (instance) => instance.cardId !== card.id,
+        );
+        return {
+          ...structuredClone(card),
+          actionCost: availability.actionCost,
+          resolvedDamage: card.effect.damage,
+          available: combat.player.spontaneousMagicAvailable
+            && sourceAvailable
+            && availability.available,
+          unavailableReason: availability.reason,
+        };
+      });
   }
 
   deckCardsFor(combat) {
@@ -446,6 +476,76 @@ class CombatEngine {
     return 1;
   }
 
+  cardAvailabilityFor(combat, card) {
+    const expectedTiming = combat.phase === 'player' ? 'action' : 'reaction';
+    const actionCost = this.actionCostFor(combat, card);
+    if (card.timing !== expectedTiming) {
+      return {
+        available: false,
+        actionCost,
+        reason: combat.phase === 'player'
+          ? 'Disponible pendant une phase de Réaction.'
+          : 'Disponible pendant une phase d’Action.',
+      };
+    }
+    if (
+      combat.phase === 'player'
+      && combat.player.actionsPlayed + actionCost > combat.player.actionLimit
+    ) {
+      return {
+        available: false,
+        actionCost,
+        reason: actionCost === 2
+          ? 'Désavantage exige 2 Actions disponibles.'
+          : 'La limite d’Agilité est atteinte pour ce round.',
+      };
+    }
+    if (card.chargeCost > combat.player.spellUses) {
+      return {
+        available: false,
+        actionCost,
+        reason: 'Il ne reste pas assez de charges de sort.',
+      };
+    }
+    if (
+      card.effect.concentration
+      && combat.player.statuses.some((status) => status.id === 'concentration')
+    ) {
+      return {
+        available: false,
+        actionCost,
+        reason: 'Un Orbe est déjà suspendu.',
+      };
+    }
+    return { available: true, actionCost, reason: null };
+  }
+
+  assertPlayableCard(combat, card) {
+    const availability = this.cardAvailabilityFor(combat, card);
+    if (availability.available) return availability.actionCost;
+    if (card.timing !== (combat.phase === 'player' ? 'action' : 'reaction')) {
+      throw codedError(
+        'CARD_WRONG_PHASE',
+        combat.phase === 'player'
+          ? 'C’est au Sorcier de jouer une carte Action.'
+          : 'Seule une carte Réaction peut être jouée maintenant.',
+      );
+    }
+    if (card.chargeCost > combat.player.spellUses) {
+      throw codedError('NOT_ENOUGH_SPELL_USES', availability.reason);
+    }
+    if (
+      card.effect.concentration
+      && combat.player.statuses.some((status) => status.id === 'concentration')
+    ) {
+      throw codedError(
+        'CONCENTRATION_ALREADY_ACTIVE',
+        'Un Orbe est déjà suspendu : cette Concentration doit d’abord se résoudre.',
+      );
+    }
+    throw codedError('ACTION_LIMIT_REACHED', availability.reason);
+  }
+
   consumeActionTempo(combat) {
     const tempo = combat.player.statuses.find(
       (status) => ['advantage', 'disadvantage'].includes(status.id),
@@ -521,6 +621,7 @@ class CombatEngine {
       || !Array.isArray(combat.hand)
       || !Array.isArray(combat.discardPile)
       || !Array.isArray(combat.player?.statuses)
+      || typeof combat.player?.spontaneousMagicAvailable !== 'boolean'
       || !Number.isInteger(combat.enemy?.drawCount)
       || !Array.isArray(combat.enemy?.statuses)
       || !Array.isArray(combat.enemy?.drawPile)

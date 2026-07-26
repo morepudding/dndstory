@@ -148,6 +148,7 @@
       "combat": {
         "player": {
           "name": "Sorcier",
+          "portrait": "assets/visuals/combat/sorcier-portrait.jpg",
           "cardSet": "sorcier-core",
           "deck": [
         "orbe-suspendu",
@@ -166,6 +167,7 @@
         },
         "enemy": {
           "name": "Varek, chef de convoi",
+          "portrait": "assets/visuals/combat/varek-portrait.jpg",
           "maxHp": 15,
           "drawCount": 2,
           "cards": [

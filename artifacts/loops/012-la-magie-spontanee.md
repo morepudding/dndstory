@@ -1,6 +1,6 @@
 # Boucle 012 — La magie spontanée
 
-**Statut :** `à valider par le joueur`
+**Statut :** `ajuster — nouvelle passe paysage à valider`
 
 ## Cap
 
@@ -25,7 +25,10 @@ Contre Varek, façonner une carte en Éclat arcanique ou Orbe suspendu pendant l
 - **Intégré :** moteur, migration de sauvegarde, flux d’action, journal, simulation et rune du plateau.
 - **Vérifié :** Bâton de voyage façonné en Éclat arcanique dans la PWA ; coût, dégâts, défausse et verrouillage résolus puis persistés.
 - **Vérifié visuellement :** illustrations propres aux sept cartes, grands portraits enchâssés, cadres allié/ennemi différenciés et liaison animée carte → sort façonné → cible.
-- **Responsive :** parcours contrôlé en 1200 × 820 et 390 × 844, sans image cassée ni débordement horizontal.
+- **Verdict visuel initial :** `ajuster`. Les captures joueur ont révélé une interface paysage surchargée, des états superposés et des écrans exigeant du défilement.
+- **Correction paysage :** combat restructuré en une vue fixe, Magie spontanée substituée à la main au lieu de s’empiler, textes permanents réduits et progression isolée du récit.
+- **Format réel :** Fantasy Story se joue exclusivement sur mobile en paysage ; la validation portrait est retirée.
+- **Vérification corrective :** 844 × 390 et 932 × 430, hauteur de page égale au viewport, plateau sans débordement et états sans chevauchement.
 - **Équilibre simulé :** les quatre combats gardent des victoires avec et sans la capacité ; le meilleur tour et les PV restants sont identiques dans les deux cas.
 - **Reste incertain :** sensation du choix entre improviser dès l’Action et conserver la rune pour une Réaction.
-- **Verdict :** `garder` si plusieurs transformations restent désirables et lisibles avant confirmation.
+- **Verdict demandé :** `garder`, `ajuster` ou `retirer` après essai de cette seconde passe paysage.

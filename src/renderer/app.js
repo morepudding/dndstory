@@ -285,6 +285,10 @@ function renderStory(story) {
   renderHero(story.hero);
   renderLevelUp(story.progression);
   const resolvingLevelUp = Boolean(story.canResolveLevelUp);
+  document.documentElement.classList.toggle(
+    'level-up-running',
+    Boolean(story.active && resolvingLevelUp),
+  );
   $('#scene-visual').hidden = !story.active;
   renderSceneArt(story);
   renderStoryMarkers(story);
@@ -666,9 +670,7 @@ function cardEffectLabel(card, resolvedDamage = card.effect?.damage) {
 }
 
 function chargeCostLabel(card) {
-  return card.chargeCost > 0
-    ? `✦ ${card.chargeCost} charge${card.chargeCost > 1 ? 's' : ''}`
-    : 'Sans charge';
+  return `✦ ${card.chargeCost}`;
 }
 
 function renderCombat(combat, combatItems = []) {
@@ -804,6 +806,7 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-tempo').className = `combat-tempo ${tempo?.id || 'neutral'}`;
   panel.classList.toggle('has-advantage', tempo?.id === 'advantage');
   panel.classList.toggle('has-disadvantage', tempo?.id === 'disadvantage');
+  panel.classList.toggle('has-pending-attack', Boolean(combat.pendingAttack));
   panel.classList.toggle('has-concentration', Boolean(concentration));
   panel.classList.toggle('is-reaction', combat.phase === 'reaction');
   panel.classList.toggle('metamagic-armed', spontaneousMagicMode);
@@ -861,15 +864,15 @@ function renderCombat(combat, combatItems = []) {
     const badge = document.createElement('span');
     badge.className = `combat-status ${status.id}`;
     badge.textContent = status.id === 'concentration'
-      ? `${status.name} · ${status.damage} dégâts différés`
-      : `${status.name} · Action ${status.id === 'advantage' ? '0' : '2'}`;
+      ? `${status.name} · ${status.damage}`
+      : status.name;
     badge.title = status.description;
     return badge;
   }));
   $('#combat-enemy-statuses').replaceChildren(...combat.enemy.statuses.map((status) => {
     const badge = document.createElement('span');
     badge.className = `combat-status ${status.id}`;
-    badge.textContent = `${status.name} ${status.stacks} · prochaine pioche −${status.stacks}`;
+    badge.textContent = `${status.name} ${status.stacks}`;
     badge.title = status.description;
     return badge;
   }));
@@ -930,6 +933,7 @@ function renderCombat(combat, combatItems = []) {
   const activeSource = combat.cards.find(
     (card) => card.instanceId === spontaneousMagicSourceId,
   ) || null;
+  panel.classList.toggle('has-metamagic-source', Boolean(activeSource));
   metamagicOptionsPanel.hidden = !spontaneousMagicMode || !activeSource;
   setText('#combat-metamagic-source', activeSource?.name || '');
   $('#combat-metamagic-targets').replaceChildren(...(
@@ -995,7 +999,7 @@ function renderCombat(combat, combatItems = []) {
   $('#combat-potion b').textContent = `×${potion?.count || 0}`;
   $('#combat-end-turn').hidden = combat.phase !== 'player';
   $('#combat-end-turn').disabled = false;
-  $('#combat-end-turn').textContent = 'Terminer le tour';
+  $('#combat-end-turn').textContent = 'Fin du tour';
   $('#combat-pass').hidden = combat.phase !== 'reaction';
   $('#combat-pass').disabled = false;
   $('#combat-log').replaceChildren(...combat.log.slice(-4).reverse().map((entry) => {

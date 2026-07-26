@@ -17,10 +17,11 @@ class BranchingBookEngine {
 
   start({ runId, at, sourceEndingId = null }) {
     if (!runId || !at) throw new Error('Le démarrage exige un identifiant et une date.');
+    const entryNodeId = this.entryNodeIdFor(sourceEndingId);
     const session = {
       id: runId,
       storyId: this.tree.id,
-      activeNodeId: this.tree.entryNodeId,
+      activeNodeId: entryNodeId,
       status: 'active',
       startedAt: at,
       completedAt: null,
@@ -30,7 +31,7 @@ class BranchingBookEngine {
       sourceEndingId,
       arcaneCharges: this.tree.usesArcaneChargePool ? this.tree.hero.stats.intelligence : null,
     };
-    this.activateNode(session, this.nodes.get(this.tree.entryNodeId), at);
+    this.activateNode(session, this.nodes.get(entryNodeId), at);
     return session;
   }
 
@@ -216,14 +217,18 @@ class BranchingBookEngine {
     next.ending = null;
     next.combat = null;
     if (this.tree.usesArcaneChargePool) next.arcaneCharges = this.tree.hero.stats.intelligence;
-    this.activateNode(next, this.nodes.get(act.entryNodeId), session.startedAt);
+    const retryNodeId = act.entryNodeId === this.tree.entryNodeId
+      ? this.entryNodeIdFor(session.sourceEndingId)
+      : act.entryNodeId;
+    this.activateNode(next, this.nodes.get(retryNodeId), session.startedAt);
     return { session: next, view: this.read(next) };
   }
 
   messages(session, atFallback = session.startedAt) {
     this.assertSession(session);
     const messages = [];
-    const entry = this.nodeForSession(session, this.nodes.get(this.tree.entryNodeId));
+    const entryNodeId = session.history[0]?.nodeId || session.activeNodeId;
+    const entry = this.nodeForSession(session, this.nodes.get(entryNodeId));
     messages.push(storyMessage('assistant', entry.text, session.startedAt, session, entry));
     for (const item of session.history) {
       if (item.kind === 'choice') {
@@ -301,6 +306,10 @@ class BranchingBookEngine {
   nodeForSession(session, node) {
     const variant = node?.sourceVariants?.[session.sourceEndingId];
     return variant ? { ...node, ...variant } : node;
+  }
+
+  entryNodeIdFor(sourceEndingId) {
+    return this.tree.sourceEntryNodeIds?.[sourceEndingId] || this.tree.entryNodeId;
   }
 
   assertActiveSession(session) {

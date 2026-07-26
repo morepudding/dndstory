@@ -126,8 +126,8 @@ const CAGE_SCENES = {
   },
 };
 const THIRD_LEVEL_PROVENANCE = {
-  'captive-sauvee': { label: 'Mira libre · ordres perdus', className: 'third-from-mira' },
-  'ordres-recuperes': { label: 'Ordres en main · Mira captive', className: 'third-from-orders' },
+  'captive-sauvee': { label: 'Mira sauvée', className: 'third-from-mira' },
+  'ordres-recuperes': { label: 'Ordres récupérés', className: 'third-from-orders' },
 };
 const THIRD_LEVEL_OUTCOMES = {
   'passage-condamne': { label: 'Passage condamné', className: 'third-outcome-closed' },
@@ -528,7 +528,7 @@ function renderStoryMarkers(story) {
   markers.hidden = !provenance && !outcome && !thirdProvenance && !thirdOutcome;
   if (provenance) markers.append(makeSceneMarker('Origine', provenance.label, 'source'));
   if (outcome) markers.append(makeSceneMarker('Issue', outcome.label, 'outcome'));
-  if (thirdProvenance) markers.append(makeSceneMarker('Choix précédent', thirdProvenance.label, 'source'));
+  if (thirdProvenance) markers.append(makeSceneMarker('Héritage', thirdProvenance.label, 'source'));
   if (thirdOutcome) markers.append(makeSceneMarker('Issue', thirdOutcome.label, 'outcome'));
 }
 

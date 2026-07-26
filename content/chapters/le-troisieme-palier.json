@@ -28,6 +28,10 @@
     }
   },
   "entryNodeId": "seuil-du-palier",
+  "sourceEntryNodeIds": {
+    "captive-sauvee": "conduit-du-ravin",
+    "ordres-recuperes": "cage-de-service"
+  },
   "continueLabel": "Descendre vers le troisième palier",
   "acts": [
     {

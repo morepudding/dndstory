@@ -1,11 +1,9 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const path = require('path');
 const { CharacterStore } = require('../src/server/character-store');
 const { ConversationService } = require('../src/server/conversation-service');
 const { StoryRepository } = require('../src/server/story-repository');
 const { DevelopmentDiagnostics } = require('../src/server/diagnostics');
-const { simulateCombat } = require('../tools/simulate-combat');
 const { tempStore } = require('./helpers');
 
 function setup() {
@@ -25,26 +23,6 @@ function setup() {
   return { ...base, service };
 }
 
-function winVarek(service) {
-  const report = simulateCombat({
-    storyPath: path.join(__dirname, '..', 'content', 'chapters', 'la-cage-du-treuil.json'),
-    heroStats: service.readStory().hero.stats,
-  });
-  assert.ok(report.victories.shortest);
-  for (const step of report.victories.shortest.steps) {
-    if (step === 'réaction:aucune') service.passCombatReaction();
-    else if (step === 'action:terminer') service.endCombatTurn();
-    else {
-      const cardId = step.slice(step.indexOf(':') + 1);
-      const card = service.readStory().combat.cards.find(
-        (candidate) => candidate.id === cardId && candidate.available,
-      );
-      assert.ok(card, `carte disponible : ${cardId}`);
-      service.playCombatCard(card.instanceId);
-    }
-  }
-}
-
 function startThirdLevel(context, sourceEndingId) {
   context.store.transaction((draft) => {
     draft.story.cageOutcome = sourceEndingId;
@@ -53,42 +31,33 @@ function startThirdLevel(context, sourceEndingId) {
   return context.service.startStory('le-troisieme-palier', { sourceEndingId });
 }
 
-test('les deux issues de la cage continuent vers leur propre descente', () => {
+test('les deux issues de la cage ouvrent directement leur propre descente', () => {
   const saved = setup();
-  saved.service.startStory('la-cage-du-treuil', { sourceEndingId: 'carriere-par-passage' });
-  saved.service.chooseStoryOption('ancrage-treuil');
-  saved.service.chooseStoryOption('sauver-mira');
-  const fromMira = saved.service.continueAfterSuccess();
+  const fromMira = startThirdLevel(saved, 'captive-sauvee');
   assert.equal(fromMira.storyId, 'le-troisieme-palier');
-  assert.equal(fromMira.node.title, 'Le conduit du ravin');
-  assert.equal(saved.service.chooseStoryOption('ancrage-acces').story.node.id, 'conduit-du-ravin');
+  assert.equal(fromMira.node.id, 'conduit-du-ravin');
+  assert.match(fromMira.node.text, /schiste donné par Mira/);
 
   const orders = setup();
-  orders.service.startStory('la-cage-du-treuil', { sourceEndingId: 'carriere-par-la-route' });
-  orders.service.chooseStoryOption('ancrage-activite');
-  orders.service.chooseStoryOption('poursuivre-varek');
-  winVarek(orders.service);
-  const fromOrders = orders.service.continueAfterSuccess();
+  const fromOrders = startThirdLevel(orders, 'ordres-recuperes');
   assert.equal(fromOrders.storyId, 'le-troisieme-palier');
-  assert.equal(fromOrders.node.title, 'La cage de service');
-  assert.equal(orders.service.chooseStoryOption('ancrage-ecoute').story.node.id, 'cage-de-service');
+  assert.equal(fromOrders.node.id, 'cage-de-service');
+  assert.match(fromOrders.node.text, /deuxième cloche/);
 });
 
 test('les erreurs d’exploration échouent causalement puis reprennent la bonne provenance', () => {
   const mira = setup();
   startThirdLevel(mira, 'captive-sauvee');
-  mira.service.chooseStoryOption('ancrage-acces');
   assert.equal(mira.service.chooseStoryOption('couper-sous-etai').story.ending.endingId, 'echec-etai-fendu');
-  assert.equal(mira.service.retryStoryAct().node.title, 'Le conduit du ravin');
+  assert.equal(mira.service.retryStoryAct().node.id, 'conduit-du-ravin');
 
   const orders = setup();
   startThirdLevel(orders, 'ordres-recuperes');
-  orders.service.chooseStoryOption('ancrage-ecoute');
   assert.equal(
     orders.service.chooseStoryOption('descendre-sans-attendre').story.ending.endingId,
     'echec-cage-interceptee',
   );
-  assert.equal(orders.service.retryStoryAct().node.title, 'La cage de service');
+  assert.equal(orders.service.retryStoryAct().node.id, 'cage-de-service');
 });
 
 test('les quatre combinaisons gagnantes persistent sans effacer l’issue de la cage', () => {
@@ -102,7 +71,6 @@ test('les quatre combinaisons gagnantes persistent sans effacer l’issue de la 
   for (const [sourceEndingId, approachId, finalChoiceId, endingId] of routes) {
     const context = setup();
     startThirdLevel(context, sourceEndingId);
-    context.service.chooseStoryOption('ancrage-acces');
     assert.equal(context.service.chooseStoryOption(approachId).story.node.id, 'passage-ancien');
     const ending = context.service.chooseStoryOption(finalChoiceId).story;
     assert.equal(ending.ending.endingId, endingId);
@@ -117,7 +85,6 @@ test('les quatre combinaisons gagnantes persistent sans effacer l’issue de la 
 test('recommencer la boucle retire seulement son ancienne issue persistante', () => {
   const context = setup();
   startThirdLevel(context, 'captive-sauvee');
-  context.service.chooseStoryOption('ancrage-acces');
   context.service.chooseStoryOption('suivre-air-froid');
   context.service.chooseStoryOption('condamner-passage');
   assert.equal(context.store.read().story.thirdLevelOutcome, 'passage-condamne');

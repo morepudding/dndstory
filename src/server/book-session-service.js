@@ -46,8 +46,9 @@ class BookSessionService {
       draft.conversation.messages = engine.messages(session);
       return draft;
     });
+    const view = engine.read(session);
     this.record({ type: 'story_started', storyId: session.storyId, nodeId: session.activeNodeId });
-    return { view: engine.read(session), opening: engine.nodes.get(session.activeNodeId).text };
+    return { view, opening: view.node.text };
   }
 
   choose(choiceId) {

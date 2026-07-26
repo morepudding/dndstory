@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "5524a56d5afd",
-    "dirtyCount": 17
+    "head": "c3e2b1184cde",
+    "dirtyCount": 7
   },
-  "overallHash": "b8a02c783370a16f5d6dcc1e86b5ea3ebd27b82268754e2bb4847bb8e690e465",
+  "overallHash": "1695f44d1537d3776b56dfc6902f3417a5cabf87b786e6cb52e31680781e063c",
   "domains": {
     "workflow": {
-      "hash": "ab7437c619cd116c18a1429dbed43c5f98791f5867a53553af84593b46582c64",
+      "hash": "2a51e8346cda69d46ed8661f8340bd6652d3513b2ee74d1ec35921449b483365",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -39,7 +39,7 @@
         ".agents/skills/relier-aventure-fantasy-story/agents/openai.yaml": "a375aa2c2b7c2327ad1187bcbb640e50e4d0a93e2bc7620aa24bacc944d7e2b0",
         ".agents/skills/relier-aventure-fantasy-story/scripts/resumer-journal.js": "b9bd31dd61ccf96838cb4a2f38e58213b48e65c439b1a39095e76a57e5df0837",
         ".agents/skills/relier-aventure-fantasy-story/SKILL.md": "9ec1a0204cc3623f68ec88bcd9ebac41f6d455213f5fc65c1267b4f9f4d081cf",
-        "AGENTS.md": "ac97f80161e003338bf721698db3b9b4811cce053bde38317470aeb3b74c2166",
+        "AGENTS.md": "94d4325d07a8b8fd3bf891eb45a8a0d9d60a9574ed4fbae254dd98bf97778bd6",
         "artifacts/direction/010-013-de-lisibilite-a-l-aventure.md": "10b618802eaaf8412d50e9e1ae4eed0c88ad67cbbaeef1f6668a0f99e1799757",
         "artifacts/loops/001-passage-niveau-2.md": "d4328d5ede71e2f2f15cd6f30227d865e0719fe259d057fc72b3e6d322f9f195",
         "artifacts/loops/002-la-nuit-a-brumepont.md": "6e8097ff1c448689c1c3a836bd49a9119b466b857e2bb07c02f02ef807196308",
@@ -56,36 +56,36 @@
         "artifacts/loops/011-faire-exister-les-conclusions.md": "42dcfb888eaa5e3c80085e12bf5effe24e0bd347edcdc5465a7c8561f03a5898",
         "artifacts/loops/012-la-magie-spontanee.md": "8d577e904006cfa245b5d0762978909220584075516aa11a601b075c3fb3d72a",
         "artifacts/loops/013-le-pouls-du-combat.md": "fc4924739eeb20a241d8943b1c60ac0e9642aa79f1276e7be0bd7f4b8e08e7d6",
-        "artifacts/loops/014-ce-qui-demeure.md": "325dcdd04504f457adc5cc8469ee78101eebeb00b8ba895eebaa40a58e5826d7",
+        "artifacts/loops/014-ce-qui-demeure.md": "a39f9b4ddae7e1c9818f80a2a34b2b48a1855b0c39278fe23f5af178a477530b",
         "tools/build-loop-context.js": "a648bda2af50e4fe7f0205a6bd84fcd22e9adfb5f585eb17be80f1063e42518e"
       }
     },
     "story": {
-      "hash": "72c1b269382ff1d40c22ced0727a98dc9d0e624c649b6896446a044119384d87",
+      "hash": "74d803dcaaf543c180059be29b3d9214eaf13d2a01645d15d169b3f4b796dca2",
       "files": {
         "content/chapters/la-cage-du-treuil.json": "49941af52191632694c5255e6075290b90b492c2dc9061565ea52a202eabd48b",
         "content/chapters/la-nuit-a-brumepont.json": "4d27abc1e930f57e4de967d90b26f863a6062b361d0e2a8c74e1e98a204074b4",
         "content/chapters/la-route-des-ronces.json": "7f777709119e4b07273449f7b94a726b56f0ca63596c4d9e5a482c01a1a924d3",
-        "content/chapters/le-troisieme-palier.json": "1515ad5938b485f776d66de333bbc58222faf7868feaa5d500ea1fb3c1ed3b1c",
-        "src/server/narrative-tree.js": "4e565ffe708b5b08436d6e6eae3ae0bd694c8079de21ea6a0f8ca028e4917d0f",
+        "content/chapters/le-troisieme-palier.json": "a43e3032fcab99e60d2b95f1cbd34c2393109f0e02fc701ba8ed52d9f84bda09",
+        "src/server/narrative-tree.js": "c96677668959ebdc48d0b263c8c035259dfa329dbdcd2708427fad9586eb16cc",
         "src/server/story-format.js": "f45ad0ac03316525bf08c0a70a48c9c0816bb88ff84602084703fc74f94a33ce",
         "tools/build-story.js": "8e8ee91825d4b7861823ea89e7673d288ecc5a09de65b05e9cc40c9ba4b71a46",
         "tools/verify-story.js": "dd1267397cc014cb3f82f2d5ab1bab8172c73b73f78707a7f186906a1792fda2"
       }
     },
     "persistence": {
-      "hash": "aa778f4712e4dc09548c6b3bcd628d7c23c6645656326cbd84c302bf1424eff4",
+      "hash": "a7fcb6630b6e841f1624421c75593c73cb559e20638ab93fff002a27bccbcd57",
       "files": {
-        "src/server/book-session-service.js": "0efdef765cd55ef6ebb05e184d69c4e007a00d0f6aa4eedf92c34b3efc6d597c",
+        "src/server/book-session-service.js": "a4461e624a60817c9cb5a9be79d2c515d70072c40edba0b41826fdde1c7fa96a",
         "src/server/character-store.js": "2992097757e6c5786f35fd3a9f218fe01a67e45b5979867308e6c284682737a4",
         "src/server/state-schema.js": "4d7bbb3352ce085650862c53e711fb8fa07dbdae1a66e0c7f683ef158a13c788",
         "src/server/story-repository.js": "99485703f5053c1f4c8df0781bbbaef7d2647b709edc5e211debffcd1b51b5e2"
       }
     },
     "engine": {
-      "hash": "f392561041762c8e0b772ef62fa863c36c078b8f40b6e7cc9fdd24a64fdf3451",
+      "hash": "109ace1a2aa6da6bae5fa56e803edad9a4e5426adb2835825a4467b8c6c883ac",
       "files": {
-        "src/server/branching-book-runtime.js": "411f2d6c9ad38a6ada0fb61cdeaa3bd9131fc2e009e3e18b413c9ace22cf7e22",
+        "src/server/branching-book-runtime.js": "9ca747630c8e5bb7921127e851a1765f4e18c4d2e20c26ac1c96eed1d5bc5aba",
         "src/server/card-catalog.js": "58c3fc281b5b900887ed106c7d6a7af4b7166a1baf28ff0f775fb419056cf203",
         "src/server/codex-client.js": "39661ab202dfb115419e45fe9496337b93bf8742d6a1a85547fdcbb8b3ace44b",
         "src/server/combat-engine.js": "00e73ef6e82a4e187d654444f2230d26bbb6488d8250d7a350a9f3619752e2df",
@@ -101,7 +101,7 @@
       }
     },
     "ui": {
-      "hash": "e91f163e38625b5994d0c82c2fedfd0ce81d4eda553a78321b2909195157327e",
+      "hash": "4a4158a355c3b1341f5b159a089e7e0b67c0f2468248b10fcb54a951a53e5098",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -111,7 +111,7 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "7fd394126ec941b5eaecff41f19a548aec8df499266fac936d7f27976df3b0c9",
+        "src/renderer/app.js": "4172c63f7b94821f8376c62bee43410003964a92811161600291b906a67b7a06",
         "src/renderer/index.html": "2634bc8ce15f218bf83253cfab8a3d9cc3a2dd5a52d753343aedfc3d900ca2ae",
         "src/renderer/styles.css": "e6073198f6ac9bf4de9bc890c0e5084d7e28223c4ecfac927351bb4194b2d92e"
       }
@@ -149,7 +149,7 @@
       }
     },
     "tests": {
-      "hash": "16caf9ec22c515c33308905779cd570c361f0ae5d5c1ab083dd80dce081aa22c",
+      "hash": "882a568af143e25f404d40caa65e3c73e2ff6e616fb7493f291beb8dda414987",
       "files": {
         "test/branching-book-runtime.test.js": "78e074a1ec56f950f86bf252f05e56c754e598824a519ac3d0974514afa02431",
         "test/brumepont-economy.test.js": "e68d9807253f9335b000e905731623649b2eda751265149a8d9e026c387f3014",
@@ -165,7 +165,7 @@
         "test/progression.test.js": "087fe5df8be78a2b76e1003817bf4f5b2d71813be91fba37915d18c1babd6290",
         "test/state-and-consent.test.js": "2cb2b28ca8cdc22de18b3e43cd3ba9251c1a14cfa53aeca394be4a91178a078c",
         "test/story-runtime.test.js": "cedf6734c3e37d2692936d172f1a013f2287e4292530903ed1784b6cf918a48d",
-        "test/troisieme-palier.test.js": "711fa98d9ff486efffa600399ad0edf4a84e10fdf9cd248250b06941099bac77"
+        "test/troisieme-palier.test.js": "58840e588691e2933b9995b2b81c71b3c6a52b63afcfa7c4dfaa8aa3f9fc1166"
       }
     },
     "project": {
@@ -258,5 +258,5 @@
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-26T12:42:44.684Z"
+  "generatedAt": "2026-07-26T12:57:10.962Z"
 }

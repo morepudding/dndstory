@@ -2,7 +2,8 @@ const NODE_KINDS = new Set(['choice', 'combat', 'success', 'failure']);
 const TREE_FIELDS = new Set([
   'schemaVersion', 'format', 'status', 'id', 'title', 'globalPremise',
   'chapterSummary', 'showChapterSummary', 'rating', 'participantsAllAdults',
-  'contentWarnings', 'designRules', 'hero', 'entryNodeId', 'usesArcaneChargePool',
+  'contentWarnings', 'designRules', 'hero', 'entryNodeId', 'sourceEntryNodeIds',
+  'usesArcaneChargePool',
   'continueLabel', 'acts', 'nodes',
 ]);
 const HERO_FIELDS = new Set(['className', 'level', 'stats']);
@@ -196,6 +197,33 @@ function validateNarrativeTree(tree, { publish = false } = {}) {
   }
 
   if (!nodeById.has(tree.entryNodeId)) fail('entry_node', `Nœud d’entrée inconnu : ${tree.entryNodeId}`, 'entryNodeId');
+  if (
+    tree.sourceEntryNodeIds != null
+    && (
+      typeof tree.sourceEntryNodeIds !== 'object'
+      || Array.isArray(tree.sourceEntryNodeIds)
+    )
+  ) {
+    fail('source_entry_nodes', 'sourceEntryNodeIds doit être un objet.', 'sourceEntryNodeIds');
+  } else {
+    for (const [sourceEndingId, entryNodeId] of Object.entries(tree.sourceEntryNodeIds || {})) {
+      if (!nonEmpty(sourceEndingId) || !nonEmpty(entryNodeId)) {
+        fail(
+          'source_entry_node',
+          'Chaque entrée héritée exige une provenance et un nœud non vides.',
+          `sourceEntryNodeIds.${sourceEndingId}`,
+        );
+        continue;
+      }
+      if (!nodeById.has(entryNodeId)) {
+        fail(
+          'source_entry_node',
+          `Nœud d’entrée hérité inconnu : ${entryNodeId}`,
+          `sourceEntryNodeIds.${sourceEndingId}`,
+        );
+      }
+    }
+  }
   for (const act of acts) {
     const entry = nodeById.get(act.entryNodeId);
     if (!entry) fail('act_entry', `Entrée inconnue pour ${act.id}.`, act.id);

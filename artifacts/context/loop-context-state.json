@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "33fdb4ae06a5",
-    "dirtyCount": 9
+    "head": "f1800fba07fd",
+    "dirtyCount": 10
   },
-  "overallHash": "d109ab61db44abadc5bcf71e4c0b17a673eb31e4f212f3b16301566af97ffaea",
+  "overallHash": "27e538e0be2a66323efcd07716c9a5827673b434fc8fda63bd3fe26d4045dd92",
   "domains": {
     "workflow": {
       "hash": "ba551cf4f1562211508a233f7b0e6f23b65f9ae46576780d426f6ee784338889",
@@ -102,7 +102,7 @@
       }
     },
     "ui": {
-      "hash": "a781dec5b2d8df0f41a2d59f2d9f900f3617b5d48ac347a3783c7c3292f1673d",
+      "hash": "f002e323c88ccb1183bada12b055f69cc1bc200f40dd1694e493d545a39e4966",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -112,9 +112,9 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "26e334047f63185f10fe6e5d319e5f9efd329d8d6e0df36c7772055d7c75e65f",
+        "src/renderer/app.js": "96d4d178ba5ba61a4103c908695c102e3cd5cbeedf2c624fb17f06689a31b7eb",
         "src/renderer/index.html": "0bbd6d50c6baa3d3ed3b47b3fa9ab54778efd1f4807afa2c45d0b5c31e833d35",
-        "src/renderer/styles.css": "c8a9f6f022c52cca51ab8bcbc0fed7ec1d3aed96673e8b970773dfa2ea398a3f"
+        "src/renderer/styles.css": "548fe940b2c9fe9586a42d8dad3cedd6350ec2e03a121638ed2c372a2ce3d467"
       }
     },
     "assets": {
@@ -264,5 +264,5 @@
       "status": "garder"
     }
   ],
-  "generatedAt": "2026-07-26T14:22:42.667Z"
+  "generatedAt": "2026-07-26T14:35:04.774Z"
 }

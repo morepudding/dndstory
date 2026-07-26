@@ -4,9 +4,9 @@
 
 ## Référence
 
-- **Empreinte :** `d109ab61db44abad`
-- **Générée :** 2026-07-26T14:22:42.667Z
-- **Git informatif :** branche `main`, HEAD `33fdb4ae06a5`, 9 entrée(s) dans le worktree
+- **Empreinte :** `27e538e0be2a6632`
+- **Générée :** 2026-07-26T14:35:04.774Z
+- **Git informatif :** branche `main`, HEAD `f1800fba07fd`, 10 entrée(s) dans le worktree
 - **Comparaison fiable :** les changements sont détectés par le contenu des fichiers, même si le worktree n'est pas commité.
 - **Boucle active :** aucune
 - **Dernier verdict :** `artifacts/loops/015-le-fil-retrouve.md` — `garder`
@@ -19,7 +19,7 @@
 | Livre et structure | `0da70f889ff4` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
 | État et sauvegarde | `65fb0b08b5d1` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
 | Moteur | `abca106a06e2` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |
-| PWA et interface | `a781dec5b2d8` | `src/pwa/entry.js`<br>`src/pwa/browser-api.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run build:pwa`, puis parcours manuel dans la PWA si le rendu ou l'interaction change |
+| PWA et interface | `f002e323c88c` | `src/pwa/entry.js`<br>`src/pwa/browser-api.js`<br>`src/renderer/app.js`<br>`src/renderer/styles.css` | `npm run build:pwa`, puis parcours manuel dans la PWA si le rendu ou l'interaction change |
 | Ressources visuelles | `248367c1d145` | `src/renderer/assets/`<br>`content/visuals/` | licences, puis parcours manuel dans la PWA si l'affichage change |
 | Tests | `8245925ff86d` | `test/` | test ciblé du contrat modifié |
 | Configuration et reste du projet | `bd4450b3de51` | `package.json`<br>`README.md`<br>`.gitignore` | validation dictée par le domaine concerné |

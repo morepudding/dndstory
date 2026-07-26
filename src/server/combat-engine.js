@@ -326,7 +326,7 @@ class CombatEngine {
         ? `${combat.enemy.name} inflige ${damage} dégâts au Sorcier.`
         : `${combat.enemy.name} ne traverse pas la défense du Sorcier.`,
     });
-    if (damage > 0) this.breakConcentration(combat);
+    if (damage > 0) this.damageConcentration(combat);
     if (attackEffect?.status) this.applyStatus(combat, attackEffect.status);
     const resolvedIndex = combat.enemy.hand.findIndex(
       (instance) => instance.instanceId === combat.pendingAttack.instanceId,
@@ -368,22 +368,35 @@ class CombatEngine {
       sourceCardId: card.id,
       sourceCardName: card.name,
       damage: card.effect.concentration.damage,
-      description: `${card.effect.concentration.damage} dégâts au début du prochain tour ; se brise au premier dégât subi.`,
+      breakAfterHits: card.effect.concentration.breakAfterHits,
+      hitsTaken: 0,
+      description: `${card.effect.concentration.damage} dégâts au début du prochain tour ; se brise au ${card.effect.concentration.breakAfterHits}e impact subi.`,
     });
     combat.log.push({
       round: combat.round,
       type: 'concentration_started',
       statusId: 'concentration',
       cardId: card.id,
-      text: `${card.name} reste suspendu : Concentration ${card.effect.concentration.damage} dégâts.`,
+      text: `${card.name} reste suspendu : ${card.effect.concentration.breakAfterHits} ancrages protègent sa Concentration.`,
     });
   }
 
-  breakConcentration(combat) {
+  damageConcentration(combat) {
     const concentration = combat.player.statuses.find(
       (status) => status.id === 'concentration',
     );
     if (!concentration) return;
+    concentration.hitsTaken += 1;
+    if (concentration.hitsTaken < concentration.breakAfterHits) {
+      combat.log.push({
+        round: combat.round,
+        type: 'concentration_shaken',
+        statusId: 'concentration',
+        cardId: concentration.sourceCardId,
+        text: `${concentration.sourceCardName} vacille : un ancrage de Concentration se rompt.`,
+      });
+      return;
+    }
     combat.player.statuses = combat.player.statuses.filter(
       (status) => status.id !== 'concentration',
     );
@@ -392,7 +405,7 @@ class CombatEngine {
       type: 'concentration_broken',
       statusId: 'concentration',
       cardId: concentration.sourceCardId,
-      text: `${concentration.sourceCardName} se brise au premier dégât subi.`,
+      text: `${concentration.sourceCardName} se brise sous le second impact.`,
     });
   }
 

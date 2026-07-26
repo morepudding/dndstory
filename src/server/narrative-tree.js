@@ -34,7 +34,7 @@ const CARD_FIELDS = new Set([
 ]);
 const EFFECT_FIELDS = new Set(['damage', 'block', 'status', 'concentration']);
 const STATUS_EFFECT_FIELDS = new Set(['id', 'target', 'stacks']);
-const CONCENTRATION_EFFECT_FIELDS = new Set(['damage']);
+const CONCENTRATION_EFFECT_FIELDS = new Set(['damage', 'breakAfterHits']);
 
 function validateNarrativeTree(tree, { publish = false } = {}) {
   const errors = [];
@@ -439,7 +439,10 @@ function validateCombatNode(node, fail, location) {
         || status
         || (
           concentration != null
-          && !positiveInteger(concentration.damage)
+          && (
+            !positiveInteger(concentration.damage)
+            || !positiveInteger(concentration.breakAfterHits)
+          )
         )
       )
     ) {

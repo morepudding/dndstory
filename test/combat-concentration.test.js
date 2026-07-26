@@ -54,6 +54,8 @@ test('Orbe suspendu inflige 2 dégâts et crée une unique Concentration', () =>
     combat.player.statuses.map((status) => status.id),
     ['concentration'],
   );
+  assert.equal(combat.player.statuses[0].breakAfterHits, 2);
+  assert.equal(combat.player.statuses[0].hitsTaken, 0);
   assert.equal(
     card(engine, combat, 'orbe-suspendu')?.available,
     false,
@@ -87,8 +89,11 @@ test('un blocage total conserve la Concentration puis déclenche les dégâts av
   assert.ok(drawIndex > triggerIndex);
 });
 
-test('le premier dégât non bloqué brise la Concentration sans dégâts différés', () => {
-  const engine = engineFor();
+test('le premier impact fait vaciller l’Orbe et le second brise la Concentration', () => {
+  const engine = engineFor({
+    enemyDeck: ['coup-de-hampe', 'pique-de-convoi'],
+    enemyDrawCount: 2,
+  });
   let combat = engine.start(node.id);
   combat = engine.playCard(combat, card(engine, combat, 'orbe-suspendu').instanceId).combat;
   combat = engine.endTurn(combat).combat;
@@ -96,9 +101,38 @@ test('le premier dégât non bloqué brise la Concentration sans dégâts diffé
 
   assert.equal(combat.player.hp, combat.player.maxHp - 1);
   assert.equal(combat.enemy.hp, combat.enemy.maxHp - 2);
+  assert.equal(combat.player.statuses.find(
+    (status) => status.id === 'concentration',
+  )?.hitsTaken, 1);
+  assert.ok(combat.log.some((entry) => entry.type === 'concentration_shaken'));
+  assert.ok(!combat.log.some((entry) => entry.type === 'concentration_broken'));
+
+  combat = engine.passReaction(combat).combat;
+
+  assert.equal(combat.player.hp, combat.player.maxHp - 3);
   assert.ok(!combat.player.statuses.some((status) => status.id === 'concentration'));
   assert.ok(combat.log.some((entry) => entry.type === 'concentration_broken'));
   assert.ok(!combat.log.some((entry) => entry.type === 'concentration_triggered'));
+});
+
+test('un impact subi puis une défense conserve la Concentration jusqu’au déclenchement', () => {
+  const engine = engineFor({
+    enemyDeck: ['coup-de-hampe', 'pique-de-convoi'],
+    enemyDrawCount: 2,
+  });
+  let combat = engine.start(node.id);
+  combat = engine.playCard(combat, card(engine, combat, 'orbe-suspendu').instanceId).combat;
+  combat = engine.endTurn(combat).combat;
+  combat = engine.passReaction(combat).combat;
+  combat = engine.playCard(
+    combat,
+    card(engine, combat, 'voile-azur').instanceId,
+  ).combat;
+
+  assert.equal(combat.player.hp, combat.player.maxHp - 1);
+  assert.equal(combat.enemy.hp, combat.enemy.maxHp - 7);
+  assert.ok(combat.log.some((entry) => entry.type === 'concentration_shaken'));
+  assert.ok(combat.log.some((entry) => entry.type === 'concentration_triggered'));
 });
 
 test('Avantage rend Orbe gratuit en Actions sans modifier sa réserve de charges', () => {
@@ -194,4 +228,7 @@ test('une relance complète conserve l’Orbe suspendu et ses dégâts différé
   assert.equal(reopened.player.statuses.find(
     (status) => status.id === 'concentration',
   )?.damage, 5);
+  assert.equal(reopened.player.statuses.find(
+    (status) => status.id === 'concentration',
+  )?.breakAfterHits, 2);
 });

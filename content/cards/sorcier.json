@@ -49,12 +49,13 @@
       "family": "spell",
       "role": "preparation",
       "chargeCost": 0,
-      "description": "Inflige 2 dégâts, puis 5 au prochain tour si vos Réactions empêchent tout dégât.",
+      "description": "Inflige 2 dégâts, puis 5 au prochain tour. Le second impact subi brise l’Orbe.",
       "art": "assets/visuals/combat/card-orbe-suspendu.jpg",
       "effect": {
         "damage": 2,
         "concentration": {
-          "damage": 5
+          "damage": 5,
+          "breakAfterHits": 2
         }
       }
     },

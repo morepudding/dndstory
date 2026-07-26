@@ -1,4 +1,4 @@
-const SCHEMA_VERSION = 16;
+const SCHEMA_VERSION = 17;
 const RELATION_KEYS = ['trust', 'attraction', 'irritation', 'curiosity', 'vulnerability'];
 const PROGRESSION_STAT_KEYS = ['strength', 'constitution', 'agility', 'wisdom', 'intelligence'];
 
@@ -53,7 +53,7 @@ function createDefaultState() {
 function migrateState(input) {
   if (!input || typeof input !== 'object') return createDefaultState();
   if (input.schemaVersion === SCHEMA_VERSION) return input;
-  if ([12, 13, 14, 15].includes(input.schemaVersion)) {
+  if ([12, 13, 14, 15, 16].includes(input.schemaVersion)) {
     const next = structuredClone(input);
     next.schemaVersion = SCHEMA_VERSION;
     next.story = { ...createStoryState(), ...(next.story || {}) };
@@ -139,6 +139,12 @@ function ensureCombatPlayerState(state) {
   const player = state.story?.activeRun?.combat?.player;
   if (!player) return;
   if (!Array.isArray(player.statuses)) player.statuses = [];
+  for (const status of player.statuses) {
+    if (status?.id !== 'concentration') continue;
+    if (!Number.isInteger(status.breakAfterHits)) status.breakAfterHits = 2;
+    if (!Number.isInteger(status.hitsTaken)) status.hitsTaken = 0;
+    status.description = `${status.damage} dégâts au début du prochain tour ; se brise au ${status.breakAfterHits}e impact subi.`;
+  }
   if (typeof player.spontaneousMagicAvailable !== 'boolean') {
     player.spontaneousMagicAvailable = true;
   }
@@ -356,6 +362,11 @@ function validateCombat(combat, fail) {
         || !nonEmpty(status.sourceCardName)
         || !Number.isInteger(status.damage)
         || status.damage < 1
+        || !Number.isInteger(status.breakAfterHits)
+        || status.breakAfterHits < 2
+        || !Number.isInteger(status.hitsTaken)
+        || status.hitsTaken < 0
+        || status.hitsTaken >= status.breakAfterHits
       );
     })
   ) {

@@ -719,7 +719,7 @@ function cardEffectLabel(card, resolvedDamage = card.effect?.damage) {
   const effects = [];
   if (card.effect?.concentration) {
     effects.push(`${resolvedDamage} dégâts`);
-    effects.push(`puis ${card.effect.concentration.damage} si protégé`);
+    effects.push(`puis ${card.effect.concentration.damage} · brise au ${card.effect.concentration.breakAfterHits}e impact`);
   } else if (resolvedDamage) {
     effects.push(`${resolvedDamage} dégâts`);
   }
@@ -968,11 +968,16 @@ function renderCombat(combat, combatItems = []) {
     && !actedAfterConcentrationEvent
     ? lastConcentrationEvent.entry
     : null;
+  panel.classList.toggle(
+    'has-concentration-display',
+    Boolean(concentration || concentrationAftermath),
+  );
   const concentrationPanel = $('#combat-concentration');
+  const concentrationIsShaken = Boolean(concentration?.hitsTaken);
   concentrationPanel.hidden = !concentration && !concentrationAftermath;
   concentrationPanel.className = `combat-concentration ${
     concentration
-      ? 'active'
+      ? concentrationIsShaken ? 'shaken' : 'active'
       : concentrationAftermath?.type === 'concentration_broken'
         ? 'broken'
         : 'triggered'
@@ -980,7 +985,7 @@ function renderCombat(combat, combatItems = []) {
   setText(
     '#combat-concentration-label',
     concentration
-      ? 'Sort concentré'
+      ? concentrationIsShaken ? 'Fil vacillant' : 'Sort concentré'
       : concentrationAftermath?.type === 'concentration_broken'
         ? 'Fil rompu'
         : 'Sort déclenché',
@@ -992,16 +997,36 @@ function renderCombat(combat, combatItems = []) {
   setText(
     '#combat-concentration-effect',
     concentration
-      ? `${concentration.damage} dégâts au début du prochain tour`
+      ? concentrationIsShaken
+        ? `Encore 1 impact avant rupture · ${concentration.damage} dégâts au prochain tour`
+        : `${concentration.damage} dégâts au prochain tour · 2 ancrages`
       : concentrationAftermath?.type === 'concentration_broken'
         ? 'Les dégâts différés sont perdus'
         : '5 dégâts infligés avant la pioche',
   );
+  const concentrationAnchors = $('#combat-concentration-anchors');
+  concentrationAnchors.hidden = !concentration;
+  concentrationAnchors.replaceChildren(...Array.from(
+    { length: concentration?.breakAfterHits || 0 },
+    (_, index) => {
+      const anchor = document.createElement('i');
+      anchor.className = index < concentration.hitsTaken ? 'spent' : 'intact';
+      anchor.setAttribute('aria-hidden', 'true');
+      return anchor;
+    },
+  ));
+  if (concentration) {
+    const remaining = concentration.breakAfterHits - concentration.hitsTaken;
+    concentrationAnchors.setAttribute(
+      'aria-label',
+      `${remaining} ancrage${remaining > 1 ? 's' : ''} de Concentration intact${remaining > 1 ? 's' : ''}`,
+    );
+  }
   $('#combat-player-statuses').replaceChildren(...combat.player.statuses.map((status) => {
     const badge = document.createElement('span');
     badge.className = `combat-status ${status.id}`;
     badge.textContent = status.id === 'concentration'
-      ? `${status.name} · ${status.damage}`
+      ? `${status.name} · ${status.breakAfterHits - status.hitsTaken}/${status.breakAfterHits}`
       : status.name;
     badge.title = status.description;
     return badge;

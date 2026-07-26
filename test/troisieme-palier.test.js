@@ -82,16 +82,31 @@ test('les quatre combinaisons gagnantes persistent sans effacer l’issue de la 
   }
 });
 
-test('recommencer la boucle retire seulement son ancienne issue persistante', () => {
+test('recommencer l’aventure restaure une campagne neuve et préserve le profil', () => {
   const context = setup();
+  context.store.transaction((draft) => {
+    draft.character.identity.name = 'Nerys';
+    draft.character.scene.mood = 'méfiant';
+    return draft;
+  });
   startThirdLevel(context, 'captive-sauvee');
   context.service.chooseStoryOption('suivre-air-froid');
   context.service.chooseStoryOption('condamner-passage');
   assert.equal(context.store.read().story.thirdLevelOutcome, 'passage-condamne');
 
-  context.service.restartStory();
-  const restarted = context.store.read().story;
-  assert.equal(restarted.cageOutcome, 'captive-sauvee');
-  assert.equal(restarted.thirdLevelOutcome, null);
-  assert.equal(restarted.activeRun.sourceEndingId, 'captive-sauvee');
+  const restarted = context.service.restartStory();
+  const persisted = new CharacterStore(context.file).read();
+  assert.equal(restarted.storyId, 'la-route-des-ronces');
+  assert.equal(restarted.node.id, 'depart');
+  assert.equal(persisted.story.activeRun.storyId, 'la-route-des-ronces');
+  assert.equal(persisted.story.activeRun.activeNodeId, 'depart');
+  assert.equal(persisted.story.activeRun.sourceEndingId, null);
+  assert.equal(persisted.story.cageOutcome, null);
+  assert.equal(persisted.story.thirdLevelOutcome, null);
+  assert.equal(persisted.character.progression.level, 1);
+  assert.equal(persisted.character.progression.gold, 0);
+  assert.deepEqual(persisted.character.progression.claimedRewardIds, []);
+  assert.deepEqual(persisted.character.relationshipEvents, []);
+  assert.equal(persisted.character.identity.name, 'Nerys');
+  assert.equal(persisted.character.scene.mood, 'méfiant');
 });

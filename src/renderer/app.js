@@ -1285,7 +1285,10 @@ $('#journal-open').addEventListener('click', () => {
   $('#adventure-journal').showModal();
 });
 $('#journal-shortcut')?.addEventListener('click', () => $('#journal-open').click());
-$('#chapter-restart').addEventListener('click', restartCurrentStory);
+$('#chapter-restart').addEventListener('click', () => {
+  $('#chapter-menu').open = false;
+  openMenuConfirmation('restart');
+});
 $('#act-retry').addEventListener('click',async()=>{const story=await window.candy.retryStoryAct();await reloadConversation();renderStory(story);});
 $('#chapter-continue').addEventListener('click', continueCurrentStory);
 $('#chapter-quit').addEventListener('click',async()=>{renderStory(await window.candy.quitStory());$('#chapter-menu').open=false;});
@@ -1317,7 +1320,7 @@ function openMenuConfirmation(action) {
     '#game-menu-confirm-copy',
     abandoning
       ? 'La partie en cours sera fermée. Les conséquences déjà acquises resteront enregistrées.'
-      : 'La progression de cette aventure sera remplacée par son point de départ.',
+      : 'Vous repartirez de La Route des Ronces. Niveau, or, inventaire, chronique et conclusions seront réinitialisés ; votre profil restera inchangé.',
   );
   $('#game-menu-confirm-action').textContent = abandoning ? 'Abandonner' : 'Recommencer';
   $('#game-menu-confirm-action').classList.toggle('danger', abandoning);

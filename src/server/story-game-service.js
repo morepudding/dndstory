@@ -1,6 +1,8 @@
 const { BookSessionService } = require('./book-session-service');
 const { meetsChoiceRequirements } = require('./narrative-tree');
 const { ProgressionService } = require('./progression-service');
+const { createDefaultState } = require('./state-schema');
+const { STORY_ID } = require('./story-catalog');
 
 class StoryGameService {
   constructor({ store, storyRepository, diagnostics = null }) {
@@ -104,9 +106,17 @@ class StoryGameService {
   }
 
   restartStory() {
-    this.assertProgressionResolved();
-    const run = this.store.read().story.activeRun;
-    return this.startStory(run?.storyId || null, { sourceEndingId: run?.sourceEndingId || null });
+    const defaults = createDefaultState();
+    this.store.transaction((draft) => {
+      draft.character.progression = defaults.character.progression;
+      draft.character.relationshipEvents = draft.character.relationshipEvents.filter(
+        (event) => !event.type?.startsWith('story_'),
+      );
+      draft.conversation = defaults.conversation;
+      draft.story = defaults.story;
+      return draft;
+    });
+    return this.startStory(STORY_ID);
   }
 
   allocateProgressionStat(stat) {

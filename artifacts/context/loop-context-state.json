@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "4e039eaa38b0",
-    "dirtyCount": 1
+    "head": "42f345582803",
+    "dirtyCount": 5
   },
-  "overallHash": "d509bc75f378c04a586ef0d1730521f659852bec2e676c658336fddbe1480d09",
+  "overallHash": "6f754cc4d27587a3e299f11106b5271000a8ab385d02a87af751351e7811136c",
   "domains": {
     "workflow": {
-      "hash": "5a24ba8ae0cdcedfb68205bbff6b1917c628338201c6ffdb6b474bd4ff83dab1",
+      "hash": "0e0c8a0f960e1e580a2265ea56675fcca23d21e8e0a72548b7bc9986fa44a523",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -57,6 +57,7 @@
         "artifacts/loops/012-la-magie-spontanee.md": "8d577e904006cfa245b5d0762978909220584075516aa11a601b075c3fb3d72a",
         "artifacts/loops/013-le-pouls-du-combat.md": "fc4924739eeb20a241d8943b1c60ac0e9642aa79f1276e7be0bd7f4b8e08e7d6",
         "artifacts/loops/014-ce-qui-demeure.md": "4b0d45ddce263418211fe17ec8ec818fc09e8b987eeeb48bf89d5a8308630e38",
+        "artifacts/loops/015-le-fil-retrouve.md": "81cec985fb7838f51872cbc348d2499e5fa5ebd6a1d67e243f1be7b943d37945",
         "tools/build-loop-context.js": "a648bda2af50e4fe7f0205a6bd84fcd22e9adfb5f585eb17be80f1063e42518e"
       }
     },
@@ -83,7 +84,7 @@
       }
     },
     "engine": {
-      "hash": "109ace1a2aa6da6bae5fa56e803edad9a4e5426adb2835825a4467b8c6c883ac",
+      "hash": "d2f151f13144ce841dc6176dc8198f0a9e5cdd82c66d5c5ac4fca58b85a42cf7",
       "files": {
         "src/server/branching-book-runtime.js": "9ca747630c8e5bb7921127e851a1765f4e18c4d2e20c26ac1c96eed1d5bc5aba",
         "src/server/card-catalog.js": "58c3fc281b5b900887ed106c7d6a7af4b7166a1baf28ff0f775fb419056cf203",
@@ -95,13 +96,13 @@
         "src/server/progression-service.js": "39bc2d1064d358a8fcef046843e5be3e83e784ce541134d86b44cbdde3f897d8",
         "src/server/random-id.js": "903e5a888c920c24f7a61b497dd4e3d5880528168386a88abf33c0bde9a228a1",
         "src/server/story-catalog.js": "868ee2e4b507c2c9695c76b97c23eed5d133291ddab8ef1528ebae290dd5ee5f",
-        "src/server/story-game-service.js": "6b4f6443d53610741620cb302445f4892e718cbdaae84f2c6a4f7b2275677830",
+        "src/server/story-game-service.js": "ff2a843b9c6875be2d6376b6c455665bedcce04bb1e8c8da24a2668f40b498f8",
         "tools/play-branching-book.js": "182d47cc81479d81e4b2ca5fe300ec0359b56f6e9d05756529b1d2d6ecfbcc2b",
         "tools/simulate-combat.js": "56afe171ebe1df7776214ecbb0b2a166338cc5df6af9cef0216e18a080f4cd1c"
       }
     },
     "ui": {
-      "hash": "e53245c1a8478a6b8f060a049cbc35fb7fde15ec432ce402bbb31d19a02e6081",
+      "hash": "996d02bdba293ddba1aaa76d13c5f481b55f0cb9a63ea17bfa0dcbc86f427dc1",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -111,8 +112,8 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "392b5f0b22d6723185f03570ec4eb4769b0fbad7448fcd829173f575c65fc20b",
-        "src/renderer/index.html": "3e24f27b4e81bc27e0c34c2bf5a3e9105ed77d7accaa84ddbd233f6068dc41e1",
+        "src/renderer/app.js": "27932f6ebc96021d3f6da434644138baf893101950b5e73e45467052bb5f2ce1",
+        "src/renderer/index.html": "f355d56c9bf09536dcb814787383d28a1a1c849da3888e4439e44228c7e126e4",
         "src/renderer/styles.css": "5feeaa8398e8e235d4d3eae68a6cbc42073d2b7df6c7e9e4d6351a055b82fde9"
       }
     },
@@ -149,7 +150,7 @@
       }
     },
     "tests": {
-      "hash": "882a568af143e25f404d40caa65e3c73e2ff6e616fb7493f291beb8dda414987",
+      "hash": "7144bd864e1a4ea92871ac85b8b75fcbe04be4bd1558d7230984000a8d0c90e0",
       "files": {
         "test/branching-book-runtime.test.js": "78e074a1ec56f950f86bf252f05e56c754e598824a519ac3d0974514afa02431",
         "test/brumepont-economy.test.js": "e68d9807253f9335b000e905731623649b2eda751265149a8d9e026c387f3014",
@@ -165,7 +166,7 @@
         "test/progression.test.js": "087fe5df8be78a2b76e1003817bf4f5b2d71813be91fba37915d18c1babd6290",
         "test/state-and-consent.test.js": "2cb2b28ca8cdc22de18b3e43cd3ba9251c1a14cfa53aeca394be4a91178a078c",
         "test/story-runtime.test.js": "cedf6734c3e37d2692936d172f1a013f2287e4292530903ed1784b6cf918a48d",
-        "test/troisieme-palier.test.js": "58840e588691e2933b9995b2b81c71b3c6a52b63afcfa7c4dfaa8aa3f9fc1166"
+        "test/troisieme-palier.test.js": "e2f7cb11b099f12f4bc0cb01958bb91ca659e24d70883bc3393eaf169eff4d2f"
       }
     },
     "project": {
@@ -256,7 +257,12 @@
       "path": "artifacts/loops/014-ce-qui-demeure.md",
       "title": "Boucle 014 — Le journal de route",
       "status": "garder"
+    },
+    {
+      "path": "artifacts/loops/015-le-fil-retrouve.md",
+      "title": "Boucle 015 — Le fil retrouvé",
+      "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-26T13:14:08.983Z"
+  "generatedAt": "2026-07-26T14:09:49.605Z"
 }

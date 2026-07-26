@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "git": {
     "branch": "main",
-    "head": "c3e2b1184cde",
-    "dirtyCount": 7
+    "head": "1897222d93fe",
+    "dirtyCount": 4
   },
-  "overallHash": "1695f44d1537d3776b56dfc6902f3417a5cabf87b786e6cb52e31680781e063c",
+  "overallHash": "75ee0b852f9a2d5beaa27ec86d14f11cc55cd8eec7942d7c560b531e5575e928",
   "domains": {
     "workflow": {
-      "hash": "2a51e8346cda69d46ed8661f8340bd6652d3513b2ee74d1ec35921449b483365",
+      "hash": "b9408bbe45a27168155e8ecdb20d650da3e12c781f71f182b4caec01f1513c2b",
       "files": {
         ".agents/skills/concevoir-branches-fantasy-story/agents/openai.yaml": "9a027335dedb135800f4715f88d2d7442a8b7357f85e7946e178317c47596f10",
         ".agents/skills/concevoir-branches-fantasy-story/references/agence-et-choix.md": "0bd9e50dc06bd3f86d2f3c15d2af5563e812281d82efcbe4f0b49aeb5b1f0c54",
@@ -56,7 +56,7 @@
         "artifacts/loops/011-faire-exister-les-conclusions.md": "42dcfb888eaa5e3c80085e12bf5effe24e0bd347edcdc5465a7c8561f03a5898",
         "artifacts/loops/012-la-magie-spontanee.md": "8d577e904006cfa245b5d0762978909220584075516aa11a601b075c3fb3d72a",
         "artifacts/loops/013-le-pouls-du-combat.md": "fc4924739eeb20a241d8943b1c60ac0e9642aa79f1276e7be0bd7f4b8e08e7d6",
-        "artifacts/loops/014-ce-qui-demeure.md": "a39f9b4ddae7e1c9818f80a2a34b2b48a1855b0c39278fe23f5af178a477530b",
+        "artifacts/loops/014-ce-qui-demeure.md": "2a7b5bee2b235030a24fd8c0d96df9e0111abb15dd8b40ec9193edba3b46d0ff",
         "tools/build-loop-context.js": "a648bda2af50e4fe7f0205a6bd84fcd22e9adfb5f585eb17be80f1063e42518e"
       }
     },
@@ -101,7 +101,7 @@
       }
     },
     "ui": {
-      "hash": "4a4158a355c3b1341f5b159a089e7e0b67c0f2468248b10fcb54a951a53e5098",
+      "hash": "e53245c1a8478a6b8f060a049cbc35fb7fde15ec432ce402bbb31d19a02e6081",
       "files": {
         "src/pwa/browser-api.js": "31fbd33f87d6c3826c2bd829227cbcf9c70ff209376dc7c91b8e01fff67faa20",
         "src/pwa/browser-store.js": "bc1afed44ef3fbead48637ae5087e203e7739898c00b87a879fcc2755e2611f8",
@@ -111,9 +111,9 @@
         "src/pwa/icons/sorcerer-sigil-512.png": "4a39f112e64e15487717c338027122a23550e8a15d00ce271e477ad2ee3a8969",
         "src/pwa/manifest.webmanifest": "6ca45b75c947b048b0571aa20f397335301a0dd8539bfd0ff80ce74eea852e32",
         "src/pwa/service-worker.js": "820e8d24a5bc1d39a8086fd713f2df7500e30caa921c760693d8371536566ee4",
-        "src/renderer/app.js": "4172c63f7b94821f8376c62bee43410003964a92811161600291b906a67b7a06",
-        "src/renderer/index.html": "2634bc8ce15f218bf83253cfab8a3d9cc3a2dd5a52d753343aedfc3d900ca2ae",
-        "src/renderer/styles.css": "e6073198f6ac9bf4de9bc890c0e5084d7e28223c4ecfac927351bb4194b2d92e"
+        "src/renderer/app.js": "392b5f0b22d6723185f03570ec4eb4769b0fbad7448fcd829173f575c65fc20b",
+        "src/renderer/index.html": "3e24f27b4e81bc27e0c34c2bf5a3e9105ed77d7accaa84ddbd233f6068dc41e1",
+        "src/renderer/styles.css": "5feeaa8398e8e235d4d3eae68a6cbc42073d2b7df6c7e9e4d6351a055b82fde9"
       }
     },
     "assets": {
@@ -254,9 +254,9 @@
     },
     {
       "path": "artifacts/loops/014-ce-qui-demeure.md",
-      "title": "Boucle 014 — Ce qui demeure",
+      "title": "Boucle 014 — Le journal de route",
       "status": "à jouer"
     }
   ],
-  "generatedAt": "2026-07-26T12:57:10.962Z"
+  "generatedAt": "2026-07-26T13:06:47.304Z"
 }

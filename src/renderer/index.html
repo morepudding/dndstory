@@ -17,7 +17,7 @@
           <button class="nav-item" id="profile-shortcut" aria-label="Profil" title="Profil">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c.7-4 3-6 7-6s6.3 2 7 6"/></svg>
           </button>
-          <button class="nav-item" aria-label="Souvenirs" title="Souvenirs">
+          <button class="nav-item" id="journal-shortcut" aria-label="Journal de route" title="Journal de route">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-8-4.5-8-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 10-8 10Z"/></svg>
           </button>
         </div>
@@ -78,6 +78,11 @@
         <section id="narrative-bar" class="narrative-bar">
           <div class="narrative-heading"><span id="scene-title">Aventure</span><strong id="chapter-title">La Route des Ronces</strong><small id="chapter-summary"></small></div>
           <div class="narrative-controls">
+            <button id="journal-open" class="journal-open" type="button" aria-label="Ouvrir le journal de route">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5Z"/><path d="M8 4.5V20M11 9h4M11 13h4"/></svg>
+              <span>Journal</span>
+              <b id="journal-count">0</b>
+            </button>
             <button id="chapter-action" type="button">Démarrer l’histoire</button>
             <button id="act-retry" type="button" hidden>Reprendre l’acte</button>
             <button id="chapter-continue" type="button" hidden>Revenir à l’accueil</button>
@@ -365,6 +370,20 @@
           <button value="cancel" class="cancel-button">Annuler</button>
           <button id="game-menu-confirm-action" value="default">Confirmer</button>
         </menu>
+      </form>
+    </dialog>
+    <dialog id="adventure-journal" class="adventure-journal">
+      <form method="dialog">
+        <header class="journal-heading">
+          <div>
+            <span>Chronique du Sorcier</span>
+            <h2>Journal de route</h2>
+            <p>Les décisions qui ont réellement changé votre voyage.</p>
+          </div>
+          <button value="cancel" class="close" aria-label="Fermer le journal">×</button>
+        </header>
+        <section id="journal-current" class="journal-current" aria-label="Étape actuelle"></section>
+        <div id="journal-entries" class="journal-entries" aria-live="polite"></div>
       </form>
     </dialog>
     <dialog id="combat-grimoire" class="combat-grimoire">

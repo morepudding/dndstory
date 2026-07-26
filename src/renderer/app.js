@@ -170,6 +170,12 @@ const THIRD_LEVEL_SCENES = {
     label: 'Puits des carrières · Cage interceptée',
   },
 };
+const STORY_TITLES = {
+  'la-route-des-ronces': 'La Route des Ronces',
+  'la-nuit-a-brumepont': 'La Nuit à Brumepont',
+  'la-cage-du-treuil': 'La Cage du Treuil',
+  'le-troisieme-palier': 'Le Troisième Palier',
+};
 
 function setText(selector, value) { $(selector).textContent = value; }
 function renderProfile() {
@@ -186,6 +192,59 @@ function renderProfile() {
   $('.relationship-card').title = 'Statistiques utilisées par les cartes et les choix narratifs';
   for (const stat of Object.keys(STAT_PRESENTATION)) setText(`#stat-${stat}`, c.progression.stats[stat]);
   $('#traits').replaceChildren(...c.personality.traits.map((trait) => { const node = document.createElement('span'); node.className = 'trait'; node.textContent = trait; return node; }));
+  const journalEvents = storyJournalEvents();
+  setText('#journal-count', journalEvents.length);
+  $('#journal-count').hidden = journalEvents.length === 0;
+}
+
+function storyJournalEvents() {
+  return [...(state?.character?.relationshipEvents || [])]
+    .filter((event) => event.storyId && event.description)
+    .sort((left, right) => String(left.createdAt).localeCompare(String(right.createdAt)));
+}
+
+function renderAdventureJournal() {
+  const events = storyJournalEvents();
+  const current = $('#journal-current');
+  current.replaceChildren();
+  if (currentStory?.active) {
+    const eyebrow = document.createElement('span');
+    eyebrow.textContent = 'En ce moment';
+    const title = document.createElement('strong');
+    title.textContent = currentStory.title || STORY_TITLES[currentStory.storyId] || 'Aventure en cours';
+    const objective = document.createElement('p');
+    objective.textContent = currentStory.node?.title || currentStory.chapterSummary || '';
+    current.append(eyebrow, title, objective);
+  } else {
+    current.hidden = true;
+  }
+  current.hidden = !currentStory?.active;
+
+  const entries = $('#journal-entries');
+  if (!events.length) {
+    const empty = document.createElement('div');
+    empty.className = 'journal-empty';
+    empty.innerHTML = '<span>Première page</span><strong>La route vous attend</strong><p>Les conclusions importantes apparaîtront ici à mesure que vos choix modifieront l’aventure.</p>';
+    entries.replaceChildren(empty);
+    return;
+  }
+  entries.replaceChildren(...events.map((event, index) => {
+    const item = document.createElement('article');
+    item.className = `journal-entry ${event.type === 'story_failure' ? 'failure' : 'success'}`;
+    const marker = document.createElement('span');
+    marker.className = 'journal-entry-marker';
+    marker.textContent = String(index + 1).padStart(2, '0');
+    const copy = document.createElement('div');
+    const eyebrow = document.createElement('small');
+    eyebrow.textContent = event.type === 'story_failure' ? 'Route interrompue' : 'Chapitre accompli';
+    const title = document.createElement('strong');
+    title.textContent = STORY_TITLES[event.storyId] || event.storyId;
+    const description = document.createElement('p');
+    description.textContent = event.description;
+    copy.append(eyebrow, title, description);
+    item.append(marker, copy);
+    return item;
+  }));
 }
 function parseMessageParts(content, role) {
   if (role === 'assistant' && !content.includes('*') && /^\s*—/m.test(content)) {
@@ -1221,6 +1280,11 @@ function renderCombatGrimoire(combat) {
 }
 
 $('#chapter-action').addEventListener('click', beginStory);
+$('#journal-open').addEventListener('click', () => {
+  renderAdventureJournal();
+  $('#adventure-journal').showModal();
+});
+$('#journal-shortcut')?.addEventListener('click', () => $('#journal-open').click());
 $('#chapter-restart').addEventListener('click', restartCurrentStory);
 $('#act-retry').addEventListener('click',async()=>{const story=await window.candy.retryStoryAct();await reloadConversation();renderStory(story);});
 $('#chapter-continue').addEventListener('click', continueCurrentStory);

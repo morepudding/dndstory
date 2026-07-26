@@ -639,6 +639,30 @@ menu .cancel-button { background: #f0eee9; color: #625f59; }
   label.wide { grid-column: auto; }
 }
 .narrative-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 22px;border-bottom:1px solid rgba(0,0,0,.07);background:#fffefa}.conversation.narrative-active .narrative-bar{min-height:56px;padding:8px 19px;background:#f3f0ea}.narrative-bar .narrative-heading{display:grid;gap:2px}.narrative-bar .narrative-heading span{order:-1;color:#9b594e;font-size:9px;font-weight:750;text-transform:uppercase;letter-spacing:.8px}.narrative-bar .narrative-heading strong{font-size:15px;letter-spacing:-.2px}.narrative-bar .narrative-heading small{font-size:11px;color:#837e77}.narrative-bar button,.narrative-bar summary{border:0;border-radius:999px;padding:8px 13px;background:#242220;color:#fff;cursor:pointer;font-size:11px}.narrative-bar[data-active="true"] #chapter-pause{background:#f1ede7;color:#4a4641}.narrative-bar .narrative-controls{display:flex;align-items:center;justify-content:flex-end;gap:7px}.narrative-controls details{position:relative}.narrative-controls summary{list-style:none;background:#e8e3dc;color:#4a4641}.narrative-controls summary::-webkit-details-marker{display:none}.narrative-controls details>div{position:absolute;z-index:20;right:0;top:42px;width:185px;display:grid;gap:4px;padding:7px;border:1px solid var(--hairline);border-radius:15px;background:#fff;box-shadow:0 15px 45px #2d251b22}.narrative-controls details button{width:100%;text-align:left;background:transparent;color:#4a4641}.narrative-controls details button:hover{background:#f5f1ec}.story-options{display:flex;gap:8px;overflow-x:auto;padding:1px 3px 3px}.story-options:empty{display:none}.story-options button{min-height:39px;display:flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid #ebcfc8;background:#f8e9e5;color:#6f3f38;border-radius:13px;padding:8px 13px 8px 9px;cursor:pointer;font-size:12px;font-weight:650;transition:.18s ease}.story-options button:hover{border-color:var(--coral);background:var(--coral);color:#fff;transform:translateY(-1px)}.story-options kbd{display:grid;place-items:center;min-width:20px;height:20px;border:1px solid currentColor;border-radius:6px;font:9px/1 inherit;opacity:.6}
+
+.journal-open { display: inline-flex; align-items: center; gap: 7px; background: #e9e1d3 !important; color: #493d2d !important; }
+.journal-open svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.journal-open b { display: grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px; background: #9b594e; color: #fff; font: 750 9px/1 system-ui, sans-serif; }
+.adventure-journal { width: min(580px, calc(100vw - 32px)); max-height: min(680px, calc(100dvh - 32px)); padding: 0; overflow: hidden; border: 1px solid rgba(221,190,120,.4); border-radius: 24px; color: #ece5d7; background: #161617; box-shadow: 0 30px 90px rgba(0,0,0,.62); }
+.adventure-journal::backdrop { background: rgba(5,7,9,.72); backdrop-filter: blur(9px); }
+.adventure-journal form { display: grid; grid-template-rows: auto auto minmax(0,1fr); max-height: inherit; }
+.journal-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 23px 24px 18px; border-bottom: 1px solid rgba(255,255,255,.08); background: radial-gradient(circle at 14% 0, rgba(193,143,64,.18), transparent 38%); }
+.journal-heading span, .journal-current span, .journal-entry small, .journal-empty span { color: #d9ad5e; font: 750 9px/1.1 system-ui, sans-serif; letter-spacing: 1.15px; text-transform: uppercase; }
+.journal-heading h2 { margin: 5px 0 4px; color: #fff8ea; font: 600 34px/1 "Newsreader", Georgia, serif; }
+.journal-heading p { color: rgba(255,255,255,.58); font: 14px/1.35 "Newsreader", Georgia, serif; }
+.journal-heading .close { flex: 0 0 auto; width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; color: #fff; background: rgba(255,255,255,.06); }
+.journal-current { margin: 16px 24px 4px; padding: 14px 16px; border: 1px solid rgba(217,173,94,.32); border-radius: 15px; background: rgba(217,173,94,.08); }
+.journal-current strong { display: block; margin-top: 5px; color: #fff; font: 600 19px/1.1 "Newsreader", Georgia, serif; }
+.journal-current p { margin-top: 3px; color: rgba(255,255,255,.64); font-size: 12px; }
+.journal-entries { position: relative; overflow-y: auto; padding: 12px 24px 24px; }
+.journal-entry { position: relative; display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 13px; padding: 11px 0 16px; }
+.journal-entry:not(:last-child)::after { content: ""; position: absolute; top: 39px; bottom: -2px; left: 16px; width: 1px; background: linear-gradient(#8c6838, rgba(140,104,56,.15)); }
+.journal-entry-marker { position: relative; z-index: 1; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #8c6838; border-radius: 50%; color: #f2cc81; background: #1b1917; font: 700 9px/1 system-ui, sans-serif; }
+.journal-entry.failure .journal-entry-marker { border-color: #914e48; color: #efaaa0; }
+.journal-entry strong { display: block; margin: 4px 0 3px; color: #fff9ef; font: 600 19px/1.08 "Newsreader", Georgia, serif; }
+.journal-entry p, .journal-empty p { color: rgba(255,255,255,.68); font: 14px/1.38 "Newsreader", Georgia, serif; }
+.journal-empty { padding: 22px 0 8px; text-align: center; }
+.journal-empty strong { display: block; margin: 7px 0 4px; color: #fff8e9; font: 600 22px/1.1 "Newsreader", Georgia, serif; }
 .story-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.story-options button{min-height:54px;white-space:normal;border-color:#e7e1da;background:#fff;color:#493e3b;text-align:left}.story-options button:hover{border-color:#c7bdb3;background:#f6f2ed;color:#332d2a}.story-options button:disabled{opacity:.5;transform:none}.story-options button span{line-height:1.35}.scene-visual .choices{max-width:none;margin:0;padding:13px 14px 14px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(18,16,14,.58);backdrop-filter:blur(14px) saturate(.85);text-shadow:none}.scene-visual .choices-title{margin:0 2px 9px}.scene-visual .choices-title span{color:#fff}.scene-visual .choices-title small{color:rgba(255,255,255,.58)}.scene-visual .story-options button{min-height:52px;border-color:rgba(255,255,255,.22);background:rgba(18,16,14,.56);color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.12)}.scene-visual .story-options button:hover{border-color:rgba(255,255,255,.52);background:rgba(255,255,255,.16);color:#fff}.scene-visual .story-options kbd{color:#fff}.composer-wrap.narrative-active{display:none}.adult-warnings{margin:14px 0;padding:12px;border-radius:12px;background:#f8e9e5;color:#74483f;font-size:12px}.adult-check{display:flex;align-items:center;gap:9px;margin-top:16px;color:var(--ink);font-size:12px}.adult-check input{width:auto;margin:0}#adult-gate p{line-height:1.55;color:var(--secondary)}
 .story-options .choice-copy { display: grid; gap: 4px; }
 .story-options .choice-copy strong { font-size: 12px; }
@@ -1369,6 +1393,24 @@ html.pwa.choice-running .story-options .choice-copy strong {
   html.pwa.choice-running .scene-visual .story-options button {
     min-height: 50px;
   }
+  html.pwa .journal-open { border: 1px solid rgba(124,93,49,.24); background: #f0e5d0 !important; }
+  html.pwa .journal-open span { display: inline; font-weight: 750; }
+  html.pwa .journal-open b { min-width: 17px; height: 17px; }
+  html.pwa .adventure-journal {
+    width: min(560px, calc(100vw - 24px));
+    max-height: calc(100dvh - 18px);
+    border-radius: 18px;
+  }
+  html.pwa .journal-heading { padding: 15px 17px 12px; }
+  html.pwa .journal-heading h2 { font-size: 27px; }
+  html.pwa .journal-heading p { display: none; }
+  html.pwa .journal-current { margin: 10px 17px 0; padding: 10px 12px; }
+  html.pwa .journal-entries { padding: 7px 17px 16px; }
+  html.pwa .journal-entry { grid-template-columns: 30px minmax(0,1fr); gap: 10px; padding: 8px 0 11px; }
+  html.pwa .journal-entry-marker { width: 30px; height: 30px; }
+  html.pwa .journal-entry:not(:last-child)::after { top: 34px; left: 14px; }
+  html.pwa .journal-entry strong { font-size: 17px; }
+  html.pwa .journal-entry p { font-size: 12px; line-height: 1.28; }
 }
 
 /* Mobile de jeu : Fantasy Story se joue exclusivement en paysage. */

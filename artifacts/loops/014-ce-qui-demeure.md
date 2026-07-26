@@ -1,6 +1,6 @@
 # Boucle 014 — Le journal de route
 
-**Statut :** `à jouer`
+**Statut :** `garder`
 
 ## Cap
 
@@ -21,5 +21,6 @@ Depuis une scène narrative, ouvrir `Journal`. Vérifier que les chapitres accom
 - **Verdict passe 2 :** `ajuster` — la conséquence est réelle, mais l’écran narratif ne donne toujours pas une vision cumulative satisfaisante.
 - **Intégré :** l’en-tête narratif ouvre un journal en surimpression. Il distingue l’étape en cours des conclusions acquises, ordonne celles-ci comme une chronologie et conserve le décor derrière la chronique.
 - **Vérifié :** contrôle syntaxique complet, construction PWA et diff propre. Le contrôle interactif automatisé du navigateur local est resté indisponible ; le parcours téléphone constitue donc la preuve visuelle.
-- **Reste incertain :** le journal rend-il l’aventure plus incarnée et l’écran narratif plus agréable sans devenir un tableau de bord ?
-- **Verdict attendu :** `garder`, `ajuster` ou `retirer` selon l’utilité et le plaisir d’ouvrir la chronique pendant le parcours.
+- **Verdict joueur :** `garder`.
+- **Apprentissage :** la continuité de l’aventure gagne davantage à être portée par une chronique cumulative qu’à être répétée sous forme de marqueurs locaux.
+- **Décision suivante :** avant toute boucle 015, corriger en passe technique l’état de nouvelle partie afin que `Recommencer l’aventure` reparte réellement du début de `La Route des Ronces`, au lieu de relancer le chapitre actif.

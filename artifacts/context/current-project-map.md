@@ -4,18 +4,18 @@
 
 ## Référence
 
-- **Empreinte :** `75ee0b852f9a2d5b`
-- **Générée :** 2026-07-26T13:06:47.304Z
-- **Git informatif :** branche `main`, HEAD `1897222d93fe`, 4 entrée(s) dans le worktree
+- **Empreinte :** `d509bc75f378c04a`
+- **Générée :** 2026-07-26T13:14:08.983Z
+- **Git informatif :** branche `main`, HEAD `4e039eaa38b0`, 1 entrée(s) dans le worktree
 - **Comparaison fiable :** les changements sont détectés par le contenu des fichiers, même si le worktree n'est pas commité.
-- **Boucle active :** `artifacts/loops/014-ce-qui-demeure.md` — `à jouer`
-- **Dernier verdict :** `artifacts/loops/013-le-pouls-du-combat.md` — `garder`
+- **Boucle active :** aucune
+- **Dernier verdict :** `artifacts/loops/014-ce-qui-demeure.md` — `garder`
 
 ## Routage
 
 | Domaine | Empreinte | Fichiers repères | Validation |
 | --- | --- | --- | --- |
-| Règles et boucle | `b9408bbe45a2` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md`<br>`artifacts/loops/014-ce-qui-demeure.md` | validateur du skill, puis `git diff --check` |
+| Règles et boucle | `5a24ba8ae0cd` | `AGENTS.md`<br>`.agents/skills/conduire-boucle-fantasy-story/SKILL.md` | validateur du skill, puis `git diff --check` |
 | Livre et structure | `74d803dcaaf5` | `content/chapters/`<br>`src/server/story-format.js`<br>`src/server/narrative-tree.js` | `npm run verify:story` et tests narratifs ciblés |
 | État et sauvegarde | `a7fcb6630b6e` | `src/server/state-schema.js`<br>`src/server/story-repository.js`<br>`src/server/book-session-service.js` | `npm run check` et tests de persistance ciblés |
 | Moteur | `109ace1a2aa6` | `src/server/branching-book-runtime.js`<br>`src/server/combat-engine.js`<br>`src/server/progression-service.js` | `npm run check` et tests moteur ciblés |

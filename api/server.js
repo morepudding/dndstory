@@ -65,7 +65,7 @@ const handler = createMcpHandler(async (server) => {
   let html = await response.text();
   // Vercel Preview injects its toolbar script after </html>. That script is not part of
   // the MCP app and can be blocked by ChatGPT\'s widget CSP, so strip it before serving.
-  html = html.replace(/<script[^>]*vercel\\.live[^>]*><\\/script>/gi, "");
+  html = html.replace(/<script[^>]*vercel\.live[^>]*><\/script>/gi, "");
   html = html.replace("<head>", `<head><base href="${baseURL}/">`);
 
   server.registerResource(

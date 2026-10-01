@@ -2,5 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js lea.webp maya.webp elise.webp dist/",
   "outputDirectory": "dist",
-  "framework": null
+  "framework": null,
+  "installCommand": "npm install --no-package-lock",
+  "rewrites": [
+    {
+      "source": "/mcp",
+      "destination": "/api/server"
+    }
+  ],
+  "functions": {
+    "api/server.js": {
+      "maxDuration": 60
+    }
+  }
 }

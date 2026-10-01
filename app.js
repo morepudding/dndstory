@@ -349,22 +349,30 @@ function renderNode(){
 function renderHostState(s){
   hostState=s;
   document.getElementById("chapterNumber").textContent=s.chapter||"PROLOGUE";
-  document.getElementById("chapterName").textContent=s.chapterName||"AVANT LE SILENCE";
-  document.getElementById("storyMeta").textContent=s.meta||"";
-  document.getElementById("storyTitle").textContent=s.title||"AFTER // 02:47";
+  document.getElementById("chapterName").textContent=s.chapterName||s.chapterTitle||"AVANT LE SILENCE";
+  document.getElementById("storyMeta").textContent=s.meta||s.timeLabel||"";
+  document.getElementById("storyTitle").textContent=s.title||s.headline||"AFTER // 02:47";
   document.getElementById("signalText").textContent=s.signal||"SIGNAL PERDU";
-  document.getElementById("locationName").textContent=(s.location&&s.location[0])||"Campus résidentiel";
-  document.getElementById("locationDetail").textContent=(s.location&&s.location[1])||"";
+  document.getElementById("locationName").textContent=(s.location&&s.location[0])||"Annexe sportive";
+  document.getElementById("locationDetail").textContent=(s.location&&s.location[1])||"Refuge";
   objectiveText.textContent=s.objective||"Survivre.";
-  document.getElementById("worldLog").textContent=(s.log&&s.log[0])||"";
-  document.getElementById("worldTime").textContent=(s.log&&s.log[1])||"";
-  (s.resources||[]).slice(0,3).forEach((r,i)=>setResource(i+1,r));
+  document.getElementById("worldLog").textContent=(s.log&&s.log[0])||s.sceneSummary||"";
+  document.getElementById("worldTime").textContent=(s.log&&s.log[1])||s.timeLabel||"";
+
+  const resourceRows=Array.isArray(s.resources)
+    ? s.resources
+    : [
+        ["EAU",(s.resources?.waterDays??0)+" JOURS",Math.min(100,(s.resources?.waterDays??0)*10)],
+        ["NOURRITURE",(s.resources?.foodDays??0)+" JOURS",Math.min(100,(s.resources?.foodDays??0)*10)],
+        ["BATTERIE",(s.resources?.batteryPercent??0)+"%",s.resources?.batteryPercent??0]
+      ];
+  resourceRows.slice(0,3).forEach((r,i)=>setResource(i+1,r));
 
   const chapterOne=s.chapter==="CHAPITRE 01";
   document.getElementById("timeline0").classList.toggle("current",!chapterOne);
   document.getElementById("timeline1").classList.toggle("current",chapterOne);
 
-  feed.innerHTML=narration(s.narration||"",s.meta||"");
+  feed.innerHTML=narration(s.narration||"",s.meta||s.timeLabel||"");
   (s.dialogue||[]).forEach(d=>{
     if(d.speaker==="player") feed.insertAdjacentHTML("beforeend",player(d.text));
     else if(characters[d.speaker]) feed.insertAdjacentHTML("beforeend",message(d.speaker,d.text));

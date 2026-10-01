@@ -1,55 +1,42 @@
-
 const characterBios={
   lea:{
-    index:"01",
     name:"LÉA",
-    image:"lea.webp",
     style:"PIXIE BLONDE · MINIMAL",
-    quote:"« T’inquiète, ça va bien se passer. »",
-    meta:["19 ans","Communication","Petite ville côtière","Célibataire"],
-    traits:["Spontanée","Sociable","Sincère","Impatiente","Plus sensible qu'elle ne le montre"],
-    details:[
-      "Coupe pixie blonde, aucun tatouage",
-      "Piercing discret au nombril",
-      "S'habille simplement : jean, débardeur, hoodie",
-      "Parle beaucoup quand elle essaie de masquer son stress"
-    ],
-    bio:"Léa a grandi dans une petite ville au bord de la mer et a choisi ses études autant pour la communication que pour avoir enfin l'impression de vivre ailleurs. Elle se fait facilement des connaissances, mais donne rarement accès tout de suite à ce qu'elle pense vraiment. Elle préfère improviser plutôt que planifier longtemps et supporte très mal la sensation d'être coincée ou de dépendre d'une décision prise par quelqu'un d'autre. Son côté léger peut donner l'impression qu'elle ne prend rien au sérieux ; en réalité, elle remarque très vite quand l'ambiance change et utilise souvent l'humour pour empêcher les autres — et elle-même — de paniquer.",
-    before:"Avant l'alerte, Léa connaissait déjà vaguement Romain de l'école sans qu'ils soient particulièrement proches. Elle pouvait venir discuter dix minutes, disparaître pendant trois jours, puis reprendre la conversation comme si de rien n'était. Le séjour sur le campus est la première fois qu'ils passent réellement du temps ensemble."
+    meta:["19 ans","Communication","Petite ville côtière"],
+    gallery:["gallery/lea-1.webp","gallery/lea-2.webp","gallery/lea-3.webp","gallery/lea-4.webp"],
+    bio:"Léa a grandi dans une petite ville au bord de la mer et a choisi ses études autant pour la communication que pour avoir enfin l'impression de vivre ailleurs. Elle se fait facilement des connaissances, mais donne rarement accès tout de suite à ce qu'elle pense vraiment. Elle préfère improviser plutôt que planifier longtemps et supporte très mal la sensation d'être coincée ou de dépendre d'une décision prise par quelqu'un d'autre. Son côté léger peut donner l'impression qu'elle ne prend rien au sérieux ; en réalité, elle remarque vite quand l'ambiance change et utilise souvent l'humour pour empêcher les autres — et elle-même — de paniquer.",
+    tastes:[
+      {label:"MUSIQUE",title:"Pop-rock, indie et vieux tubes 2000",text:"Elle fait des playlists bordéliques et assume totalement les morceaux un peu honteux."},
+      {label:"SORTIES",title:"Mer le soir, terrasses, plans improvisés",text:"Elle préfère une sortie décidée au dernier moment à quelque chose prévu trois semaines avant."},
+      {label:"À TABLE",title:"Café sucré, pizza, trucs simples à partager",text:"Pas difficile, mais elle pique systématiquement dans l'assiette des autres."},
+      {label:"ELLE AIME",title:"Les longues discussions, conduire sans but, les vêtements simples",text:"Tout ce qui donne l'impression que la soirée peut encore partir dans une direction imprévue."}
+    ]
   },
   maya:{
-    index:"02",
     name:"MAYA",
-    image:"maya.webp",
     style:"TOMBOY · SPORTIVE",
-    quote:"« On se bouge plutôt que d'en parler ? »",
-    meta:["20 ans","STAPS · L3","Sportive","Indépendante"],
-    traits:["Déterminée","Franche","Compétitive","Pratique","Loyale"],
-    details:[
-      "Cheveux bruns souvent attachés à la va-vite",
-      "Petit tatouage montagne sur le haut du bras",
-      "Aucun piercing visible",
-      "Cargo, débardeur, chemise ouverte, vieilles baskets"
-    ],
+    meta:["20 ans","STAPS · L3","Ville moyenne"],
+    gallery:["gallery/maya-1.webp","gallery/maya-2.webp","gallery/maya-3.webp","gallery/maya-4.webp"],
     bio:"Maya est en troisième année de STAPS et fonctionne mieux quand elle a quelque chose de concret à faire. Elle court, grimpe, joue, démonte, porte, répare : rester assise à discuter d'un problème lui donne rapidement l'impression de perdre son temps. Elle n'a pourtant rien d'une caricature de fille invincible. Elle déteste montrer quand elle doute et transforme volontiers son stress en activité ou en compétition. Très autonome, elle peut paraître brusque avec les gens qu'elle connaît mal. En revanche, dès qu'elle considère quelqu'un comme faisant partie de son groupe, elle devient extrêmement fiable et attend la même loyauté en retour.",
-    before:"Avant la catastrophe, Maya et Romain se connaissaient surtout de vue. Elle l'avait catalogué comme quelqu'un d'un peu trop cérébral, lui la trouvait facile à lire alors qu'elle ne l'est pas vraiment. Le séjour commence à casser ces deux premières impressions."
+    tastes:[
+      {label:"MUSIQUE",title:"Rock énergique, rap et playlists de sport",text:"Elle écoute surtout ce qui donne envie de bouger plutôt que ce qui mérite d'être analysé."},
+      {label:"ACTIVITÉS",title:"Escalade, foot, rando, défis inutiles",text:"Si quelqu'un dit « personne peut faire ça », elle considère généralement que c'est une invitation."},
+      {label:"À TABLE",title:"Salé, copieux, café noir",text:"Elle mange vite, beaucoup après le sport, et se moque des portions minuscules."},
+      {label:"ELLE AIME",title:"Le matériel pratique, les gens francs, gagner",text:"Elle préfère quelqu'un qui lui dit non clairement à quelqu'un qui tourne autour du pot."}
+    ]
   },
   elise:{
-    index:"03",
     name:"ÉLISE",
-    image:"elise.webp",
     style:"GOTHIQUE · ALTERNATIVE",
-    quote:"« On en parlera peut-être plus tard. »",
-    meta:["19 ans","Arts appliqués","Créative","Observatrice"],
-    traits:["Réservée","Lucide","Curieuse","Humour noir","Intense"],
-    details:[
-      "Longs cheveux noirs et frange droite",
-      "Septum fin et plusieurs piercings d'oreille",
-      "Tatouage botanique sur l'épaule",
-      "Carnet de dessin presque toujours avec elle"
-    ],
+    meta:["19 ans","Arts appliqués","Grande ville"],
+    gallery:["gallery/elise-1.webp","gallery/elise-2.webp","gallery/elise-3.webp","gallery/elise-4.webp"],
     bio:"Élise étudie les arts appliqués et observe presque toujours une pièce avant d'y prendre réellement part. Son style gothique la rend très visible alors qu'elle-même préfère souvent rester en périphérie des groupes. Elle dessine beaucoup, photographie des détails banals et possède un humour sec qui peut donner l'impression qu'elle se moque de tout. C'est faux : elle ressent énormément de choses, mais choisit soigneusement ce qu'elle montre et à qui. Elle supporte particulièrement bien les silences et les situations où les autres ressentent le besoin de parler pour se rassurer. Lorsqu'elle accorde sa confiance, elle devient beaucoup plus directe et étonnamment chaleureuse.",
-    before:"Avant l'alerte, Élise avait déjà remarqué Romain bien plus souvent qu'elle ne lui avait parlé. Ils partageaient quelques cours et conversations courtes, sans vraie proximité. Pendant la première soirée du séjour, il devient l'une des rares personnes à s'intéresser à ce qu'elle dessine plutôt qu'à son look."
+    tastes:[
+      {label:"MUSIQUE",title:"Post-punk, darkwave, metal alternatif",text:"Elle a aussi quelques morceaux pop qu'elle nierait probablement avoir ajoutés elle-même."},
+      {label:"CRÉATION",title:"Dessin, photo, collages, vieux carnets",text:"Elle aime surtout capturer les petits détails que personne ne pense à regarder."},
+      {label:"À TABLE",title:"Espresso, ramen épicé, chocolat noir",text:"Elle peut oublier de manger pendant des heures lorsqu'elle travaille sur quelque chose."},
+      {label:"ELLE AIME",title:"Les nuits calmes, les friperies, les films d'horreur",text:"Et les conversations où personne ne ressent l'obligation de remplir tous les silences."}
+    ]
   }
 };
 
@@ -57,62 +44,37 @@ let bioActive="lea";
 const shell=document.getElementById("appShell");
 const charactersView=document.getElementById("charactersView");
 const viewTabs=document.querySelectorAll(".view-tab");
-const bioImage=document.getElementById("bioImage");
-const bioIndex=document.getElementById("bioIndex");
+const galleryMain=document.getElementById("galleryMain");
+const galleryThumbs=document.getElementById("galleryThumbs");
 const bioName=document.getElementById("bioName");
 const bioStyle=document.getElementById("bioStyle");
-const bioQuote=document.getElementById("bioQuote");
 const bioMeta=document.getElementById("bioMeta");
 const bioLong=document.getElementById("bioLong");
-const bioTraits=document.getElementById("bioTraits");
-const bioDetails=document.getElementById("bioDetails");
-const bioBefore=document.getElementById("bioBefore");
-const bioRelationLabel=document.getElementById("bioRelationLabel");
-const bioRelationBar=document.getElementById("bioRelationBar");
-const bioRelationValue=document.getElementById("bioRelationValue");
+const bioTastes=document.getElementById("bioTastes");
 
-function currentRelations(){
-  const fromHost=window.openai?.widgetState?.relations||window.openai?.toolOutput?.relations;
-  if(fromHost)return fromHost;
-  try{
-    const local=JSON.parse(localStorage.getItem("after0247_save"));
-    return local?.relations||{};
-  }catch(e){
-    return {};
-  }
-}
-
-function relationPresentation(value){
-  const n=Number(value||0);
-  if(n<=0)return {label:"Neutre",width:8};
-  if(n<=2)return {label:"Curiosité",width:24};
-  if(n<=5)return {label:"Confiance naissante",width:42};
-  if(n<=8)return {label:"Confiance",width:61};
-  if(n<=11)return {label:"Proche",width:79};
-  return {label:"Très proche",width:96};
+function renderGallery(character,selectedIndex=0){
+  const selected=character.gallery[selectedIndex]||character.gallery[0];
+  galleryMain.src=selected;
+  galleryMain.alt="Galerie de "+character.name;
+  galleryThumbs.innerHTML=character.gallery.map((src,i)=>
+    '<button class="gallery-thumb '+(i===selectedIndex?"active":"")+'" data-photo-index="'+i+'" aria-label="Photo '+(i+1)+' de '+character.name+'">'+
+      '<img src="'+src+'" alt="">'+
+    '</button>'
+  ).join("");
 }
 
 function renderBio(id){
   const c=characterBios[id];
   if(!c)return;
   bioActive=id;
-  bioImage.src=c.image;
-  bioImage.alt="Portrait de "+c.name;
-  bioIndex.textContent=c.index;
   bioName.textContent=c.name;
   bioStyle.textContent=c.style;
-  bioQuote.textContent=c.quote;
   bioMeta.innerHTML=c.meta.map(x=>"<span>"+x+"</span>").join("");
   bioLong.textContent=c.bio;
-  bioTraits.innerHTML=c.traits.map(x=>"<span>"+x+"</span>").join("");
-  bioDetails.innerHTML=c.details.map(x=>"<li>"+x+"</li>").join("");
-  bioBefore.textContent=c.before;
-
-  const relationValue=currentRelations()[id]||0;
-  const presentation=relationPresentation(relationValue);
-  bioRelationLabel.textContent=presentation.label;
-  bioRelationValue.textContent=relationValue;
-  bioRelationBar.style.width=presentation.width+"%";
+  bioTastes.innerHTML=c.tastes.map(t=>
+    '<article class="taste-card"><span>'+t.label+'</span><strong>'+t.title+'</strong><p>'+t.text+'</p></article>'
+  ).join("");
+  renderGallery(c,0);
 
   document.querySelectorAll(".character-pill").forEach(btn=>{
     btn.classList.toggle("active",btn.dataset.profile===id);
@@ -140,8 +102,11 @@ document.querySelectorAll(".character[data-character]").forEach(btn=>{
   });
 });
 
-window.addEventListener("openai:set_globals",()=>{
-  if(shell.classList.contains("characters-mode"))renderBio(bioActive);
+galleryThumbs.addEventListener("click",e=>{
+  const btn=e.target.closest(".gallery-thumb");
+  if(!btn)return;
+  const index=Number(btn.dataset.photoIndex||0);
+  renderGallery(characterBios[bioActive],index);
 });
 
 renderBio("lea");

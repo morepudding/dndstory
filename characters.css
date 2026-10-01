@@ -1,0 +1,334 @@
+
+.view-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  margin:12px 0 14px;
+  padding:4px;
+  border:1px solid var(--line);
+  background:#090d12;
+}
+.view-tab{
+  border:0;
+  background:transparent;
+  color:#697480;
+  padding:9px 8px;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.14em;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.view-tab:hover{color:#d9dde2;background:#111720}
+.view-tab.active{background:var(--yellow);color:#151309}
+.characters-view{
+  display:none;
+  min-width:0;
+  overflow:auto;
+  background:
+    radial-gradient(circle at 76% 8%,rgba(245,207,34,.055),transparent 23%),
+    linear-gradient(180deg,rgba(13,17,23,.98),rgba(9,12,17,.99));
+}
+.app-shell.characters-mode{
+  grid-template-columns:280px minmax(0,1fr);
+}
+.app-shell.characters-mode .story,
+.app-shell.characters-mode .situation{display:none}
+.app-shell.characters-mode .characters-view{
+  display:block;
+  grid-column:2;
+}
+.characters-header{
+  min-height:128px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  padding:28px 34px 24px;
+  border-bottom:1px solid var(--line);
+}
+.characters-header h1{
+  margin:7px 0 5px;
+  font-size:34px;
+  line-height:1;
+  letter-spacing:-.035em;
+}
+.characters-header p{
+  max-width:620px;
+  margin:0;
+  color:#7f8995;
+  font-size:11px;
+  line-height:1.55;
+}
+.characters-count{
+  text-align:right;
+  min-width:100px;
+}
+.characters-count strong{
+  display:block;
+  font-size:34px;
+  line-height:.9;
+  color:var(--yellow);
+}
+.characters-count span{
+  display:block;
+  margin-top:7px;
+  font-size:7px;
+  letter-spacing:.2em;
+  color:#707a86;
+}
+.character-browser{
+  padding:24px 34px 38px;
+}
+.character-pills{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.character-pills::-webkit-scrollbar{display:none}
+.character-pill{
+  min-width:190px;
+  border:1px solid #242c36;
+  background:#0b1016;
+  color:#c9ced4;
+  padding:7px;
+  display:grid;
+  grid-template-columns:46px 1fr;
+  gap:10px;
+  align-items:center;
+  text-align:left;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.character-pill:hover{
+  border-color:#414a55;
+  transform:translateY(-1px);
+}
+.character-pill.active{
+  border-color:#6f611c;
+  background:linear-gradient(90deg,rgba(245,207,34,.09),#0b1016 62%);
+}
+.character-pill img{
+  width:46px;height:52px;
+  object-fit:cover;
+  object-position:50% 18%;
+  filter:saturate(.87) contrast(1.04);
+}
+.character-pill strong{
+  display:block;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.character-pill small{
+  display:block;
+  margin-top:4px;
+  color:#68727d;
+  font-size:8px;
+}
+.character-dossier{
+  min-height:620px;
+  display:grid;
+  grid-template-columns:minmax(330px,42%) minmax(0,1fr);
+  border:1px solid #28313b;
+  background:#0a0e13;
+  box-shadow:0 26px 70px rgba(0,0,0,.24);
+}
+.dossier-visual{
+  position:relative;
+  min-height:620px;
+  overflow:hidden;
+  background:#080b0f;
+}
+.dossier-visual>img{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  object-fit:cover;
+  object-position:50% 18%;
+  filter:saturate(.84) contrast(1.08);
+  transform:scale(1.025);
+}
+.dossier-gradient{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(8,11,15,.08) 20%,rgba(8,11,15,.2) 55%,rgba(8,11,15,.95) 100%),
+    linear-gradient(90deg,transparent 70%,rgba(8,11,15,.22));
+}
+.dossier-index{
+  position:absolute;
+  top:22px;
+  left:24px;
+  color:rgba(245,240,233,.18);
+  font-size:54px;
+  font-weight:900;
+  letter-spacing:-.06em;
+}
+.dossier-name{
+  position:absolute;
+  left:26px;
+  right:26px;
+  bottom:28px;
+}
+.dossier-name>span{
+  display:block;
+  margin-bottom:8px;
+  color:var(--yellow);
+  font-size:8px;
+  letter-spacing:.18em;
+}
+.dossier-name h2{
+  margin:0;
+  font-size:58px;
+  line-height:.9;
+  letter-spacing:-.045em;
+}
+.dossier-name p{
+  margin:11px 0 0;
+  color:#c1c7ce;
+  font-size:13px;
+  font-style:italic;
+}
+.dossier-copy{
+  padding:34px 38px 32px;
+  overflow:auto;
+}
+.bio-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+.bio-meta span{
+  border:1px solid #303844;
+  padding:6px 8px;
+  color:#a9b0b9;
+  font-size:8px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.bio-section{
+  padding-top:22px;
+}
+.bio-label{
+  display:block;
+  margin-bottom:9px;
+  color:#68727e;
+  font-size:7px;
+  letter-spacing:.2em;
+}
+.bio-section p{
+  margin:0;
+  color:#bdc3ca;
+  font-size:12px;
+  line-height:1.76;
+}
+.bio-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:26px;
+}
+.bio-traits{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.bio-traits span{
+  border-left:2px solid var(--yellow);
+  background:#111720;
+  color:#d1d5da;
+  padding:8px 10px;
+  font-size:9px;
+}
+.bio-section ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.bio-section li{
+  position:relative;
+  padding-left:13px;
+  margin:0 0 7px;
+  color:#aeb5be;
+  font-size:10px;
+  line-height:1.45;
+}
+.bio-section li:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.55em;
+  width:4px;
+  height:4px;
+  background:var(--yellow);
+}
+.bio-history{
+  border-top:1px solid var(--line);
+  margin-top:22px;
+}
+.relationship-card{
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:170px 1fr 32px;
+  gap:14px;
+  align-items:center;
+}
+.relationship-card strong{
+  display:block;
+  margin-top:5px;
+  font-size:11px;
+}
+.relationship-meter{
+  height:4px;
+  background:#242b34;
+  overflow:hidden;
+}
+.relationship-meter i{
+  display:block;
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#75661f,var(--yellow));
+  transition:width .25s ease;
+}
+.relationship-card>b{
+  text-align:right;
+  color:#9aa2ac;
+  font-size:10px;
+}
+
+@media(max-width:1080px){
+  .app-shell.characters-mode{grid-template-columns:236px 1fr}
+  .character-dossier{grid-template-columns:minmax(280px,40%) 1fr}
+}
+@media(max-width:760px){
+  .view-tabs{
+    min-width:230px;
+    margin:0 4px 0 0;
+    order:-1;
+  }
+  .app-shell.characters-mode{display:block}
+  .app-shell.characters-mode .roster{display:flex}
+  .app-shell.characters-mode .characters-view{display:block}
+  .app-shell.characters-mode .character-list{display:none}
+  .characters-header{padding:20px 15px 17px;min-height:auto}
+  .characters-header h1{font-size:27px}
+  .characters-header p{font-size:10px}
+  .characters-count{display:none}
+  .character-browser{padding:14px 13px 28px}
+  .character-pills{margin-bottom:11px}
+  .character-pill{min-width:145px;grid-template-columns:38px 1fr;padding:6px}
+  .character-pill img{width:38px;height:43px}
+  .character-dossier{display:block;min-height:0}
+  .dossier-visual{min-height:55vh}
+  .dossier-name h2{font-size:48px}
+  .dossier-copy{padding:24px 18px}
+  .bio-grid{grid-template-columns:1fr;gap:0}
+  .relationship-card{grid-template-columns:120px 1fr 28px}
+}

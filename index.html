@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090c10" />
+  <meta name="description" content="Prototype d'histoire interactive post-apocalyptique." />
+  <title>AFTER // 02:47</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand"><i></i><div><strong>AFTER</strong><span>// 02:47</span></div></div>
+    <div class="chapter"><span id="chapterNumber">PROLOGUE</span><strong id="chapterName">AVANT LE SILENCE</strong></div>
+    <div class="signal"><i></i><span id="signalText">RÉSEAU STABLE</span></div>
+  </header>
+  <div class="app-shell">
+    <aside class="roster panel">
+      <div class="kicker">GROUPE · 4</div>
+      <div class="character-list">
+        <button class="character active" data-character="lea"><span class="portrait"><img src="/lea.webp" alt="Portrait de Léa"></span><span class="character-copy"><strong>Léa</strong><small>19 ans · communication</small><em>« Ça va aller. »</em></span><i></i></button>
+        <button class="character" data-character="maya"><span class="portrait"><img src="/maya.webp" alt="Portrait de Maya"></span><span class="character-copy"><strong>Maya</strong><small>20 ans · STAPS</small><em>« On bouge. »</em></span><i></i></button>
+        <button class="character" data-character="elise"><span class="portrait"><img src="/elise.webp" alt="Portrait d'Élise"></span><span class="character-copy"><strong>Élise</strong><small>19 ans · arts appliqués</small><em>« Écoute. »</em></span><i></i></button>
+        <div class="you-card"><span>R</span><div><strong>TOI</strong><small>étudiant · groupe</small></div></div>
+      </div>
+      <button class="profile-link" id="profileOpen">DOSSIER PERSONNAGE <span>↗</span></button>
+      <div class="timeline">
+        <div class="current" id="timeline0"><span>00</span><b>Avant le silence</b><i></i></div>
+        <div id="timeline1"><span>01</span><b>Le centre</b></div>
+        <div id="timeline2"><span>02</span><b>???</b></div>
+      </div>
+    </aside>
+
+    <main class="story panel">
+      <section class="story-header">
+        <div><span class="eyebrow" id="storyMeta">JEUDI · 21:18 · CAMPUS RÉSIDENTIEL</span><h1 id="storyTitle">La soirée devait être banale.</h1></div>
+        <button class="restart" id="resetBtn" title="Recommencer">↻</button>
+      </section>
+      <section class="feed" id="feed" aria-live="polite"></section>
+      <section class="choices" id="choices"></section>
+      <form class="composer" id="composer">
+        <div class="composer-meta"><span>TON ACTION</span><i>Entrée pour envoyer</i></div>
+        <div class="composer-row"><input id="playerInput" autocomplete="off" placeholder="Écris ce que tu fais ou ce que tu dis…" /><button type="submit">ENVOYER <span>↗</span></button></div>
+      </form>
+    </main>
+
+    <aside class="situation panel">
+      <div class="kicker">SITUATION</div>
+      <section class="location-card"><span>POSITION</span><strong id="locationName">Campus résidentiel</strong><small id="locationDetail">Bâtiment sportif · salle commune</small><i class="live-dot"></i></section>
+      <section class="resources">
+        <div><header><span id="res1Label">RÉSEAU</span><b id="res1Value">100%</b></header><i id="res1Bar" style="--level:100%"></i></div>
+        <div><header><span id="res2Label">ÉLECTRICITÉ</span><b id="res2Value">OK</b></header><i id="res2Bar" style="--level:100%"></i></div>
+        <div><header><span id="res3Label">TÉLÉPHONE</span><b id="res3Value">82%</b></header><i id="res3Bar" style="--level:82%"></i></div>
+      </section>
+      <section class="objective"><span>OBJECTIF ACTUEL</span><strong id="objectiveText">Profiter de la soirée.</strong></section>
+      <section class="mini-map">
+        <div class="map-title"><span>PLAN DU CAMPUS</span><small id="mapFloor">RDC</small></div>
+        <svg viewBox="0 0 280 190" aria-label="Plan stylisé du campus"><path d="M15 18h92v57H15zM119 18h145v38H119zM15 88h69v84H15zM96 69h69v103H96zM178 69h86v103h-86z"/><path class="corridor" d="M84 104h12m69 14h13M107 54h12"/><circle class="player-dot" cx="129" cy="117" r="5"/><circle class="threat-dot" cx="31" cy="37" r="4"/><circle class="threat-pulse" cx="31" cy="37" r="10"/></svg>
+        <div class="legend"><span><i class="player"></i>VOUS</span><span><i class="threat"></i>INCIDENT</span></div>
+      </section>
+      <section class="world-log"><span>DERNIER SIGNAL</span><p id="worldLog">Aucune alerte en cours.</p><small id="worldTime">21:18 · réseau local</small></section>
+    </aside>
+  </div>
+
+  <div class="modal" id="profileModal" aria-hidden="true">
+    <button class="modal-backdrop" data-close aria-label="Fermer"></button>
+    <article class="profile-sheet">
+      <button class="close" data-close aria-label="Fermer">×</button>
+      <div class="profile-image"><img id="profileImg" src="/lea.webp" alt=""><div></div></div>
+      <div class="profile-info"><span class="eyebrow">DOSSIER PERSONNAGE</span><h2 id="profileName">LÉA</h2><p class="profile-quote" id="profileQuote">« T’inquiète, ça va bien se passer. »</p><div class="traits" id="profileTraits"></div><p class="profile-bio" id="profileBio"></p><button id="selectPerson">REVENIR À L’HISTOIRE</button></div>
+    </article>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

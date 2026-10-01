@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js lea.webp maya.webp elise.webp dist/",
+  "buildCommand": "rm -rf dist && mkdir -p dist && cp index.html styles.css characters.css app.js characters.js lea.webp maya.webp elise.webp dist/",
   "outputDirectory": "dist",
   "framework": null,
   "installCommand": "npm install --no-package-lock",

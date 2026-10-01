@@ -548,6 +548,17 @@ document.getElementById("selectPerson").addEventListener("click",()=>{
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.classList.remove("open")});
 
+function enterChatGPTFullscreen(){
+  if(!chatGPTMode())return;
+  document.body.classList.add("chatgpt-host");
+  try{
+    const request=window.openai?.requestDisplayMode?.({mode:"fullscreen"});
+    request?.catch?.(()=>{});
+  }catch(e){}
+}
+
+enterChatGPTFullscreen();
+
 window.addEventListener("openai:set_globals",e=>{
   const output=e.detail?.globals?.toolOutput;
   if(output?.mode==="after_story"){hostState=output;render()}

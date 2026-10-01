@@ -134,6 +134,11 @@ const handler = createMcpHandler(async (server) => {
       inputSchema: {
         playerName: z.string().optional().describe("Prénom du joueur. Par défaut : Romain."),
       },
+      annotations: {
+        readOnlyHint: true,
+        openWorldHint: false,
+        destructiveHint: false,
+      },
       _meta: widgetMeta,
     },
     async ({ playerName }) => {
@@ -199,6 +204,11 @@ const handler = createMcpHandler(async (server) => {
           .describe("Résumé compact des faits persistants importants pour les prochains tours."),
         chapter: z.string().optional().describe("Numéro de chapitre, ex. CHAPITRE 01."),
         chapterTitle: z.string().optional().describe("Titre du chapitre, ex. LE CENTRE."),
+      },
+      annotations: {
+        readOnlyHint: true,
+        openWorldHint: false,
+        destructiveHint: false,
       },
       _meta: widgetMeta,
     },

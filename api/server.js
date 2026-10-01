@@ -2,13 +2,14 @@ import { createMcpHandler } from "mcp-handler";
 import { z } from "zod";
 import { baseURL } from "../mcp-base-url.js";
 
-const templateUri = "ui://after/story.html";
+const templateUri = "ui://after/story-v2.html";
 
 const widgetMeta = {
   ui: {
     resourceUri: templateUri,
     visibility: ["model", "app"],
   },
+  "ui/resourceUri": templateUri,
   "openai/outputTemplate": templateUri,
   "openai/toolInvocation/invoking": "Ouverture de AFTER // 02:47…",
   "openai/toolInvocation/invoked": "Scène prête",

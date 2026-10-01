@@ -57,7 +57,7 @@
         <div>
           <span class="eyebrow">DOSSIERS DU GROUPE</span>
           <h1>Personnages</h1>
-          <p>Les informations connues avant le début de la catastrophe. Les relations évoluent pendant l'histoire.</p>
+          <p>Galerie, biographie et goûts de chaque personnage.</p>
         </div>
         <div class="characters-count"><strong>03</strong><span>PERSONNAGES</span></div>
       </header>
@@ -76,50 +76,30 @@
         </div>
 
         <article class="character-dossier">
-          <div class="dossier-visual">
-            <img id="bioImage" src="lea.webp" alt="Portrait de Léa">
-            <div class="dossier-gradient"></div>
-            <div class="dossier-index" id="bioIndex">01</div>
-            <div class="dossier-name">
-              <span id="bioStyle">PIXIE · MINIMAL</span>
-              <h2 id="bioName">LÉA</h2>
-              <p id="bioQuote">« T’inquiète, ça va bien se passer. »</p>
+          <section class="photo-gallery" aria-label="Galerie du personnage">
+            <div class="gallery-main">
+              <img id="galleryMain" src="gallery/lea-1.webp" alt="Galerie de Léa">
+              <div class="gallery-caption">
+                <span id="bioStyle">PIXIE BLONDE · MINIMAL</span>
+                <h2 id="bioName">LÉA</h2>
+              </div>
             </div>
-          </div>
+            <div class="gallery-thumbs" id="galleryThumbs"></div>
+          </section>
 
-          <div class="dossier-copy">
+          <section class="profile-content">
             <div class="bio-meta" id="bioMeta"></div>
 
-            <section class="bio-section">
+            <section class="bio-section bio-main">
               <span class="bio-label">BIOGRAPHIE</span>
               <p id="bioLong"></p>
             </section>
 
-            <div class="bio-grid">
-              <section class="bio-section">
-                <span class="bio-label">PERSONNALITÉ</span>
-                <div class="bio-traits" id="bioTraits"></div>
-              </section>
-              <section class="bio-section">
-                <span class="bio-label">DÉTAILS</span>
-                <ul id="bioDetails"></ul>
-              </section>
-            </div>
-
-            <section class="bio-section bio-history">
-              <span class="bio-label">AVANT L'ALERTE</span>
-              <p id="bioBefore"></p>
+            <section class="bio-section">
+              <span class="bio-label">SES GOÛTS</span>
+              <div class="taste-grid" id="bioTastes"></div>
             </section>
-
-            <section class="relationship-card">
-              <div>
-                <span class="bio-label">RELATION ACTUELLE</span>
-                <strong id="bioRelationLabel">Neutre</strong>
-              </div>
-              <div class="relationship-meter"><i id="bioRelationBar"></i></div>
-              <b id="bioRelationValue">0</b>
-            </section>
-          </div>
+          </section>
         </article>
       </section>
     </main>

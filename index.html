@@ -7,6 +7,7 @@
   <meta name="description" content="Prototype d'histoire interactive post-apocalyptique." />
   <title>AFTER // 02:47</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="characters.css" />
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -15,9 +16,15 @@
     <div class="chapter"><span id="chapterNumber">PROLOGUE</span><strong id="chapterName">AVANT LE SILENCE</strong></div>
     <div class="signal"><i></i><span id="signalText">RÉSEAU STABLE</span></div>
   </header>
-  <div class="app-shell">
+  <div class="app-shell" id="appShell">
     <aside class="roster panel">
       <div class="kicker">GROUPE · 4</div>
+
+      <nav class="view-tabs" aria-label="Navigation principale">
+        <button class="view-tab active" data-view="story">HISTOIRE</button>
+        <button class="view-tab" data-view="characters">PERSONNAGES</button>
+      </nav>
+
       <div class="character-list">
         <button class="character active" data-character="lea"><span class="portrait"><img src="lea.webp" alt="Portrait de Léa"></span><span class="character-copy"><strong>Léa</strong><small>19 ans · communication</small><em>« Ça va aller. »</em></span><i></i></button>
         <button class="character" data-character="maya"><span class="portrait"><img src="maya.webp" alt="Portrait de Maya"></span><span class="character-copy"><strong>Maya</strong><small>20 ans · STAPS</small><em>« On bouge. »</em></span><i></i></button>
@@ -43,6 +50,78 @@
         <div class="composer-meta"><span>TON ACTION</span><i>Entrée pour envoyer</i></div>
         <div class="composer-row"><input id="playerInput" autocomplete="off" placeholder="Écris ce que tu fais ou ce que tu dis…" /><button type="submit">ENVOYER <span>↗</span></button></div>
       </form>
+    </main>
+
+    <main class="characters-view panel" id="charactersView" aria-hidden="true">
+      <header class="characters-header">
+        <div>
+          <span class="eyebrow">DOSSIERS DU GROUPE</span>
+          <h1>Personnages</h1>
+          <p>Les informations connues avant le début de la catastrophe. Les relations évoluent pendant l'histoire.</p>
+        </div>
+        <div class="characters-count"><strong>03</strong><span>PERSONNAGES</span></div>
+      </header>
+
+      <section class="character-browser">
+        <div class="character-pills" role="tablist" aria-label="Choisir un personnage">
+          <button class="character-pill active" data-profile="lea" role="tab">
+            <img src="lea.webp" alt=""><span><strong>Léa</strong><small>Communication</small></span>
+          </button>
+          <button class="character-pill" data-profile="maya" role="tab">
+            <img src="maya.webp" alt=""><span><strong>Maya</strong><small>STAPS</small></span>
+          </button>
+          <button class="character-pill" data-profile="elise" role="tab">
+            <img src="elise.webp" alt=""><span><strong>Élise</strong><small>Arts appliqués</small></span>
+          </button>
+        </div>
+
+        <article class="character-dossier">
+          <div class="dossier-visual">
+            <img id="bioImage" src="lea.webp" alt="Portrait de Léa">
+            <div class="dossier-gradient"></div>
+            <div class="dossier-index" id="bioIndex">01</div>
+            <div class="dossier-name">
+              <span id="bioStyle">PIXIE · MINIMAL</span>
+              <h2 id="bioName">LÉA</h2>
+              <p id="bioQuote">« T’inquiète, ça va bien se passer. »</p>
+            </div>
+          </div>
+
+          <div class="dossier-copy">
+            <div class="bio-meta" id="bioMeta"></div>
+
+            <section class="bio-section">
+              <span class="bio-label">BIOGRAPHIE</span>
+              <p id="bioLong"></p>
+            </section>
+
+            <div class="bio-grid">
+              <section class="bio-section">
+                <span class="bio-label">PERSONNALITÉ</span>
+                <div class="bio-traits" id="bioTraits"></div>
+              </section>
+              <section class="bio-section">
+                <span class="bio-label">DÉTAILS</span>
+                <ul id="bioDetails"></ul>
+              </section>
+            </div>
+
+            <section class="bio-section bio-history">
+              <span class="bio-label">AVANT L'ALERTE</span>
+              <p id="bioBefore"></p>
+            </section>
+
+            <section class="relationship-card">
+              <div>
+                <span class="bio-label">RELATION ACTUELLE</span>
+                <strong id="bioRelationLabel">Neutre</strong>
+              </div>
+              <div class="relationship-meter"><i id="bioRelationBar"></i></div>
+              <b id="bioRelationValue">0</b>
+            </section>
+          </div>
+        </article>
+      </section>
     </main>
 
     <aside class="situation panel">
@@ -73,5 +152,6 @@
   </div>
 
   <script src="app.js"></script>
+  <script src="characters.js"></script>
 </body>
 </html>

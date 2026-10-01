@@ -1,26 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build:pwa",
-  "outputDirectory": "dist/pwa",
-  "framework": null,
-  "headers": [
-    {
-      "source": "/service-worker.js",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/manifest.webmanifest",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/manifest+json; charset=utf-8"
-        }
-      ]
-    }
-  ]
+  "buildCommand": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js lea.webp maya.webp elise.webp dist/",
+  "outputDirectory": "dist",
+  "framework": null
 }

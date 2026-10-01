@@ -5,9 +5,6 @@ import { baseURL } from "../mcp-base-url.js";
 const templateUri = "ui://after/story-v2.html";
 
 const widgetMeta = {
-  "openai/ui": {
-    entrypoints: [{ type: "global" }],
-  },
   ui: {
     resourceUri: templateUri,
     visibility: ["model", "app"],

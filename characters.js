@@ -3,12 +3,9 @@ const characterBios={
     name:"LÉA",
     style:"PIXIE BLONDE · MINIMAL",
     meta:["19 ans","Communication","Petite ville côtière"],
-    gallery:[
-      {src:"lea.webp",position:"50% 28%",scale:1},
-      {src:"lea.webp",position:"50% 8%",scale:1.38},
-      {src:"lea.webp",position:"30% 36%",scale:1.6},
-      {src:"lea.webp",position:"68% 45%",scale:1.48}
-    ],
+    gallery:(window.LEA_GALLERY&&window.LEA_GALLERY.length
+      ? window.LEA_GALLERY.map(src=>({src,position:"50% 50%",scale:1}))
+      : [{src:"lea.webp",position:"50% 28%",scale:1}]),
     bio:"Léa a grandi dans une petite ville au bord de la mer et a choisi ses études autant pour la communication que pour avoir enfin l'impression de vivre ailleurs. Elle se fait facilement des connaissances, mais donne rarement accès tout de suite à ce qu'elle pense vraiment. Elle préfère improviser plutôt que planifier longtemps et supporte très mal la sensation d'être coincée ou de dépendre d'une décision prise par quelqu'un d'autre. Son côté léger peut donner l'impression qu'elle ne prend rien au sérieux ; en réalité, elle remarque vite quand l'ambiance change et utilise souvent l'humour pour empêcher les autres — et elle-même — de paniquer.",
     tastes:[
       {label:"MUSIQUE",title:"Pop-rock, indie et vieux tubes 2000",text:"Elle fait des playlists bordéliques et assume totalement les morceaux un peu honteux."},
